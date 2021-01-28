@@ -1,0 +1,13 @@
+.bg-about-us-fixed {
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+.what-we-offer {
+  background-image: url("About-Us.png");
+  box-shadow: 0px 18px 76px 0px rgba(0, 0, 0, 0.06);
+  position: relative;
+  z-index: 99;
+}

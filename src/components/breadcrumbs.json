@@ -1,0 +1,59 @@
+{
+    "blog": {
+        "title":"Latest News",
+        "description":"Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition."
+    },
+    "contact": {
+        "title":"Contact Us",
+        "description":"Molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto."
+    },
+    "about": {
+        "title":"About Us",
+        "description":"Meet the amazing team behind this project and find out more about how we work."
+    },
+    "projects": {
+        "projectgrid":{
+            "title":"Gallery grid",
+            "description":"Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition."
+        },
+        "projectmasonary":{
+            "title":"Gallery masonary",
+            "description":"Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition."
+        },
+        "projectsingle":{
+            "title":"Project Details",
+            "description":"Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition."
+        }
+    },
+    "notfound": {
+        "title":"Woops 404",
+        "description":"Meet the amazing team behind this project and find out more about how we work."
+    },
+    "pricing": {
+        "title":"Our Pricing",
+        "description":"Molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto."
+    },
+    "requestquote": {
+        "title":"Request a quote",
+        "description":"Molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto."
+    },
+    "shortcodes": {
+        "title":"Shortcode Elements",
+        "description":"Molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto."
+    },
+    "typography": {
+        "title":"Typography",
+        "description":"Meet the amazing team behind this project and find out more about how we work."
+    },
+    "services": {
+        "servicedetails": {
+            "title":"Services Details",
+            "description":"Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition."
+        },
+        "services": {
+            "title":"Our Services",
+            "description":"Our global network and full-service team of airfreight and expedited freight professionals are ready to help."
+        }
+        
+    }
+}

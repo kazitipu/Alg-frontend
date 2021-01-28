@@ -1,0 +1,15 @@
+.contact-us-breadcrumbs {
+  background-image: url("../assets/contact-us.png");
+  background-repeat: no-repeat;
+  padding: 7rem 0;
+  background-position: center center !important;
+  margin-top: 136px;
+}
+
+.map-container {
+  margin-top: 3rem;
+}
+
+.bg-c-none {
+  background: none !important;
+}
