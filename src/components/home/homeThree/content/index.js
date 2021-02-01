@@ -7,10 +7,11 @@ import SignUpModal from "../../../SignUpModal";
 import OrderTrackingModal from '../../../OrderTrackingModal'
 import LoginModal from "../../../LoginModal"
 import PhoneModal from "../../../PhoneModal"
-
+import SearchBar from './SearchBar'
 const PageContent = () => {
 	return (
-		<>
+		<>  
+		   <SearchBar />
 			<Slider />
 			<Content />
 			<VideoBox />

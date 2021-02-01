@@ -1,0 +1,28 @@
+.searchbar-container-home{
+    position:absolute;
+    top:15rem;
+    left:100px;
+    z-index:15;
+}
+
+.search-options{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.search-options .option{
+padding: 20px 20px 20px 0px;
+font-weight: bolder;
+font-size: 150%;
+}
+
+.logo-input-container{
+    display: flex;
+    flex-direction: row;
+}
+.logo-input-container span{
+    padding:.375rem .75rem;
+    background-color: white;
+
+}
