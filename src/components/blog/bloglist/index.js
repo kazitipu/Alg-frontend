@@ -5,7 +5,10 @@ import Content from "./Content";
 import EmailSubscribe from "../../EmailSubscribe";
 import BackToTop from "../../BackToTop";
 import SearchPopup from "../../SearchPopup";
-import RequestModal from "../../RequestModal";
+import LoginModal from "../../LoginModal";
+import SignUpModal from "../../SignUpModal";
+import OrderTrackingModal from "../../OrderTrackingModal";
+import PhoneModal from "../../PhoneModal";
 import "./bloglist.css";
 import { Link } from "react-router-dom";
 const BlogList = () => {
@@ -42,7 +45,10 @@ const BlogList = () => {
       <EmailSubscribe />
       <Footer />
       <SearchPopup />
-      <RequestModal />
+      <OrderTrackingModal />
+      <PhoneModal />
+      <LoginModal />
+      <SignUpModal />
       <BackToTop />
     </>
   );

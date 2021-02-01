@@ -38,10 +38,10 @@ const Header = () => {
               </Link>
             </div>
             <div className="d-inline-flex request-btn order-lg-last col p-0">
-              <Link className="nav-link mr-2 ml-auto" to="#" id="search_home">
+              <Link className="nav-link" to="#" id="search_home">
                 <i className="icofont-search"></i>
               </Link>
-              <Link
+              {/* <Link
                 className="btn-theme icon-left bg-navy-blue no-shadow align-self-center"
                 to="#"
                 role="button"
@@ -50,7 +50,7 @@ const Header = () => {
               >
                 <i className="icofont-list"></i>
                 <span className="d-none d-sm-inline-block"> Request Quote</span>
-              </Link>
+              </Link> */}
               <button
                 className="navbar-toggler x collapsed"
                 type="button"
@@ -107,6 +107,30 @@ const Header = () => {
                     to={`${process.env.PUBLIC_URL}/contact`}
                   >
                     Contact us
+                  </Link>
+                </li>
+                <li className="nav-item">
+                <Link
+                    className="btn-theme icon-left no-shadow d-none d-lg-inline-block align-self-center nav-link"
+                    to="#"
+                    role="button"
+                    data-toggle="modal"
+                    data-target="#request_order_tracking_popup"
+                    style={{background:'#7d017d',fontSize:'85%'}}
+                  >
+                    <i className="icofont-location-arrow"></i> Order tracking
+                  </Link>
+                </li>
+                <li className="nav-item">
+                <Link
+                    className="btn-theme icon-left no-shadow d-none d-lg-inline-block align-self-center nav-link"
+                    to="#"
+                    role="button"
+                    data-toggle="modal"
+                    data-target="#request_login_popup"
+                    style={{background:'#0e6f0e',fontSize:'85%'}}
+                  >
+                    <i className="icofont-man-in-glasses"></i> Login
                   </Link>
                 </li>
                 {/* <li className="nav-item dropdown">

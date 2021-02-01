@@ -135,6 +135,30 @@ const Header = () => {
                     </li>
                   </ul>
                 </li>
+                <li className="nav-item">
+                <Link
+                    className="btn-theme icon-left no-shadow d-none d-lg-inline-block align-self-center nav-link"
+                    to="#"
+                    role="button"
+                    data-toggle="modal"
+                    data-target="#request_order_tracking_popup"
+                    style={{background:'#7d017d',fontSize:'85%'}}
+                  >
+                    <i className="icofont-location-arrow"></i> Order tracking
+                  </Link>
+                </li>
+                <li className="nav-item">
+                <Link
+                    className="btn-theme icon-left no-shadow d-none d-lg-inline-block align-self-center nav-link"
+                    to="#"
+                    role="button"
+                    data-toggle="modal"
+                    data-target="#request_login_popup"
+                    style={{background:'#0e6f0e',fontSize:'85%'}}
+                  >
+                    <i className="icofont-man-in-glasses"></i> Login
+                  </Link>
+                </li>
               </ul>
             </div>
           </div>

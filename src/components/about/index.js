@@ -7,7 +7,11 @@ import EmailSubscribe from "../EmailSubscribe";
 import BackToTop from "../BackToTop";
 import SearchPopup from "../SearchPopup";
 import VideoBox from "./VideoBox";
-import RequestModal from "../RequestModal";
+
+import LoginModal from "../LoginModal";
+import SignUpModal from "../SignUpModal";
+import OrderTrackingModal from "../OrderTrackingModal";
+import PhoneModal from "../PhoneModal";
 import BreadcrumbsData from "../breadcrumbs.json";
 
 const About = () => {
@@ -25,7 +29,10 @@ const About = () => {
       <EmailSubscribe />
       <VideoBox />
       <SearchPopup />
-      <RequestModal />
+      <PhoneModal />
+      <LoginModal />
+      <SignUpModal />
+      <OrderTrackingModal />
       <BackToTop />
       <Footer />
     </>

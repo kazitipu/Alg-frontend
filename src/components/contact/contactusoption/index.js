@@ -6,7 +6,10 @@ import Content from "./Content";
 import EmailSubscribe from "../../EmailSubscribe";
 import BackToTop from "../../BackToTop";
 import SearchPopup from "../../SearchPopup";
-import RequestModal from "../../RequestModal";
+import LoginModal from "../../LoginModal"
+import OrderTrackingModal from "../../OrderTrackingModal"
+import SignUpModal from "../../SignUpModal"
+import PhoneModa from "../../PhoneModal"
 import "./contact-us.css";
 
 const ContactusOption = () => {
@@ -49,7 +52,10 @@ const ContactusOption = () => {
       {/* <EmailSubscribe /> */}
       <Footer />
       <SearchPopup />
-      <RequestModal />
+      <LoginModal />
+      <SignUpModal />
+      <OrderTrackingModal />
+      <PhoneModa />
       <BackToTop />
     </>
   );

@@ -5,7 +5,10 @@ import Content from "./Content";
 import EmailSubscribe from "../../EmailSubscribe";
 import BackToTop from "../../BackToTop";
 import SearchPopup from "../../SearchPopup";
-import RequestModal from "../../RequestModal";
+import LoginModal from "../../LoginModal";
+import SignUpModal from "../../SignUpModal";
+import OrderTrackingModal from "../../OrderTrackingModal";
+import PhoneModal from "../../PhoneModal";
 import { Link } from "react-router-dom";
 
 const Services = () => {
@@ -42,7 +45,10 @@ const Services = () => {
       <EmailSubscribe />
       <Footer />
       <SearchPopup />
-      <RequestModal />
+      <LoginModal />
+      <SignUpModal />
+      <OrderTrackingModal />
+      <PhoneModal />
       <BackToTop />
     </>
   );
