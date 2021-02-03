@@ -12,6 +12,7 @@ import LoginModal from "../LoginModal";
 import SignUpModal from "../SignUpModal";
 import OrderTrackingModal from "../OrderTrackingModal";
 import PhoneModal from "../PhoneModal";
+import OtpModal from "../OtpModal";
 import BreadcrumbsData from "../breadcrumbs.json";
 
 const About = () => {
@@ -30,6 +31,7 @@ const About = () => {
       <VideoBox />
       <SearchPopup />
       <PhoneModal />
+      <OtpModal />
       <LoginModal />
       <SignUpModal />
       <OrderTrackingModal />

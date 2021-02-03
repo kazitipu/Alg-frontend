@@ -16,12 +16,12 @@ img {
 .pulse-earth-image {
   position: absolute;
   top: 60%;
-  right: -0%;
+  right: -10%;
   transform: translate(-50%, -50%);
   background: url("earth.png");
   background-size: cover;
-  width: 400px;
-  height: 400px;
+  width: 500px;
+  height: 500px;
   border-radius: 50%;
   box-shadow: inset 0 0 40px #120e2e;
   /* animation: animateEarth 26s linear infinite; */
@@ -30,12 +30,12 @@ img {
 .pulse-background {
   position: absolute;
   top: 60%;
-  right: 0%;
+  right: -10%;
   transform: translate(-50%, -50%);
   background: rgb(3 8 63);
   background-size: cover;
-  width: 400px;
-  height: 400px;
+  width: 500px;
+  height: 500px;
   border-radius: 50%;
   z-index: 5;
   box-shadow: 4px 10px 90px -2px #212124;

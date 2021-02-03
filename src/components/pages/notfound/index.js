@@ -10,6 +10,7 @@ import LoginModal from "../../LoginModal";
 import SignUpModal from "../../SignUpModal";
 import OrderTrackingModal from "../../OrderTrackingModal";
 import PhoneModal from "../../PhoneModal";
+import OtpModal from "../../OtpModal";
 import BreadcrumbsData from "../../breadcrumbs.json";
 
 const NotFound = () => {
@@ -27,10 +28,11 @@ const NotFound = () => {
       <EmailSubscribe />
       <Footer />
       <SearchPopup />
-    <OrderTrackingModal />
-    <LoginModal />
-    <SignUpModal />
-    <PhoneModal />
+      <OrderTrackingModal />
+      <LoginModal />
+      <SignUpModal />
+      <PhoneModal />
+      <OtpModal />
       <BackToTop />
     </>
   );

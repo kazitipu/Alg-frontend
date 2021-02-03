@@ -17,12 +17,16 @@
   font-size: 130%;
   color: white;
   padding-right: 50px;
+  cursor: pointer;
+  border-bottom: 4px solid white;
+  border-radius: 0.25rem;
 }
 .search-options .option i {
   color: white;
   font-size: 150%;
   font-weight: bold;
   margin-right: 5px;
+  margin-left: 25px;
 }
 
 .logo-input-container {
@@ -36,12 +40,13 @@
   font-weight: bold;
   padding-top: 10px;
   border-left: 2px solid gray;
+  cursor: pointer;
 }
 
 .logo-input-container input {
-  padding-top: 15px;
   border-radius: 0px;
   border: 0px;
+  margin-top: 5px;
 }
 
 .logo-input-container {

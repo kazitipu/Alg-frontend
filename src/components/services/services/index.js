@@ -9,6 +9,7 @@ import LoginModal from "../../LoginModal";
 import SignUpModal from "../../SignUpModal";
 import OrderTrackingModal from "../../OrderTrackingModal";
 import PhoneModal from "../../PhoneModal";
+import OtpModal from "../../OtpModal";
 import { Link } from "react-router-dom";
 
 const Services = () => {
@@ -49,6 +50,7 @@ const Services = () => {
       <SignUpModal />
       <OrderTrackingModal />
       <PhoneModal />
+      <OtpModal />
       <BackToTop />
     </>
   );
