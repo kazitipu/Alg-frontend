@@ -79,7 +79,14 @@ class SearchBar extends Component {
           )}
         </h1>
         <div className="search-bar">
-          <div className="search-options">
+          <div
+            className="search-options"
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginLeft: "0px",
+            }}
+          >
             {this.state.air ? (
               <div
                 className="option"
@@ -210,7 +217,10 @@ class SearchBar extends Component {
           <div className="search-input-bar" style={{ paddingTop: "10px" }}>
             <div className="form-row">
               {!this.state.express ? (
-                <div className="logo-input-container mid-options">
+                <div
+                  className="logo-input-container mid-options"
+                  style={{ display: "flex", justifyContent: "center" }}
+                >
                   <>
                     {this.state.doorToDoor ? (
                       <span
@@ -220,6 +230,7 @@ class SearchBar extends Component {
                           color: "white",
                           borderRadius: "20px",
                           cursor: "pointer",
+                          marginLeft: "0px",
                         }}
                         onClick={() =>
                           this.setState({ freight: false, doorToDoor: true })
@@ -230,6 +241,7 @@ class SearchBar extends Component {
                     ) : (
                       <span
                         className="door-to-door"
+                        style={{ marginLeft: "0px" }}
                         onClick={() =>
                           this.setState({ freight: false, doorToDoor: true })
                         }
@@ -412,78 +424,30 @@ class SearchBar extends Component {
               {!this.state.doorToDoor ? (
                 <>
                   {this.state.sea ? (
-                    <div
-                      className="lcl-fcl logo-input-container"
-                      style={{ cursor: "pointer" }}
-                    >
-                      <>
-                        <span>
-                          <i
-                            className="icofont-cube"
-                            style={{
-                              color: !this.state.express
-                                ? this.state.freight
-                                  ? freight.color
-                                  : doorToDoor.color
-                                : express.color,
-                            }}
-                          ></i>
-                        </span>
-                        <div
+                    <div className="logo-input-container">
+                      <span>
+                        <i
+                          className="icofont-cube"
                           style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            paddingTop: "5px",
+                            color: express.color,
                           }}
-                          onClick={() =>
-                            this.setState({ toggleLcl: !this.state.toggleLcl })
-                          }
-                        >
-                          <div style={{ fontSize: "80%" }}>
-                            full container load
-                          </div>
-                          <div style={{ fontWeight: "bold" }}>FCL</div>
-                        </div>
-                      </>
-                      {this.state.toggleLcl ? (
-                        <div
-                          className="lcl-fcl"
-                          style={{
-                            position: "absolute",
-                            top: "228px",
-                            marginLeft: "2px",
-                            display: "flex",
-                            flexDirection: "row",
-                            background: "white",
-                            padding: "6px 3px",
-                          }}
-                        >
-                          <span style={{ borderLeft: "0px" }}>
-                            <i
-                              className="icofont-cubes"
-                              style={{
-                                color: !this.state.express
-                                  ? this.state.freight
-                                    ? freight.color
-                                    : doorToDoor.color
-                                  : express.color,
-                              }}
-                            ></i>
-                          </span>
-                          <div
-                            style={{
-                              display: "flex",
-                              flexDirection: "column",
-                              paddingTop: "5px",
-                            }}
-                          >
-                            <div style={{ fontSize: "80%" }}>
-                              less container load
-                            </div>
-                            <div style={{ fontWeight: "bold" }}>LCL</div>
-                          </div>
-                        </div>
-                      ) : null}
+                        ></i>
+                      </span>
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          paddingRight: "5px",
+                        }}
+                      >
+                        <label style={{ fontSize: "80%" }}>
+                          Container type
+                        </label>
+                        <select style={{ border: "0px" }}>
+                          <option>FCL</option>
+                          <option>LCL</option>
+                        </select>
+                      </div>
                     </div>
                   ) : (
                     <div
@@ -576,6 +540,8 @@ class SearchBar extends Component {
                       ? freight.color
                       : doorToDoor.color
                     : express.color,
+                  display: "flex",
+                  justifyContent: "center",
                 }}
               >
                 <span
@@ -589,6 +555,7 @@ class SearchBar extends Component {
                     fontSize: "150%",
                     paddingTop: "5px",
                     borderLeft: "0px",
+                    marginLeft: "0px",
                   }}
                 >
                   <i className="icofont-search-1"></i>
