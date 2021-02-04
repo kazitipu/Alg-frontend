@@ -28,10 +28,10 @@ class SearchBar extends Component {
 
     return (
       <div className="searchbar-container-home">
-        <h5 style={{ fontWeight: "bold", color: "lightgray" }}>
+        <h5 className="header-title-1">
           SHIPPING TO AND FROM ANYWHERE IN THE WORLD
         </h5>
-        <h1 style={{ fontWeight: "bold", color: "white", fontSize: "300%" }}>
+        <h1 className="header-title-2">
           Find the &nbsp;
           {!this.state.express ? (
             <>
@@ -210,10 +210,11 @@ class SearchBar extends Component {
           <div className="search-input-bar" style={{ paddingTop: "10px" }}>
             <div className="form-row">
               {!this.state.express ? (
-                <div className="logo-input-container">
+                <div className="logo-input-container mid-options">
                   <>
                     {this.state.doorToDoor ? (
                       <span
+                        className="door-to-door"
                         style={{
                           backgroundColor: doorToDoor.color,
                           color: "white",
@@ -228,6 +229,7 @@ class SearchBar extends Component {
                       </span>
                     ) : (
                       <span
+                        className="door-to-door"
                         onClick={() =>
                           this.setState({ freight: false, doorToDoor: true })
                         }
@@ -238,6 +240,7 @@ class SearchBar extends Component {
                   </>
                   {this.state.freight ? (
                     <span
+                      className="freight"
                       style={{
                         backgroundColor: freight.color,
                         color: "white",
@@ -252,6 +255,7 @@ class SearchBar extends Component {
                     </span>
                   ) : (
                     <span
+                      className="freight"
                       onClick={() =>
                         this.setState({ freight: true, doorToDoor: false })
                       }
@@ -322,6 +326,12 @@ class SearchBar extends Component {
                     paddingTop: "3px",
                     border: "blue 1px slolid",
                     borderRadius: ".5rem",
+                    marginTop:
+                      window.innerWidth < "600px"
+                        ? this.state.express
+                          ? "7rem"
+                          : null
+                        : null,
                   }}
                 >
                   <i
@@ -331,7 +341,11 @@ class SearchBar extends Component {
                       fontSize: "140%",
                       fontWeight: "bold",
                       padding: "2px",
-                      backgroundColor: "blue",
+                      backgroundColor: !this.state.express
+                        ? this.state.freight
+                          ? freight.color
+                          : doorToDoor.color
+                        : express.color,
                     }}
                   ></i>
                 </div>
@@ -343,7 +357,11 @@ class SearchBar extends Component {
                       fontSize: "140%",
                       fontWeight: "bold",
                       padding: "2px",
-                      backgroundColor: "blue",
+                      backgroundColor: !this.state.express
+                        ? this.state.freight
+                          ? freight.color
+                          : doorToDoor.color
+                        : express.color,
                     }}
                   ></i>
                 </div>
@@ -550,10 +568,23 @@ class SearchBar extends Component {
                   </div>
                 </>
               )}
-              <div className="logo-input-container">
+              <div
+                className="logo-input-container search-button"
+                style={{
+                  backgroundColor: !this.state.express
+                    ? this.state.freight
+                      ? freight.color
+                      : doorToDoor.color
+                    : express.color,
+                }}
+              >
                 <span
                   style={{
-                    backgroundColor: "blue",
+                    backgroundColor: !this.state.express
+                      ? this.state.freight
+                        ? freight.color
+                        : doorToDoor.color
+                      : express.color,
                     color: "white",
                     fontSize: "150%",
                     paddingTop: "5px",

@@ -9,8 +9,8 @@ img {
   min-height: 100vh;
   background: url("banner_slider_4.jpg");
   background-size: cover;
-  /* animation: animateBg 236s linear infinite;
-  box-shadow: inset 0 0 0 2000px rgba(6, 6, 158, 0.288); */
+  animation: animateBg 276s linear infinite;
+  box-shadow: inset 0 0 0 2000px rgba(6, 6, 158, 0.288);
 }
 
 .pulse-earth-image {
@@ -24,7 +24,7 @@ img {
   height: 500px;
   border-radius: 50%;
   box-shadow: inset 0 0 40px #120e2e;
-  /* animation: animateEarth 26s linear infinite; */
+  animation: animateEarth 36s linear infinite;
   z-index: 10;
 }
 .pulse-background {
