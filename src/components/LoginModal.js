@@ -86,7 +86,7 @@ class LoginModal extends Component {
                           >
                             <div className="form-row mb-4">
                               <div className="col">
-                                Not registered?{" "}
+                                Not registered?
                                 <span
                                   style={{
                                     color: "purple",
@@ -128,7 +128,7 @@ class LoginModal extends Component {
                                   type="submit"
                                   className="form-btn btn-theme bg-orange"
                                 >
-                                  Sign in{" "}
+                                  Sign in
                                   <i className="icofont-rounded-right"></i>
                                 </button>
                               </div>

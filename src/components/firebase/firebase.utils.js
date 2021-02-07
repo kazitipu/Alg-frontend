@@ -32,3 +32,5 @@ export const storage = firebase.storage();
 
 export const signInWithGoogle = () => auth.signInWithPopup(googleProvider);
 export const singInWithFacebook = () => auth.signInWithPopup(facebookProvider);
+
+export default firebase;

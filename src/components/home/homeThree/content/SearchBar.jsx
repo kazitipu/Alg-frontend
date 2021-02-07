@@ -79,14 +79,7 @@ class SearchBar extends Component {
           )}
         </h1>
         <div className="search-bar">
-          <div
-            className="search-options"
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              marginLeft: "0px",
-            }}
-          >
+          <div className="search-options">
             {this.state.air ? (
               <div
                 className="option"
@@ -533,6 +526,12 @@ class SearchBar extends Component {
                 </>
               )}
               <div
+                data-toggle="modal"
+                data-target={
+                  this.state.sea
+                    ? "#request_search_submit_popup"
+                    : "#request_search_submit_popup_air"
+                }
                 className="logo-input-container search-button"
                 style={{
                   backgroundColor: !this.state.express
@@ -542,6 +541,7 @@ class SearchBar extends Component {
                     : express.color,
                   display: "flex",
                   justifyContent: "center",
+                  cursor: "pointer",
                 }}
               >
                 <span

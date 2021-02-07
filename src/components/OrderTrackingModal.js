@@ -14,7 +14,7 @@ const OrderTrackingModal = () => {
           className="modal-dialog modal-dialog-centered request_popup"
           role="document"
         >
-          <div className="modal-content">
+          <div className="modal-content order-tracking-modal">
             <div className="modal-body p-0">
               <section className="pos-rel bg-light-gray">
                 <div className="container-fluid p-0">

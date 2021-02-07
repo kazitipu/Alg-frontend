@@ -364,3 +364,11 @@
     margin-left: 8rem;
   }
 }
+
+@media (max-width: 1000px) {
+  .search-options {
+    display: flex;
+    justify-content: center;
+    margin-left: 0px;
+  }
+}
