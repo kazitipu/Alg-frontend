@@ -14,48 +14,85 @@ class PhoneModal extends Component {
       console.log(this.state.phoneNumber);
     });
   };
-  setUpRecaptcha = async () => {
-    // event.preventDefault();
-    console.log("handle submit called");
-    window.recaptchaVerifier = await new firebase.auth.RecaptchaVerifier(
-      "recaptcha-container",
-      {
-        size: "invisible",
-        callback: (response) => {
-          // reCAPTCHA solved, allow signInWithPhoneNumber.
-          this.onSignInSubmit();
-        },
-      }
-    );
-    this.setState({ phoneNumber: "" });
-    this.appVerifier = window.recaptchaVerifier;
-  };
+  // setUpRecaptcha = async () => {
+  //   // event.preventDefault();
+  //   console.log("handle submit called");
+  //   window.recaptchaVerifier = await new firebase.auth.RecaptchaVerifier(
+  //     "recaptcha-container",
+  //     {
+  //       size: "invisible",
+  //       callback: (response) => {
+  //         // reCAPTCHA solved, allow signInWithPhoneNumber.
+  //         this.onSignInSubmit();
+  //       },
+  //     }
+  //   );
+  //   this.setState({ phoneNumber: "" });
+  //   this.appVerifier = window.recaptchaVerifier;
+  // };
 
-  onSignInSubmit = async (event) => {
-    event.preventDefault();
-    let verifier = new firebase.auth.RecaptchaVerifier("recaptcha");
-    console.log("onsigninsubmit called");
+  // onSignInSubmit = async (event) => {
+  //   event.preventDefault();
+  //   let verifier = new firebase.auth.RecaptchaVerifier("recaptcha");
+  //   console.log("onsigninsubmit called");
+  //   const phoneNumber = this.state.phoneNumber;
+  //   firebase
+  //     .auth()
+  //     .signInWithPhoneNumber(phoneNumber, verifier)
+  //     .then((confirmationResult) => {
+  //       const code = this.state.phoneNumber;
+  //       confirmationResult
+  //         .confirm(code)
+  //         .then((result) => {
+  //           // User signed in successfully.
+  //           const user = result.user;
+  //           // ...
+  //         })
+  //         .catch((error) => {
+  //           // User couldn't sign in (bad verification code?)
+  //           // ...
+  //         });
+  //       // this.getonetimepassword(confirmationResult)
+  //       // SMS sent. Prompt user to type the code from the message, then sign the
+  //       // user in with confirmationResult.confirm(code).
+  //       window.confirmationResult = confirmationResult;
+  //       // ...
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  //   this.setState({ phoneNumber: "" });
+  // };
+
+  onSignInSubmit = async () => {
+    window.recaptchaVerifier = await new firebase.auth.RecaptchaVerifier(
+      "recaptcha-container"
+    );
+    window.recaptchaVerifier.render();
     const phoneNumber = this.state.phoneNumber;
     firebase
       .auth()
-      .signInWithPhoneNumber(phoneNumber, verifier)
+      .signInWithPhoneNumber(phoneNumber, window.recaptchaVerifier)
       .then((confirmationResult) => {
-        const code = this.state.phoneNumber;
-        confirmationResult
-          .confirm(code)
-          .then((result) => {
-            // User signed in successfully.
-            const user = result.user;
-            // ...
-          })
-          .catch((error) => {
-            // User couldn't sign in (bad verification code?)
-            // ...
-          });
-        // this.getonetimepassword(confirmationResult)
-        // SMS sent. Prompt user to type the code from the message, then sign the
-        // user in with confirmationResult.confirm(code).
         window.confirmationResult = confirmationResult;
+        const codeResult = confirmationResult;
+        console.log(codeResult);
+        alert("message was sent");
+        // confirmationResult
+        //   .confirm(code)
+        //   .then((result) => {
+        //     // User signed in successfully.
+        //     const user = result.user;
+        //     // ...
+        //   })
+        //   .catch((error) => {
+        //     // User couldn't sign in (bad verification code?)
+        //     // ...
+        //   });
+        // // this.getonetimepassword(confirmationResult)
+        // // SMS sent. Prompt user to type the code from the message, then sign the
+        // // user in with confirmationResult.confirm(code).
+        // window.confirmationResult = confirmationResult;
         // ...
       })
       .catch((error) => {
@@ -63,6 +100,7 @@ class PhoneModal extends Component {
       });
     this.setState({ phoneNumber: "" });
   };
+
   render() {
     return (
       <>
@@ -115,11 +153,9 @@ class PhoneModal extends Component {
                             Enter your Mobile no
                           </h2>
                           <form
-                            onSubmit={this.onSignInSubmit}
                             noValidate="novalidate"
                             className="rounded-field"
                           >
-                            <div id="recaptcha"></div>
                             <div className="form-row mb-2">
                               <div className="col">
                                 <input
@@ -131,6 +167,7 @@ class PhoneModal extends Component {
                                 />
                               </div>
                             </div>
+                            <div id="reacaptcha-container"></div>
                             <div className="form-row">
                               <div className="col pt-2">
                                 <button
@@ -138,6 +175,7 @@ class PhoneModal extends Component {
                                   id="number-submit"
                                   type="submit"
                                   className="form-btn btn-theme bg-orange"
+                                  onClick={this.onSignInSubmit}
                                   // data-dismiss="modal"
                                   // data-toggle="modal"
                                   // data-target="#request_otp_popup"

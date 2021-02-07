@@ -33,4 +33,29 @@ export const storage = firebase.storage();
 export const signInWithGoogle = () => auth.signInWithPopup(googleProvider);
 export const singInWithFacebook = () => auth.signInWithPopup(facebookProvider);
 
+export const createUserProfileDocument = async (userAuth, additionalData) => {
+  if (!userAuth) return;
+  const userRef = firestore.doc(`users/${userAuth.uid}`);
+
+  const snapShot = await userRef.get();
+  if (!snapShot.exists) {
+    console.log("snapshot doesnt exist");
+    const { displayName, email } = userAuth;
+    const createdAt = new Date();
+    try {
+      console.log("creating snapshot");
+      await userRef.set({
+        displayName,
+        email,
+        createdAt,
+        ordersArray: [],
+        ...additionalData,
+      });
+    } catch (error) {
+      console.log("error creating user", error.message);
+    }
+  }
+  return userRef;
+};
+
 export default firebase;

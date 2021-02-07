@@ -41,13 +41,13 @@ class SearchSubmitModal extends Component {
                         style={{ padding: "10px", backgroundColor: "darkblue" }}
                       >
                         <div className="row mt-5 search-submit-modal-header-1">
-                          Choose your preferred Shipping line
+                          Our preferred
                         </div>
                         <div className="row mt-3">
                           <div className="col">
                             <div className="center-head">
                               <span className="bg-light-gray txt-orange">
-                                (choose upto 5)
+                                (Shipping line)
                               </span>
                             </div>
                           </div>

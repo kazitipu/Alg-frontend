@@ -1696,10 +1696,6 @@ label.error {
     max-width: 70%;
     margin-left: 12rem;
   }
-  .modal-content.order-tracking-modal {
-    max-width: 70%;
-    margin-left: 12rem;
-  }
 }
 /* @media (max-width: 1000px) {
   .search-submit-modal-close {
@@ -1727,28 +1723,28 @@ label.error {
 }
 .sea-logo-container {
   margin-left: 10px;
-  height: 70px;
-  max-width: 70px;
+  height: 60px;
+  max-width: 60px;
   border-radius: 50rem;
   background-size: cover;
   background-color: white;
 }
 @media (max-width: 600px) {
   .sea-logo-container {
-    height: 60px;
-    max-width: 60px;
+    height: 50px;
+    max-width: 50px;
   }
 }
 
 @media (max-width: 376px) {
   .sea-logo-container {
-    height: 55px;
-    max-width: 55px;
+    height: 45px;
+    max-width: 45px;
   }
 }
 @media (max-width: 321px) {
   .sea-logo-container {
-    height: 50px;
-    max-width: 50px;
+    height: 40px;
+    max-width: 40px;
   }
 }

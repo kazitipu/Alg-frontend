@@ -4,14 +4,45 @@ import {
   signInWithGoogle,
   singInWithFacebook,
 } from "./firebase/firebase.utils";
+import { withRouter } from "react-router-dom";
 
 class LoginModal extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
+      email: "",
+      password: "",
       currentUser: null,
     };
   }
+
+  handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const { email, password } = this.state;
+
+    try {
+      await auth.signInWithEmailAndPassword(email, password);
+      this.setState({ email: "", password: "" });
+      // if (this.props.history.location.state) {
+      //   this.props.history.push(this.props.history.location.state.from);
+      // } else {
+      //   this.props.history.push("/");
+      // }
+      this.props.history.push("/");
+      this.setState({ email: "", password: "" });
+    } catch (error) {
+      alert(error);
+    }
+  };
+
+  handleChange = (event) => {
+    const { value, name } = event.target;
+
+    this.setState({ [name]: value });
+  };
+
   handleSignInWithFacebook = async () => {
     try {
       await singInWithFacebook();
@@ -31,6 +62,7 @@ class LoginModal extends Component {
   };
 
   render() {
+    const { email, password } = this.state;
     return (
       <>
         <div
@@ -79,8 +111,7 @@ class LoginModal extends Component {
                             Sign in
                           </h2>
                           <form
-                            action="#"
-                            method="post"
+                            onSubmit={this.handleSubmit}
                             noValidate="novalidate"
                             className="rounded-field"
                           >
@@ -106,19 +137,28 @@ class LoginModal extends Component {
                               <div className="col">
                                 <input
                                   type="text"
-                                  name="name"
+                                  name="email"
+                                  value={email}
                                   className="form-control"
                                   placeholder="Enter your Email"
+                                  onChange={this.handleChange}
                                 />
                               </div>
                             </div>
                             <div className="form-row">
                               <div className="col">
                                 <input
-                                  type="text"
-                                  name="name"
+                                  style={{
+                                    padding: "20px",
+                                    borderRadius: "10rem",
+                                    fontSize: ".9rem",
+                                  }}
+                                  type="password"
+                                  name="password"
+                                  value={password}
                                   className="form-control"
                                   placeholder="Enter your Password"
+                                  onChange={this.handleChange}
                                 />
                               </div>
                             </div>
@@ -193,4 +233,4 @@ class LoginModal extends Component {
     );
   }
 }
-export default LoginModal;
+export default withRouter(LoginModal);

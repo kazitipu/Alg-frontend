@@ -6,7 +6,7 @@ import SearchPopup from "../../../SearchPopup";
 import SignUpModal from "../../../SignUpModal";
 import OrderTrackingModal from "../../../OrderTrackingModal";
 import SearchSubmitModal from "../../../SearchSubmitModal";
-import SearchSubmitModalAir from "../../../SearchSubmitModalAir";
+import SearchSubmitModalDoortoDoor from "../../../SearchSubmitModalDoortoDoor";
 import LoginModal from "../../../LoginModal";
 import PhoneModal from "../../../PhoneModal";
 import OtpModal from "../../../OtpModal";
@@ -22,7 +22,7 @@ const PageContent = () => {
       <SignUpModal />
       <OrderTrackingModal />
       <SearchSubmitModal />
-      <SearchSubmitModalAir />
+      <SearchSubmitModalDoortoDoor />
       <LoginModal />
       <PhoneModal />
       <OtpModal />
