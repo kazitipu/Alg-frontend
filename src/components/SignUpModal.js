@@ -218,6 +218,7 @@ class SignUpModal extends Component {
                                 <button
                                   type="submit"
                                   className="form-btn btn-theme bg-orange"
+                                  data-dismiss="modal"
                                 >
                                   Sign up
                                   <i className="icofont-rounded-right"></i>

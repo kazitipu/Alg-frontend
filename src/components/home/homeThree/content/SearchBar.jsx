@@ -528,9 +528,9 @@ class SearchBar extends Component {
               <div
                 data-toggle="modal"
                 data-target={
-                  this.state.sea
-                    ? "#request_search_submit_popup"
-                    : "#request_search_submit_popup_air"
+                  this.state.doorToDoor
+                    ? "#request_search_submit_popup_door_to_door"
+                    : "#request_search_submit_popup_freight"
                 }
                 className="logo-input-container search-button"
                 style={{

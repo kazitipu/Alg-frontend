@@ -6,7 +6,7 @@ class SearchSubmitModalDoortoDoor extends Component {
       <>
         <div
           className="modal fade"
-          id="request_search_submit_popup_air"
+          id="request_search_submit_popup_door_to_door"
           tabIndex="-1"
           role="dialog"
           aria-hidden="true"
@@ -309,16 +309,7 @@ class SearchSubmitModalDoortoDoor extends Component {
                                 </span>
                               </div>
                             </div>
-                            <div
-                              className="form-row mb-1"
-                              style={{
-                                color: "gray",
-                                fontSize: "90%",
-                                fontWeight: "bold",
-                              }}
-                            >
-                              Select Date:
-                            </div>
+                            <div className="form-row mb-1">Select Date:</div>
                             <div className="form-row mb-2">
                               <div className="col">
                                 <input
@@ -333,14 +324,7 @@ class SearchSubmitModalDoortoDoor extends Component {
                                 />
                               </div>
                             </div>
-                            <div
-                              className="form-row mb-1"
-                              style={{
-                                color: "gray",
-                                fontSize: "90%",
-                                fontWeight: "bold",
-                              }}
-                            >
+                            <div className="form-row mb-1">
                               Carton quantity:
                             </div>
                             <div className="form-row mb-2">
@@ -357,16 +341,7 @@ class SearchSubmitModalDoortoDoor extends Component {
                                 />
                               </div>
                             </div>
-                            <div
-                              className="form-row mb-1"
-                              style={{
-                                color: "gray",
-                                fontSize: "90%",
-                                fontWeight: "bold",
-                              }}
-                            >
-                              Carton Size:
-                            </div>
+                            <div className="form-row mb-1">Carton Size:</div>
                             <div className="form-row mb-2">
                               <div className="col">
                                 <input
@@ -464,16 +439,8 @@ class SearchSubmitModalDoortoDoor extends Component {
                                 justifyContent: "space-around",
                               }}
                             >
-                              {" "}
                               <div>
-                                <div
-                                  className="form-row mb-1"
-                                  style={{
-                                    color: "gray",
-                                    fontSize: "90%",
-                                    fontWeight: "bold",
-                                  }}
-                                >
+                                <div className="form-row mb-1">
                                   Product contains:
                                 </div>
                                 <div className="form-row">
@@ -486,14 +453,7 @@ class SearchSubmitModalDoortoDoor extends Component {
                                 </div>
                               </div>
                               <div>
-                                <div
-                                  className="form-row mb-1"
-                                  style={{
-                                    color: "gray",
-                                    fontSize: "90%",
-                                    fontWeight: "bold",
-                                  }}
-                                >
+                                <div className="form-row mb-1">
                                   Brand/non-brand
                                 </div>
                                 <select>

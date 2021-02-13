@@ -5,7 +5,7 @@ import VideoBox from "./VideoBox";
 import SearchPopup from "../../../SearchPopup";
 import SignUpModal from "../../../SignUpModal";
 import OrderTrackingModal from "../../../OrderTrackingModal";
-import SearchSubmitModal from "../../../SearchSubmitModal";
+import SearchSubmitModalFreight from "../../../SearchSubmitModalFreight";
 import SearchSubmitModalDoortoDoor from "../../../SearchSubmitModalDoortoDoor";
 import LoginModal from "../../../LoginModal";
 import PhoneModal from "../../../PhoneModal";
@@ -21,7 +21,7 @@ const PageContent = () => {
       <SearchPopup />
       <SignUpModal />
       <OrderTrackingModal />
-      <SearchSubmitModal />
+      <SearchSubmitModalFreight />
       <SearchSubmitModalDoortoDoor />
       <LoginModal />
       <PhoneModal />

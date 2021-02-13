@@ -1748,3 +1748,13 @@ label.error {
     max-width: 40px;
   }
 }
+.icofont-square {
+  color: white;
+  font-size: 70%;
+  border: 1px solid gainsboro;
+}
+/* @media (min-width: 1000px) {
+  .freight-modal-form input {
+    max-width: 60%;
+  }
+} */
