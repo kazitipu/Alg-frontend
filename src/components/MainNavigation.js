@@ -1,10 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import HomeOne from "./home/homeOne";
-import HomeTwo from "./home/homeTwo";
 import HomeThree from "./home/homeThree";
-import HomeFour from "./home/homeFour";
-import HomeSix from "./home/homeSix";
 import NotFound from "./pages/notfound";
 import Pricing from "./pages/pricing";
 import Services from "./services/services";
@@ -22,6 +19,7 @@ import Contact from "./contact/contactus";
 import ContactusOption from "./contact/contactusoption";
 import BlogGrid from "./blog/bloggrid";
 import BlogSingle from "./blog/blogsingle";
+
 function MainNavigation() {
   return (
     <Router basename={"/"}>

@@ -1,5 +1,10 @@
 import React, { Component } from "react";
 import "./searchbar.css";
+import { connect } from "react-redux";
+import {
+  getAllExpressRatesParcelRedux,
+  getAllExpressRatesDocumentRedux,
+} from "../../../../actions/index";
 class SearchBar extends Component {
   constructor(props) {
     super(props);
@@ -11,8 +16,102 @@ class SearchBar extends Component {
       doorToDoor: true,
       toggleLcl: false,
       toggleProductType: false,
+
+      expressRatesType: "",
+      expressRatesFrom: "Bangladesh",
+      expressRatesParcelTo: "",
+      expressRatesParcelWeightType: [],
+      expressRatesParcelProductType: "",
+
+      boxTypeParcel: [],
+      boxTypeDocument: [],
+
+      from: "",
     };
   }
+
+  componentDidMount = async () => {
+    await this.props.getAllExpressRatesDocumentRedux();
+    // const valueArrayDocument = keyArrayDocument.map(key=>countryObj[key])
+    await this.props.getAllExpressRatesParcelRedux();
+    // const valueArrayParcel = keyArrayParcel.map(key=>countryObj[key])
+  };
+
+  handleChange = (event) => {
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
+  };
+
+  handleCountryChange = (event) => {
+    const { name, value } = event.target;
+    this.setState({ [name]: value }, () => {
+      console.log(this.state.expressRatesParcelTo);
+
+      this.props.allExpressRatesDocument.map((country) => {
+        console.log(country.country);
+        const countryObjDocument = this.props.allExpressRatesDocument.find(
+          (country) => country.country == this.state.expressRatesParcelTo
+        );
+        const keyArrayDocument = Object.keys(countryObjDocument).filter(
+          (key) => key !== "country"
+        );
+        const countryObjParcel = this.props.allExpressRatesParcel.find(
+          (country) => country.country == this.state.expressRatesParcelTo
+        );
+        const keyArrayParcel = Object.keys(countryObjParcel).filter(
+          (key) => key !== "country"
+        );
+
+        this.setState({
+          boxTypeDocument: keyArrayDocument,
+          boxTypeParcel: keyArrayParcel,
+        });
+      });
+    });
+  };
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    if (this.state.air) this.handleAirSubmit();
+    if (this.state.sea) this.handleSeaSubmit();
+    if (this.state.express) this.handleExpressSubmit();
+  };
+
+  handleExpressSubmit = () => {
+    if (this.state.expressRatesType == "Parcel") {
+      const country = this.props.allExpressRatesParcel.find(
+        (country) => country.country == this.state.expressRatesParcelTo
+      );
+      const result = country[this.state.boxTypeParcel];
+      console.log(result);
+    } else {
+      const country = this.props.allExpressRatesDocument.find(
+        (country) => country.country == this.state.expressRatesParcelTo
+      );
+      const result = country[this.state.boxTypeDocument];
+      console.log(result);
+    }
+    this.setState({
+      air: true,
+      sea: false,
+      express: false,
+      freight: false,
+      doorToDoor: true,
+      toggleLcl: false,
+      toggleProductType: false,
+
+      expressRatesType: "",
+      expressRatesFrom: "Bangladesh",
+      expressRatesParcelTo: "",
+      expressRatesParcelWeightType: [],
+      expressRatesParcelProductType: "",
+
+      boxTypeParcel: [],
+      boxTypeDocument: [],
+
+      from: "",
+    });
+  };
 
   render() {
     const freight = {
@@ -283,23 +382,20 @@ class SearchBar extends Component {
                       }}
                     ></i>
                   </span>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      paddingRight: "5px",
-                    }}
+
+                  <select
+                    style={{ border: "0px", marginTop: "5px" }}
+                    value={this.state.expressRatesType}
+                    onChange={this.handleChange}
+                    name="expressRatesType"
+                    className="custom-select"
                   >
-                    <label style={{ fontSize: "80%" }}>parcel type</label>
-                    <select style={{ border: "0px" }}>
-                      <option>1kg box</option>
-                      <option>2kg box</option>
-                      <option>3kg box</option>
-                      <option>4kg box</option>
-                      <option>5kg box</option>
-                    </select>
-                  </div>
-                  <span style={{ padding: "0px" }}>
+                    <option value="">Select Type</option>
+                    <option value="Document">Document</option>
+                    <option value="Parcel">Parcel</option>
+                  </select>
+
+                  <span style={{ padding: "0px", marginRight: "4px" }}>
                     <i className="icofont-"></i>
                   </span>
                 </div>
@@ -320,9 +416,16 @@ class SearchBar extends Component {
                 </span>
                 <input
                   type="text"
-                  name="name"
+                  name="expressRatesFrom"
+                  value={
+                    this.state.express
+                      ? this.state.expressRatesFrom
+                      : this.state.from
+                  }
+                  onChange={this.handleChange}
                   className="form-control"
                   placeholder="City,Port,Country"
+                  readOnly={this.state.express ? true : false}
                 />
               </div>
               <div className="arrow-container">
@@ -384,12 +487,26 @@ class SearchBar extends Component {
                     }}
                   ></i>
                 </span>
-                <input
-                  type="text"
-                  name="name"
-                  className="form-control"
-                  placeholder="City,Port,Country"
-                />
+                <select
+                  style={{ border: "0px", marginTop: "5px" }}
+                  onChange={this.handleCountryChange}
+                  name="expressRatesParcelTo"
+                  value={this.state.expressRatesParcelTo}
+                  className="custom-select"
+                >
+                  <option value="">Select Country</option>
+                  {this.state.expressRatesType == "Parcel"
+                    ? this.props.allExpressRatesParcel.map((country) => (
+                        <option value={`${country.country}`}>
+                          {country.country}
+                        </option>
+                      ))
+                    : this.props.allExpressRatesDocument.map((country) => (
+                        <option value={`${country.country}`}>
+                          {country.country}
+                        </option>
+                      ))}
+                </select>
               </div>
               {!this.state.doorToDoor ? (
                 <div className="col logo-input-container">
@@ -493,11 +610,19 @@ class SearchBar extends Component {
                         }}
                       ></i>
                     </span>
-                    <input
-                      style={{ marginBottom: "4px" }}
-                      placeholder="approx weight"
-                      type="text"
-                    ></input>
+                    <select
+                      style={{ border: "0px", marginTop: "5px" }}
+                      className="custom-select"
+                    >
+                      <option value="">Select Box Type</option>
+                      {this.state.expressRatesType == "Parcel"
+                        ? this.state.boxTypeParcel.map((box) => (
+                            <option value={`${box}`}>{box} kg</option>
+                          ))
+                        : this.state.boxTypeDocument.map((box) => (
+                            <option value={`${box}`}>{box} kg</option>
+                          ))}
+                    </select>
                   </div>
                   <div className="logo-input-container">
                     <span>
@@ -512,16 +637,12 @@ class SearchBar extends Component {
                         }}
                       ></i>
                     </span>
-                    <div style={{ display: "flex", flexDirection: "column" }}>
-                      <label style={{ fontSize: "80%" }}>product type</label>
-                      <select style={{ border: "0px" }}>
-                        <option>Bags</option>
-                        <option>Shoes</option>
-                        <option>Cosmetics</option>
-                        <option>Autmobile parts</option>
-                        <option>Light</option>
-                      </select>
-                    </div>
+
+                    <input
+                      style={{ marginBottom: "4px" }}
+                      placeholder="Enter Product Type"
+                      type="text"
+                    ></input>
                   </div>
                 </>
               )}
@@ -532,6 +653,7 @@ class SearchBar extends Component {
                     ? "#request_search_submit_popup_door_to_door"
                     : "#request_search_submit_popup_freight"
                 }
+                onClick={this.handleSubmit}
                 className="logo-input-container search-button"
                 style={{
                   backgroundColor: !this.state.express
@@ -568,5 +690,11 @@ class SearchBar extends Component {
     );
   }
 }
-
-export default SearchBar;
+const mapStateToProps = (state) => ({
+  allExpressRatesParcel: state.expressRatesParcel.expressRatesParcel,
+  allExpressRatesDocument: state.expressRatesDocuments.expressRatesDocuments,
+});
+export default connect(mapStateToProps, {
+  getAllExpressRatesParcelRedux,
+  getAllExpressRatesDocumentRedux,
+})(SearchBar);

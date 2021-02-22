@@ -58,4 +58,35 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   return userRef;
 };
 
+export const getAllExpressRatesDocument = async () => {
+  const expressRatesDocumentsCollectionRef = firestore.collection(
+    "expressRatesDocuments"
+  );
+  try {
+    const expressRatesDocuments = await expressRatesDocumentsCollectionRef.get();
+    const expressRatesDocumentsArray = [];
+    expressRatesDocuments.forEach((doc) => {
+      expressRatesDocumentsArray.push(doc.data());
+    });
+    return expressRatesDocumentsArray;
+  } catch (error) {
+    alert(error);
+  }
+};
+export const getAllExpressRatesParcel = async () => {
+  const expressRatesParcelCollectionRef = firestore.collection(
+    "expressRatesParcel"
+  );
+  try {
+    const expressRatesParcel = await expressRatesParcelCollectionRef.get();
+    const expressRatesParcelArray = [];
+    expressRatesParcel.forEach((doc) => {
+      expressRatesParcelArray.push(doc.data());
+    });
+    return expressRatesParcelArray;
+  } catch (error) {
+    alert(error);
+  }
+};
+
 export default firebase;
