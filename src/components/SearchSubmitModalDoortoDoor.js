@@ -1,6 +1,29 @@
 import React, { Component } from "react";
-
+import { connect } from "react-redux";
+import { setBookingRequestRedux } from "./../actions/index";
 class SearchSubmitModalDoortoDoor extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      date: "",
+      ctnQuantity: "",
+      ctnHeight: "",
+      ctnWidth: "",
+      ctnLength: "",
+      productContains: "",
+      productBrand: "",
+    };
+  }
+
+  handleChange = (event) => {
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
+  };
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    this.props.setBookingRequestRedux({ ...this.state, ...this.props.result });
+  };
   render() {
     return (
       <>
@@ -52,107 +75,368 @@ class SearchSubmitModalDoortoDoor extends Component {
                         >
                           Approximate shipping cost:
                         </div>
-                        <div
-                          className="row mt-2"
-                          style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            justifyContent: "space-around",
-                          }}
-                        >
-                          <div
-                            style={{
-                              fontSize: "140%",
-                              color: "white",
-                            }}
-                          >
-                            Per kg
-                          </div>
-                          <div
-                            style={{
-                              fontSize: "140%",
-                              color: "white",
-                            }}
-                          >
-                            550tk/kg
-                          </div>
-                        </div>
-                        <div
-                          className="row mt-2"
-                          style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            justifyContent: "space-around",
-                          }}
-                        >
-                          <div
-                            style={{
-                              display: "flex",
-                              flexDirection: "column",
-
-                              fontSize: "140%",
-                              color: "white",
-                            }}
-                          >
-                            Total weight{" "}
-                          </div>
-                          <div
-                            style={{
-                              fontSize: "140%",
-                              color: "white",
-                            }}
-                          >
-                            2kg 200gm
-                          </div>
-                        </div>
-                        <div className="row ">
-                          <div className="col">
+                        {this.props.searchType === "express" ? (
+                          <>
                             <div
-                              className="center-head"
-                              style={{ margin: "0px" }}
+                              className="row mt-2"
+                              style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent: "flex-start",
+                                paddingLeft: "25%",
+                              }}
                             >
-                              <span className="bg-light-gray txt-orange"></span>
+                              <div
+                                style={{
+                                  fontSize: "140%",
+                                  color: "white",
+                                }}
+                              >
+                                Parcel Type: &nbsp;
+                              </div>
+                              <div
+                                style={{
+                                  fontSize: "140%",
+                                  color: "white",
+                                  fontWeight: "bold",
+                                }}
+                              >
+                                {this.props.result.parcelType}
+                              </div>
                             </div>
-                          </div>
-                        </div>
-                        <div
-                          className="row"
-                          style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            justifyContent: "space-around",
-                          }}
-                        >
-                          <div
-                            style={{
-                              fontSize: "200%",
-                              color: "white",
-                              fontWeight: "bold",
-                            }}
-                          >
-                            Total
-                          </div>
-                          <div
-                            style={{
-                              fontSize: "250%",
-                              color: "white",
-                              fontWeight: "bold",
-                            }}
-                          >
-                            1210Tk
-                          </div>
-                        </div>
-                        <div
-                          className="row mt-2"
-                          style={{
-                            color: "orange",
-                            fontFamily: "sans-serif",
-                            display: "flex",
-                            justifyContent: "center",
-                          }}
-                        >
-                          (IF 1 CBM= 167kg)
-                        </div>
+                            <div
+                              className="row mt-2"
+                              style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent: "flex-start",
+                                paddingLeft: "25%",
+                              }}
+                            >
+                              <div
+                                style={{
+                                  fontSize: "140%",
+                                  color: "white",
+                                }}
+                              >
+                                Product Name: &nbsp;
+                              </div>
+                              <div
+                                style={{
+                                  fontSize: "140%",
+                                  color: "white",
+                                  fontWeight: "bold",
+                                }}
+                              >
+                                {this.props.result.productName}
+                              </div>
+                            </div>
+                            <div
+                              className="row mt-2"
+                              style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent: "flex-start",
+                                paddingLeft: "25%",
+                              }}
+                            >
+                              <div
+                                style={{
+                                  display: "flex",
+                                  flexDirection: "column",
+
+                                  fontSize: "140%",
+                                  color: "white",
+                                }}
+                              >
+                                Parcel To: &nbsp;
+                              </div>
+                              <div
+                                style={{
+                                  fontSize: "140%",
+                                  color: "white",
+                                  fontWeight: "bold",
+                                }}
+                              >
+                                {this.props.result.parcelTo}
+                              </div>
+                            </div>
+                            <div
+                              className="row mt-2"
+                              style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent: "flex-start",
+                                paddingLeft: "25%",
+                              }}
+                            >
+                              <div
+                                style={{
+                                  display: "flex",
+                                  flexDirection: "column",
+
+                                  fontSize: "140%",
+                                  color: "white",
+                                }}
+                              >
+                                Parcel Box: &nbsp;
+                              </div>
+                              <div
+                                style={{
+                                  fontSize: "140%",
+                                  color: "white",
+                                  fontWeight: "bold",
+                                }}
+                              >
+                                {this.props.result.parcelBox} kg
+                              </div>
+                            </div>
+                            <div className="row ">
+                              <div className="col">
+                                <div
+                                  className="center-head"
+                                  style={{ margin: "0px" }}
+                                >
+                                  <span className="bg-light-gray txt-orange"></span>
+                                </div>
+                              </div>
+                            </div>
+                            <div
+                              className="row"
+                              style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent: "space-around",
+                              }}
+                            >
+                              <div
+                                style={{
+                                  fontSize: "200%",
+                                  color: "white",
+                                  fontWeight: "bold",
+                                }}
+                              >
+                                Total
+                              </div>
+                              <div
+                                style={{
+                                  fontSize: "250%",
+                                  color: "white",
+                                  fontWeight: "bold",
+                                }}
+                              >
+                                {this.props.result.total}Tk
+                              </div>
+                            </div>
+                            <div
+                              className="row mt-2"
+                              style={{
+                                color: "white",
+                                fontFamily: "sans-serif",
+                                display: "flex",
+                                justifyContent: "center",
+                              }}
+                            >
+                              (IF 1 CBM= 167kg)
+                            </div>
+                            <div
+                              className="row"
+                              style={{
+                                color: "orange",
+                                fontFamily: "sans-serif",
+                                display: "flex",
+                                justifyContent: "center",
+                                padding: "30px 15px 0px 15px",
+                              }}
+                            >
+                              **This total is calculated based on your choosed
+                              destination country,parcel type and parcel box.
+                              And it may change according to market rate if you
+                              book later.
+                            </div>
+                          </>
+                        ) : (
+                          <>
+                            <div
+                              className="row mt-2"
+                              style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent: "space-around",
+                              }}
+                            >
+                              <div
+                                style={{
+                                  fontSize: "140%",
+                                  color: "white",
+                                }}
+                              >
+                                Ship From
+                              </div>
+                              <div
+                                style={{
+                                  fontSize: "140%",
+                                  color: "white",
+                                }}
+                              >
+                                {this.props.result
+                                  ? this.props.result.shipFrom
+                                  : ""}
+                              </div>
+                            </div>
+                            <div
+                              className="row mt-2"
+                              style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent: "space-around",
+                              }}
+                            >
+                              <div
+                                style={{
+                                  fontSize: "140%",
+                                  color: "white",
+                                }}
+                              >
+                                Product Type
+                              </div>
+                              <div
+                                style={{
+                                  fontSize: "140%",
+                                  color: "white",
+                                }}
+                              >
+                                {this.props.result
+                                  ? this.props.result.productType
+                                  : ""}
+                              </div>
+                            </div>
+                            <div
+                              className="row mt-2"
+                              style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent: "space-around",
+                              }}
+                            >
+                              <div
+                                style={{
+                                  fontSize: "140%",
+                                  color: "white",
+                                }}
+                              >
+                                Per kg
+                              </div>
+                              <div
+                                style={{
+                                  fontSize: "140%",
+                                  color: "white",
+                                }}
+                              >
+                                {this.props.result
+                                  ? this.props.result.perKg
+                                  : ""}
+                                tk/kg
+                              </div>
+                            </div>
+                            <div
+                              className="row mt-2"
+                              style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent: "space-around",
+                              }}
+                            >
+                              <div
+                                style={{
+                                  display: "flex",
+                                  flexDirection: "column",
+
+                                  fontSize: "140%",
+                                  color: "white",
+                                }}
+                              >
+                                Total weight{" "}
+                              </div>
+                              <div
+                                style={{
+                                  fontSize: "140%",
+                                  color: "white",
+                                }}
+                              >
+                                {this.props.result
+                                  ? this.props.result.weight
+                                  : ""}{" "}
+                                kg
+                              </div>
+                            </div>
+                            <div className="row ">
+                              <div className="col">
+                                <div
+                                  className="center-head"
+                                  style={{ margin: "0px" }}
+                                >
+                                  <span className="bg-light-gray txt-orange"></span>
+                                </div>
+                              </div>
+                            </div>
+                            <div
+                              className="row"
+                              style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent: "space-around",
+                              }}
+                            >
+                              <div
+                                style={{
+                                  fontSize: "200%",
+                                  color: "white",
+                                  fontWeight: "bold",
+                                }}
+                              >
+                                Total
+                              </div>
+                              <div
+                                style={{
+                                  fontSize: "250%",
+                                  color: "white",
+                                  fontWeight: "bold",
+                                }}
+                              >
+                                {this.props.result
+                                  ? this.props.result.result
+                                  : ""}
+                                Tk
+                              </div>
+                            </div>
+                            <div
+                              className="row mt-2"
+                              style={{
+                                color: "white",
+                                fontFamily: "sans-serif",
+                                display: "flex",
+                                justifyContent: "center",
+                              }}
+                            >
+                              (IF 1 CBM= 167kg)
+                            </div>
+                            <div
+                              className="row"
+                              style={{
+                                color: "orange",
+                                fontFamily: "sans-serif",
+                                display: "flex",
+                                justifyContent: "center",
+                                padding: "30px 15px 0px 15px",
+                              }}
+                            >
+                              **Below 1 kg the parcel is considered equiavalent
+                              to 1kg.In that case you have to pay similar to
+                              1kg.
+                            </div>
+                          </>
+                        )}
 
                         <div className="row mt-3">
                           <div className="col">
@@ -236,44 +520,6 @@ class SearchSubmitModalDoortoDoor extends Component {
                             }}
                           ></div>
                         </div>
-                        <div className="row mt-1 sea-logos-row">
-                          <div
-                            className="col sea-logo-container"
-                            style={{
-                              backgroundImage:
-                                "url(../images/air-logos/11.png)",
-                              marginLeft: "0px",
-                            }}
-                          ></div>
-                          <div
-                            className="col sea-logo-container"
-                            style={{
-                              backgroundImage:
-                                "url(../images/air-logos/12.png)",
-                            }}
-                          ></div>
-                          <div
-                            className="col sea-logo-container"
-                            style={{
-                              backgroundImage:
-                                "url(../images/air-logos/13.png)",
-                            }}
-                          ></div>
-                          <div
-                            className="col sea-logo-container"
-                            style={{
-                              backgroundImage:
-                                "url(../images/air-logos/14.png)",
-                            }}
-                          ></div>
-                          <div
-                            className="col sea-logo-container"
-                            style={{
-                              backgroundImage:
-                                "url(../images/air-logos/15.png)",
-                            }}
-                          ></div>
-                        </div>
                       </div>
 
                       <div className="col-md-7 col-12">
@@ -289,9 +535,8 @@ class SearchSubmitModalDoortoDoor extends Component {
                             Detail information
                           </h2>
                           <form
-                            action="#"
-                            method="post"
-                            noValidate="novalidate"
+                            onSubmit={this.handleSubmit}
+                            // noValidate="noValidate"
                             className="rounded-field"
                           >
                             <div className="form-row mb-4">
@@ -314,7 +559,9 @@ class SearchSubmitModalDoortoDoor extends Component {
                               <div className="col">
                                 <input
                                   type="date"
-                                  name="name"
+                                  name="date"
+                                  onChange={this.handleChange}
+                                  value={this.state.date}
                                   className="form-control"
                                   placeholder="approx date"
                                   style={{
@@ -335,7 +582,9 @@ class SearchSubmitModalDoortoDoor extends Component {
                                     width: "60%",
                                   }}
                                   type="number"
-                                  name="name"
+                                  name="ctnQuantity"
+                                  value={this.state.ctnQuantity}
+                                  onChange={this.handleChange}
                                   className="form-control"
                                   placeholder="quantity"
                                 />
@@ -345,8 +594,10 @@ class SearchSubmitModalDoortoDoor extends Component {
                             <div className="form-row mb-2">
                               <div className="col">
                                 <input
-                                  type="text"
-                                  name="name"
+                                  type="number"
+                                  name="ctnHeight"
+                                  value={this.state.ctnHeight}
+                                  onChange={this.handleChange}
                                   className="form-control"
                                   placeholder="height (cm)"
                                   style={{
@@ -365,8 +616,10 @@ class SearchSubmitModalDoortoDoor extends Component {
                               </div>
                               <div className="col">
                                 <input
-                                  type="text"
-                                  name="name"
+                                  type="number"
+                                  name="ctnWidth"
+                                  value={this.state.ctnWidth}
+                                  onChange={this.handleChange}
                                   className="form-control"
                                   placeholder="width (cm)"
                                   style={{
@@ -385,8 +638,10 @@ class SearchSubmitModalDoortoDoor extends Component {
                               </div>
                               <div className="col">
                                 <input
-                                  type="text"
-                                  name="name"
+                                  type="number"
+                                  name="ctnLength"
+                                  value={this.state.ctnLength}
+                                  onChange={this.handleChange}
                                   className="form-control"
                                   placeholder="length (cm)"
                                   style={{
@@ -415,7 +670,11 @@ class SearchSubmitModalDoortoDoor extends Component {
                                   borderRadius: "10rem",
                                 }}
                               >
-                                3 CBM
+                                {(this.state.ctnHeight *
+                                  this.state.ctnWidth *
+                                  this.state.ctnLength) /
+                                  1000000}
+                                CBM
                               </div>
                             </div>
 
@@ -444,11 +703,17 @@ class SearchSubmitModalDoortoDoor extends Component {
                                   Product contains:
                                 </div>
                                 <div className="form-row">
-                                  <select>
-                                    <option>liquid</option>
-                                    <option>chemical</option>
-                                    <option>battery</option>
-                                    <option>none</option>
+                                  <select
+                                    className="custom-select"
+                                    name="productContains"
+                                    value={this.state.productContains}
+                                    onChange={this.handleChange}
+                                    required
+                                  >
+                                    <option value="liquid">liquid</option>
+                                    <option value="chemical">chemical</option>
+                                    <option value="battery">battery</option>
+                                    <option value="none">none</option>
                                   </select>
                                 </div>
                               </div>
@@ -456,32 +721,39 @@ class SearchSubmitModalDoortoDoor extends Component {
                                 <div className="form-row mb-1">
                                   Brand/non-brand
                                 </div>
-                                <select>
-                                  <option>Brand</option>
-                                  <option>Non Brand</option>
+                                <select
+                                  name="productBrand"
+                                  value={this.state.productBrand}
+                                  onChange={this.handleChange}
+                                  required
+                                  className="custom-select"
+                                >
+                                  <option value="Brand">Brand</option>
+                                  <option value="Non Brand">Non Brand</option>
                                 </select>
                               </div>
                             </div>
-                          </form>
-                          <div
-                            className="row mt-3"
-                            style={{
-                              display: "flex",
-                              justifyContent: "flex-end",
-                            }}
-                          >
-                            <button
-                              className="btn"
+                            <div
+                              className="row mt-5"
                               style={{
-                                background: "purple",
-                                color: "white",
-                                padding: "13px",
-                                borderRadius: "1rem",
+                                display: "flex",
+                                justifyContent: "flex-end",
                               }}
                             >
-                              Book now
-                            </button>
-                          </div>
+                              <button
+                                className="btn"
+                                type="submit"
+                                style={{
+                                  background: "purple",
+                                  color: "white",
+                                  padding: "13px",
+                                  borderRadius: "1rem",
+                                }}
+                              >
+                                Book now
+                              </button>
+                            </div>
+                          </form>
                         </div>
                       </div>
                     </div>
@@ -495,4 +767,12 @@ class SearchSubmitModalDoortoDoor extends Component {
     );
   }
 }
-export default SearchSubmitModalDoortoDoor;
+const mapStateToProps = (state) => {
+  return {
+    result: state.result.result,
+    searchType: state.result.searchType,
+  };
+};
+export default connect(mapStateToProps, { setBookingRequestRedux })(
+  SearchSubmitModalDoortoDoor
+);

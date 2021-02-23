@@ -89,4 +89,43 @@ export const getAllExpressRatesParcel = async () => {
   }
 };
 
+export const getAllD2DRates = async (freightType, country) => {
+  const d2dRatesCollectionRef = firestore.collection(
+    `d2d-rates-${freightType}-${country}`
+  );
+  try {
+    const d2dRates = await d2dRatesCollectionRef.get();
+    const d2dRatesArray = [];
+    d2dRates.forEach((doc) => {
+      d2dRatesArray.push(doc.data());
+    });
+    return d2dRatesArray;
+  } catch (error) {
+    alert(error);
+  }
+};
+
+export const setBookingRequest = async (bookingObj) => {
+  const id = Math.round(Math.random() * 100000 - 1);
+  const bookingRef = firestore.doc(`bookingRequest/${id}`);
+  const snapShot = await bookingRef.get();
+  if (!snapShot.exists) {
+    try {
+      await bookingRef.set({
+        id,
+        ...bookingObj,
+      });
+      console.log(snapShot.data());
+      const uploadedSnapShot = await bookingRef.get();
+      return uploadedSnapShot.data();
+    } catch (error) {
+      alert(error);
+    }
+  } else {
+    alert(
+      "there is already a booking with similar uid, please try again later"
+    );
+  }
+};
+
 export default firebase;

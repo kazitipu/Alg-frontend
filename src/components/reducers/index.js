@@ -8,6 +8,8 @@ import setOrdersAlgReducer from "./ordersAlg";
 import setExpressRatesDocumentsReducer from "./expressRatesDocuments";
 import setExpressRatesParcelReducer from "./expressRatesParcel";
 import setD2DRatesReducer from "./d2dRates";
+import setResultReducer from "./ratesResult";
+import setBookingRequestReducer from "./bookingRequest";
 const rootReducer = combineReducers({
   lots: setLotsReducer,
   orders: setOrdersReducer,
@@ -18,6 +20,8 @@ const rootReducer = combineReducers({
   expressRatesDocuments: setExpressRatesDocumentsReducer,
   expressRatesParcel: setExpressRatesParcelReducer,
   d2dRates: setD2DRatesReducer,
+  result: setResultReducer,
+  bookingRequests: setBookingRequestReducer,
 });
 
 export default rootReducer;
