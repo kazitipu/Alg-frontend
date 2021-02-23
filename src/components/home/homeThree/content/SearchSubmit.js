@@ -31,12 +31,12 @@ export const handleDoorToDoorSubmit = (weight, productType, allD2dRates) => {
     const result = selectedproductType.parcel;
     return { result, perKg: selectedproductType.parcel };
   }
-  if (1 < weight >= 10) {
-    const result = weight * selectedproductType.ten;
+  if (1 < weight && weight <= 10) {
+    const result = Math.round(weight * selectedproductType.ten);
     return { result, perKg: selectedproductType.ten };
   }
   if (weight > 10) {
-    const result = weight * selectedproductType.eleven;
+    const result = Math.round(weight * selectedproductType.eleven);
     return { result, perKg: selectedproductType.eleven };
   }
 };
