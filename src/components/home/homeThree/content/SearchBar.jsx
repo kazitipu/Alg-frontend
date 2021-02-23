@@ -332,555 +332,573 @@ class SearchBar extends Component {
             </>
           </div>
           <div className="search-input-bar" style={{ paddingTop: "10px" }}>
-            <div className="form-row">
-              {!this.state.express ? (
-                <div
-                  className="logo-input-container mid-options"
-                  style={{ display: "flex", justifyContent: "center" }}
-                >
-                  <>
-                    {this.state.doorToDoor ? (
+            <form onSubmit={this.handleSubmit}>
+              <div className="form-row">
+                {!this.state.express ? (
+                  <div
+                    className="logo-input-container mid-options"
+                    style={{ display: "flex", justifyContent: "center" }}
+                  >
+                    <>
+                      {this.state.doorToDoor ? (
+                        <span
+                          className="door-to-door"
+                          style={{
+                            backgroundColor: doorToDoor.color,
+                            color: "white",
+                            borderRadius: "20px",
+                            cursor: "pointer",
+                            marginLeft: "0px",
+                          }}
+                          onClick={() =>
+                            this.setState({ freight: false, doorToDoor: true })
+                          }
+                        >
+                          <i className="icofont-">D2D</i>
+                        </span>
+                      ) : (
+                        <span
+                          className="door-to-door"
+                          style={{ marginLeft: "0px" }}
+                          onClick={() =>
+                            this.setState({ freight: false, doorToDoor: true })
+                          }
+                        >
+                          <i className="icofont-">D2D</i>
+                        </span>
+                      )}
+                    </>
+                    {this.state.freight ? (
                       <span
-                        className="door-to-door"
+                        className="freight"
                         style={{
-                          backgroundColor: doorToDoor.color,
+                          backgroundColor: freight.color,
                           color: "white",
                           borderRadius: "20px",
                           cursor: "pointer",
-                          marginLeft: "0px",
                         }}
                         onClick={() =>
-                          this.setState({ freight: false, doorToDoor: true })
+                          this.setState({ freight: true, doorToDoor: false })
                         }
                       >
-                        <i className="icofont-">D2D</i>
+                        <i className="icofont-">freight</i>
                       </span>
                     ) : (
                       <span
-                        className="door-to-door"
-                        style={{ marginLeft: "0px" }}
+                        className="freight"
                         onClick={() =>
-                          this.setState({ freight: false, doorToDoor: true })
+                          this.setState({ freight: true, doorToDoor: false })
                         }
                       >
-                        <i className="icofont-">D2D</i>
+                        <i className="icofont-">freight</i>
                       </span>
                     )}
-                  </>
-                  {this.state.freight ? (
-                    <span
-                      className="freight"
-                      style={{
-                        backgroundColor: freight.color,
-                        color: "white",
-                        borderRadius: "20px",
-                        cursor: "pointer",
-                      }}
-                      onClick={() =>
-                        this.setState({ freight: true, doorToDoor: false })
-                      }
-                    >
-                      <i className="icofont-">freight</i>
+
+                    <span style={{ padding: "0px" }}>
+                      <i className="icofont-"></i>
                     </span>
-                  ) : (
-                    <span
-                      className="freight"
-                      onClick={() =>
-                        this.setState({ freight: true, doorToDoor: false })
-                      }
-                    >
-                      <i className="icofont-">freight</i>
-                    </span>
-                  )}
-
-                  <span style={{ padding: "0px" }}>
-                    <i className="icofont-"></i>
-                  </span>
-                </div>
-              ) : (
-                <div className="logo-input-container">
-                  <span>
-                    <i
-                      className="icofont-cube"
-                      style={{
-                        color: express.color,
-                      }}
-                    ></i>
-                  </span>
-
-                  <select
-                    style={{ border: "0px", marginTop: "7px" }}
-                    value={this.state.expressRatesType}
-                    onChange={this.handleChange}
-                    name="expressRatesType"
-                    className="custom-select"
-                  >
-                    <option value="">Select Type</option>
-                    <option value="Document">Document</option>
-                    <option value="Parcel">Parcel</option>
-                  </select>
-
-                  <span style={{ padding: "0px", marginRight: "4px" }}>
-                    <i className="icofont-"></i>
-                  </span>
-                </div>
-              )}
-
-              <div className="logo-input-container">
-                <span style={{ borderLeft: "0px" }}>
-                  <i
-                    className="icofont-industries-2"
-                    style={{
-                      color: !this.state.express
-                        ? this.state.freight
-                          ? freight.color
-                          : doorToDoor.color
-                        : express.color,
-                    }}
-                  ></i>
-                </span>
-                {this.state.express ? (
-                  <input
-                    style={{ backgroundColor: "white", marginTop: "7px" }}
-                    type="text"
-                    name="expressRatesFrom"
-                    value={this.state.expressRatesFrom}
-                    onChange={this.handleChange}
-                    className="form-control"
-                    placeholder="City,Port,Country"
-                    readOnly
-                  />
+                  </div>
                 ) : (
-                  <select
-                    style={{ border: "0px", marginTop: "7px" }}
-                    onChange={this.handleCountryChangeD2dFreight}
-                    name="shipFrom"
-                    value={this.state.shipFrom}
-                    className="custom-select"
-                  >
-                    <option value="">Select Country</option>
-                    <option value="china">china</option>
-                    <option value="malaysia">malaysia</option>
-                    <option value="hongkong">hongkong</option>
-                    <option value="dubai">dubai</option>
-                    <option value="pakistan">pakistan</option>
-                    <option value="singapore">singapore</option>
-                    <option value="thailand">thailand</option>
-                    <option value="india">india</option>
-                  </select>
-                )}
-              </div>
-              <div className="arrow-container">
-                <div
-                  style={{
-                    paddingTop: "3px",
-                    border: "blue 1px slolid",
-                    borderRadius: ".5rem",
-                    marginTop:
-                      window.innerWidth < "600px"
-                        ? this.state.express
-                          ? "7rem"
-                          : null
-                        : null,
-                  }}
-                >
-                  <i
-                    className="icofont-long-arrow-left"
-                    style={{
-                      color: "white",
-                      fontSize: "140%",
-                      fontWeight: "bold",
-                      padding: "2px",
-                      backgroundColor: !this.state.express
-                        ? this.state.freight
-                          ? freight.color
-                          : doorToDoor.color
-                        : express.color,
-                    }}
-                  ></i>
-                </div>
-                <div>
-                  <i
-                    className="icofont-long-arrow-right"
-                    style={{
-                      color: "white",
-                      fontSize: "140%",
-                      fontWeight: "bold",
-                      padding: "2px",
-                      backgroundColor: !this.state.express
-                        ? this.state.freight
-                          ? freight.color
-                          : doorToDoor.color
-                        : express.color,
-                    }}
-                  ></i>
-                </div>
-              </div>
-              <div className="logo-input-container">
-                <span style={{ borderLeft: "0px" }}>
-                  <i
-                    className="icofont-home"
-                    style={{
-                      color: !this.state.express
-                        ? this.state.freight
-                          ? freight.color
-                          : doorToDoor.color
-                        : express.color,
-                    }}
-                  ></i>
-                </span>
-                {this.state.express ? (
-                  <select
-                    style={{ border: "0px", marginTop: "7px" }}
-                    onChange={this.handleCountryChange}
-                    name="expressRatesParcelTo"
-                    value={this.state.expressRatesParcelTo}
-                    className="custom-select"
-                  >
-                    <option value="">Select Country</option>
-                    {this.state.expressRatesType == "Parcel"
-                      ? this.props.allExpressRatesParcel.map((country) => (
-                          <option
-                            key={country.country}
-                            value={`${country.country}`}
-                          >
-                            {country.country}
-                          </option>
-                        ))
-                      : this.props.allExpressRatesDocument.map((country) => (
-                          <option
-                            key={country.country}
-                            value={`${country.country}`}
-                          >
-                            {country.country}
-                          </option>
-                        ))}
-                  </select>
-                ) : (
-                  <input
-                    style={{ backgroundColor: "white", marginTop: "7px" }}
-                    type="text"
-                    name="shipTo"
-                    value={this.state.shipTo}
-                    onChange={this.handleChange}
-                    className="form-control"
-                    placeholder="City,Port,Country"
-                    readOnly
-                  />
-                )}
-              </div>
-              {!this.state.doorToDoor ? (
-                <div className="col logo-input-container">
-                  {!this.state.express ? (
-                    <>
-                      <span>
-                        <i
-                          className="icofont-calendar"
-                          style={{
-                            color: !this.state.express
-                              ? this.state.freight
-                                ? freight.color
-                                : doorToDoor.color
-                              : express.color,
-                          }}
-                        ></i>
-                      </span>
-                      <input
-                        type="date"
-                        name="date"
-                        onChange={this.handleChange}
-                        value={this.state.date}
-                        className="form-control"
-                        placeholder="Date"
-                      />
-                    </>
-                  ) : (
-                    <>
-                      <span>
-                        <i
-                          className="icofont-cube"
-                          style={{
-                            color: !this.state.express
-                              ? this.state.freight
-                                ? freight.color
-                                : doorToDoor.color
-                              : express.color,
-                          }}
-                        ></i>
-                      </span>
-                      <select
-                        style={{ border: "0px", marginTop: "7px" }}
-                        className="custom-select"
-                        onChange={this.handleChange}
-                        name="expressRatesParcelWeightType"
-                        value={this.state.expressRatesParcelWeightType}
-                      >
-                        <option value="">Select Box Type</option>
-                        {this.state.expressRatesType == "Parcel"
-                          ? this.state.boxTypeParcel.map((box) => (
-                              <option key={box} value={`${box}`}>
-                                {box} kg
-                              </option>
-                            ))
-                          : this.state.boxTypeDocument.map((box) => (
-                              <option key={box} value={`${box}`}>
-                                {box} kg
-                              </option>
-                            ))}
-                      </select>{" "}
-                    </>
-                  )}
-                </div>
-              ) : null}
-
-              {!this.state.doorToDoor ? (
-                <>
-                  {this.state.sea ? (
-                    <div className="logo-input-container">
-                      <span>
-                        <i
-                          className="icofont-cube"
-                          style={{
-                            color: express.color,
-                          }}
-                        ></i>
-                      </span>
-                      <div
-                        style={{
-                          display: "flex",
-                          flexDirection: "column",
-                          paddingRight: "5px",
-                        }}
-                      >
-                        <label style={{ fontSize: "80%" }}>
-                          Container type
-                        </label>
-                        <select
-                          style={{ border: "0px" }}
-                          value={this.state.containerType}
-                          name="containerType"
-                          onChange={this.handleChange}
-                          className="cutom-select"
-                        >
-                          <option value="FCL">FCL </option>
-                          <option value="LCL">LCL </option>
-                        </select>
-                      </div>
-                    </div>
-                  ) : (
-                    <div
-                      className="lcl-fcl logo-input-container"
-                      style={{ cursor: "pointer" }}
-                    >
-                      {!this.state.express ? (
-                        <>
-                          <span>
-                            <i
-                              className="icofont-airplane"
-                              style={{
-                                color: !this.state.express
-                                  ? this.state.freight
-                                    ? freight.color
-                                    : doorToDoor.color
-                                  : express.color,
-                              }}
-                            ></i>
-                          </span>
-
-                          <div
-                            style={{
-                              display: "flex",
-                              flexDirection: "column",
-                              paddingTop: "5px",
-                            }}
-                            onClick={() =>
-                              this.setState({
-                                toggleLcl: !this.state.toggleLcl,
-                              })
-                            }
-                          >
-                            <div style={{ fontSize: "80%" }}>air delivery</div>
-                            <div style={{ fontWeight: "bold" }}>Air</div>
-                          </div>
-                        </>
-                      ) : (
-                        <>
-                          <span>
-                            <i
-                              className="icofont-bag"
-                              style={{
-                                color: !this.state.express
-                                  ? this.state.freight
-                                    ? freight.color
-                                    : doorToDoor.color
-                                  : express.color,
-                              }}
-                            ></i>
-                          </span>
-                          {this.state.express ? (
-                            <input
-                              value={this.state.expressRatesParcelProductType}
-                              name="expressRatesParcelProductType"
-                              onChange={this.handleChange}
-                              style={{ marginBottom: "4px", outline: "0px" }}
-                              placeholder="Enter Product Name"
-                              type="text"
-                            ></input>
-                          ) : (
-                            <select
-                              style={{ border: "0px", marginTop: "7px" }}
-                              onChange={this.handleChange}
-                              name="productType"
-                              value={this.state.productType}
-                              className="custom-select"
-                            >
-                              <option value="">Select Product Type</option>
-                              <option value="china">china</option>
-                              <option value="malaysia">malaysia</option>
-                              <option value="hongkong">hongkong</option>
-                              <option value="dubai">dubai</option>
-                              <option value="pakistan">pakistan</option>
-                              <option value="singapore">singapore</option>
-                              <option value="thailand">thailand</option>
-                              <option value="india">india</option>
-                            </select>
-                          )}
-                        </>
-                      )}
-                    </div>
-                  )}
-                </>
-              ) : (
-                <>
-                  <div
-                    className="logo-input-container"
-                    style={{ cursor: "pointer" }}
-                  >
+                  <div className="logo-input-container">
                     <span>
                       <i
                         className="icofont-cube"
                         style={{
-                          color: !this.state.express
-                            ? this.state.freight
-                              ? freight.color
-                              : doorToDoor.color
-                            : express.color,
+                          color: express.color,
                         }}
                       ></i>
                     </span>
-                    {this.state.express ? (
-                      <select
-                        style={{ border: "0px", marginTop: "7px" }}
-                        className="custom-select"
-                        onChange={this.handleChange}
-                        name="expressRatesParcelWeightType"
-                        value={this.state.expressRatesParcelWeightType}
-                      >
-                        <option value="">Select Box Type</option>
-                        {this.state.expressRatesType == "Parcel"
-                          ? this.state.boxTypeParcel.map((box) => (
-                              <option key={box} value={`${box}`}>
-                                {box} kg
-                              </option>
-                            ))
-                          : this.state.boxTypeDocument.map((box) => (
-                              <option key={box} value={`${box}`}>
-                                {box} kg
-                              </option>
-                            ))}
-                      </select>
-                    ) : (
-                      <input
-                        type="number"
-                        name="weight"
-                        onChange={this.handleChange}
-                        value={this.state.weight}
-                        className="form-control"
-                        placeholder="Enter weight(kg)"
-                      />
-                    )}
-                  </div>
-                  <div className="logo-input-container">
-                    <span>
-                      <i
-                        className="icofont-bag"
-                        style={{
-                          color: !this.state.express
-                            ? this.state.freight
-                              ? freight.color
-                              : doorToDoor.color
-                            : express.color,
-                        }}
-                      ></i>
+
+                    <select
+                      style={{ border: "0px", marginTop: "7px" }}
+                      value={this.state.expressRatesType}
+                      onChange={this.handleChange}
+                      name="expressRatesType"
+                      className="custom-select"
+                      required
+                    >
+                      <option value="">Select Type</option>
+                      <option value="Document">Document</option>
+                      <option value="Parcel">Parcel</option>
+                    </select>
+
+                    <span style={{ padding: "0px", marginRight: "4px" }}>
+                      <i className="icofont-"></i>
                     </span>
-                    {this.state.express ? (
-                      <input
-                        value={this.state.expressRatesParcelProductType}
-                        name="expressRatesParcelProductType"
-                        onChange={this.handleChange}
-                        style={{ marginBottom: "4px", outline: "0px" }}
-                        placeholder="Enter Product Name"
-                        type="text"
-                      ></input>
+                  </div>
+                )}
+
+                <div className="logo-input-container">
+                  <span style={{ borderLeft: "0px" }}>
+                    <i
+                      className="icofont-industries-2"
+                      style={{
+                        color: !this.state.express
+                          ? this.state.freight
+                            ? freight.color
+                            : doorToDoor.color
+                          : express.color,
+                      }}
+                    ></i>
+                  </span>
+                  {this.state.express ? (
+                    <input
+                      style={{ backgroundColor: "white", marginTop: "7px" }}
+                      type="text"
+                      name="expressRatesFrom"
+                      value={this.state.expressRatesFrom}
+                      onChange={this.handleChange}
+                      className="form-control"
+                      placeholder="City,Port,Country"
+                      readOnly
+                      required
+                    />
+                  ) : (
+                    <select
+                      style={{ border: "0px", marginTop: "7px" }}
+                      onChange={this.handleCountryChangeD2dFreight}
+                      name="shipFrom"
+                      value={this.state.shipFrom}
+                      className="custom-select"
+                      required
+                    >
+                      <option value="">Select Country</option>
+                      <option value="china">china</option>
+                      <option value="malaysia">malaysia</option>
+                      <option value="hongkong">hongkong</option>
+                      <option value="dubai">dubai</option>
+                      <option value="pakistan">pakistan</option>
+                      <option value="singapore">singapore</option>
+                      <option value="thailand">thailand</option>
+                      <option value="india">india</option>
+                    </select>
+                  )}
+                </div>
+                <div className="arrow-container">
+                  <div
+                    style={{
+                      paddingTop: "3px",
+                      border: "blue 1px slolid",
+                      borderRadius: ".5rem",
+                      marginTop:
+                        window.innerWidth < "600px"
+                          ? this.state.express
+                            ? "7rem"
+                            : null
+                          : null,
+                    }}
+                  >
+                    <i
+                      className="icofont-long-arrow-left"
+                      style={{
+                        color: "white",
+                        fontSize: "140%",
+                        fontWeight: "bold",
+                        padding: "2px",
+                        backgroundColor: !this.state.express
+                          ? this.state.freight
+                            ? freight.color
+                            : doorToDoor.color
+                          : express.color,
+                      }}
+                    ></i>
+                  </div>
+                  <div>
+                    <i
+                      className="icofont-long-arrow-right"
+                      style={{
+                        color: "white",
+                        fontSize: "140%",
+                        fontWeight: "bold",
+                        padding: "2px",
+                        backgroundColor: !this.state.express
+                          ? this.state.freight
+                            ? freight.color
+                            : doorToDoor.color
+                          : express.color,
+                      }}
+                    ></i>
+                  </div>
+                </div>
+                <div className="logo-input-container">
+                  <span style={{ borderLeft: "0px" }}>
+                    <i
+                      className="icofont-home"
+                      style={{
+                        color: !this.state.express
+                          ? this.state.freight
+                            ? freight.color
+                            : doorToDoor.color
+                          : express.color,
+                      }}
+                    ></i>
+                  </span>
+                  {this.state.express ? (
+                    <select
+                      style={{ border: "0px", marginTop: "7px" }}
+                      onChange={this.handleCountryChange}
+                      name="expressRatesParcelTo"
+                      value={this.state.expressRatesParcelTo}
+                      className="custom-select"
+                      required
+                    >
+                      <option value="">Select Country</option>
+                      {this.state.expressRatesType == "Parcel"
+                        ? this.props.allExpressRatesParcel.map((country) => (
+                            <option
+                              key={country.country}
+                              value={`${country.country}`}
+                            >
+                              {country.country}
+                            </option>
+                          ))
+                        : this.props.allExpressRatesDocument.map((country) => (
+                            <option
+                              key={country.country}
+                              value={`${country.country}`}
+                            >
+                              {country.country}
+                            </option>
+                          ))}
+                    </select>
+                  ) : (
+                    <input
+                      style={{ backgroundColor: "white", marginTop: "7px" }}
+                      type="text"
+                      name="shipTo"
+                      value={this.state.shipTo}
+                      onChange={this.handleChange}
+                      className="form-control"
+                      placeholder="City,Port,Country"
+                      readOnly
+                      required
+                    />
+                  )}
+                </div>
+                {!this.state.doorToDoor ? (
+                  <div className="col logo-input-container">
+                    {!this.state.express ? (
+                      <>
+                        <span>
+                          <i
+                            className="icofont-calendar"
+                            style={{
+                              color: !this.state.express
+                                ? this.state.freight
+                                  ? freight.color
+                                  : doorToDoor.color
+                                : express.color,
+                            }}
+                          ></i>
+                        </span>
+                        <input
+                          type="date"
+                          name="date"
+                          onChange={this.handleChange}
+                          value={this.state.date}
+                          className="form-control"
+                          placeholder="Date"
+                          required
+                        />
+                      </>
                     ) : (
-                      <select
-                        style={{ border: "0px", marginTop: "7px" }}
-                        onChange={this.handleCountryChangeD2dFreight}
-                        name="productType"
-                        value={this.state.productType}
-                        className="custom-select"
-                      >
-                        <option value="">Select Product Type</option>
-                        {this.props.allD2dRates.map((productType) => (
-                          <option value={productType.id}>
-                            {productType.id}
-                          </option>
-                        ))}
-                      </select>
+                      <>
+                        <span>
+                          <i
+                            className="icofont-cube"
+                            style={{
+                              color: !this.state.express
+                                ? this.state.freight
+                                  ? freight.color
+                                  : doorToDoor.color
+                                : express.color,
+                            }}
+                          ></i>
+                        </span>
+                        <select
+                          style={{ border: "0px", marginTop: "7px" }}
+                          className="custom-select"
+                          onChange={this.handleChange}
+                          name="expressRatesParcelWeightType"
+                          value={this.state.expressRatesParcelWeightType}
+                          required
+                        >
+                          <option value="">Select Box Type</option>
+                          {this.state.expressRatesType == "Parcel"
+                            ? this.state.boxTypeParcel.map((box) => (
+                                <option key={box} value={`${box}`}>
+                                  {box} kg
+                                </option>
+                              ))
+                            : this.state.boxTypeDocument.map((box) => (
+                                <option key={box} value={`${box}`}>
+                                  {box} kg
+                                </option>
+                              ))}
+                        </select>{" "}
+                      </>
                     )}
                   </div>
-                </>
-              )}
-              <div
-                data-toggle="modal"
-                data-target={
-                  !this.state.express
-                    ? this.state.doorToDoor
-                      ? "#request_search_submit_popup_door_to_door"
-                      : "#request_search_submit_popup_freight"
-                    : "#request_search_submit_popup_door_to_door"
-                }
-                onClick={this.handleSubmit}
-                className="logo-input-container search-button"
-                style={{
-                  backgroundColor: !this.state.express
-                    ? this.state.freight
-                      ? freight.color
-                      : doorToDoor.color
-                    : express.color,
-                  display: "flex",
-                  justifyContent: "center",
-                  cursor: "pointer",
-                }}
-              >
-                <span
+                ) : null}
+
+                {!this.state.doorToDoor ? (
+                  <>
+                    {this.state.sea ? (
+                      <div className="logo-input-container">
+                        <span>
+                          <i
+                            className="icofont-cube"
+                            style={{
+                              color: express.color,
+                            }}
+                          ></i>
+                        </span>
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            paddingRight: "5px",
+                          }}
+                        >
+                          <label style={{ fontSize: "80%" }}>
+                            Container type
+                          </label>
+                          <select
+                            style={{ border: "0px" }}
+                            value={this.state.containerType}
+                            name="containerType"
+                            onChange={this.handleChange}
+                            className="cutom-select"
+                            required
+                          >
+                            <option value="FCL">FCL </option>
+                            <option value="LCL">LCL </option>
+                          </select>
+                        </div>
+                      </div>
+                    ) : (
+                      <div
+                        className="lcl-fcl logo-input-container"
+                        style={{ cursor: "pointer" }}
+                      >
+                        {!this.state.express ? (
+                          <>
+                            <span>
+                              <i
+                                className="icofont-airplane"
+                                style={{
+                                  color: !this.state.express
+                                    ? this.state.freight
+                                      ? freight.color
+                                      : doorToDoor.color
+                                    : express.color,
+                                }}
+                              ></i>
+                            </span>
+
+                            <div
+                              style={{
+                                display: "flex",
+                                flexDirection: "column",
+                                paddingTop: "5px",
+                              }}
+                              onClick={() =>
+                                this.setState({
+                                  toggleLcl: !this.state.toggleLcl,
+                                })
+                              }
+                            >
+                              <div style={{ fontSize: "80%" }}>
+                                air delivery
+                              </div>
+                              <div style={{ fontWeight: "bold" }}>Air</div>
+                            </div>
+                          </>
+                        ) : (
+                          <>
+                            <span>
+                              <i
+                                className="icofont-bag"
+                                style={{
+                                  color: !this.state.express
+                                    ? this.state.freight
+                                      ? freight.color
+                                      : doorToDoor.color
+                                    : express.color,
+                                }}
+                              ></i>
+                            </span>
+                            {this.state.express ? (
+                              <input
+                                value={this.state.expressRatesParcelProductType}
+                                name="expressRatesParcelProductType"
+                                onChange={this.handleChange}
+                                style={{ marginBottom: "4px", outline: "0px" }}
+                                placeholder="Enter Product Name"
+                                type="text"
+                                required
+                              ></input>
+                            ) : (
+                              <select
+                                style={{ border: "0px", marginTop: "7px" }}
+                                onChange={this.handleChange}
+                                name="productType"
+                                value={this.state.productType}
+                                className="custom-select"
+                                required
+                              >
+                                <option value="">Select Product Type</option>
+                                <option value="china">china</option>
+                                <option value="malaysia">malaysia</option>
+                                <option value="hongkong">hongkong</option>
+                                <option value="dubai">dubai</option>
+                                <option value="pakistan">pakistan</option>
+                                <option value="singapore">singapore</option>
+                                <option value="thailand">thailand</option>
+                                <option value="india">india</option>
+                              </select>
+                            )}
+                          </>
+                        )}
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <>
+                    <div
+                      className="logo-input-container"
+                      style={{ cursor: "pointer" }}
+                    >
+                      <span>
+                        <i
+                          className="icofont-cube"
+                          style={{
+                            color: !this.state.express
+                              ? this.state.freight
+                                ? freight.color
+                                : doorToDoor.color
+                              : express.color,
+                          }}
+                        ></i>
+                      </span>
+                      {this.state.express ? (
+                        <select
+                          style={{ border: "0px", marginTop: "7px" }}
+                          className="custom-select"
+                          onChange={this.handleChange}
+                          name="expressRatesParcelWeightType"
+                          value={this.state.expressRatesParcelWeightType}
+                          required
+                        >
+                          <option value="">Select Box Type</option>
+                          {this.state.expressRatesType == "Parcel"
+                            ? this.state.boxTypeParcel.map((box) => (
+                                <option key={box} value={`${box}`}>
+                                  {box} kg
+                                </option>
+                              ))
+                            : this.state.boxTypeDocument.map((box) => (
+                                <option key={box} value={`${box}`}>
+                                  {box} kg
+                                </option>
+                              ))}
+                        </select>
+                      ) : (
+                        <input
+                          type="number"
+                          name="weight"
+                          onChange={this.handleChange}
+                          value={this.state.weight}
+                          className="form-control"
+                          placeholder="Enter weight(kg)"
+                          required
+                        />
+                      )}
+                    </div>
+                    <div className="logo-input-container">
+                      <span>
+                        <i
+                          className="icofont-bag"
+                          style={{
+                            color: !this.state.express
+                              ? this.state.freight
+                                ? freight.color
+                                : doorToDoor.color
+                              : express.color,
+                          }}
+                        ></i>
+                      </span>
+                      {this.state.express ? (
+                        <input
+                          value={this.state.expressRatesParcelProductType}
+                          name="expressRatesParcelProductType"
+                          onChange={this.handleChange}
+                          style={{ marginBottom: "4px", outline: "0px" }}
+                          placeholder="Enter Product Name"
+                          type="text"
+                          required
+                        ></input>
+                      ) : (
+                        <select
+                          style={{ border: "0px", marginTop: "7px" }}
+                          onChange={this.handleCountryChangeD2dFreight}
+                          name="productType"
+                          value={this.state.productType}
+                          className="custom-select"
+                          required
+                        >
+                          <option value="">Select Product Type</option>
+                          {this.props.allD2dRates.map((productType) => (
+                            <option value={productType.id}>
+                              {productType.id}
+                            </option>
+                          ))}
+                        </select>
+                      )}
+                    </div>
+                  </>
+                )}
+                <button
+                  data-toggle="modal"
+                  data-target={
+                    !this.state.express
+                      ? this.state.doorToDoor
+                        ? "#request_search_submit_popup_door_to_door"
+                        : "#request_search_submit_popup_freight"
+                      : "#request_search_submit_popup_door_to_door"
+                  }
+                  type="submit"
+                  className="logo-input-container search-button"
                   style={{
                     backgroundColor: !this.state.express
                       ? this.state.freight
                         ? freight.color
                         : doorToDoor.color
                       : express.color,
-                    color: "white",
-                    fontSize: "150%",
-                    paddingTop: "5px",
-                    borderLeft: "0px",
-                    marginLeft: "0px",
+                    display: "flex",
+                    justifyContent: "center",
+                    cursor: "pointer",
                   }}
                 >
-                  <i className="icofont-search-1"></i>
-                </span>
+                  <span
+                    style={{
+                      backgroundColor: !this.state.express
+                        ? this.state.freight
+                          ? freight.color
+                          : doorToDoor.color
+                        : express.color,
+                      color: "white",
+                      fontSize: "150%",
+                      paddingTop: "5px",
+                      borderLeft: "0px",
+                      marginLeft: "0px",
+                    }}
+                  >
+                    <i className="icofont-search-1"></i>
+                  </span>
+                </button>
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>
