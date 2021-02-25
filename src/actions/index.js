@@ -5,6 +5,13 @@ import {
   getAllD2DRates,
 } from "../components/firebase/firebase.utils";
 
+export const setCurrentUserRedux = (userObj) => {
+  return {
+    type: "SET_CURRENT_USER",
+    payload: userObj,
+  };
+};
+
 export const getAllExpressRatesParcelRedux = () => async (dispatch) => {
   const expressRatesParcelArray = await getAllExpressRatesParcel();
   dispatch({

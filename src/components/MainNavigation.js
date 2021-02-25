@@ -19,21 +19,14 @@ import Contact from "./contact/contactus";
 import ContactusOption from "./contact/contactusoption";
 import BlogGrid from "./blog/bloggrid";
 import BlogSingle from "./blog/blogsingle";
-
+import UserPanel from "./userPanel";
 function MainNavigation() {
   return (
     <Router basename={"/"}>
       <Switch>
-        {/** Home */}
-        {/* <Route path="/" exact component={HomeOne} />
-        <Route path="/home-one" exact component={HomeOne} />
-        <Route path="/home-two" exact component={HomeTwo} /> */}
         <Route path="/" exact component={HomeThree} />
         <Route path="/home-one" exact component={HomeOne} />
-        {/* <Route path="/home-four" exact component={HomeFour} />
-        <Route path="/home-five" exact component={HomeFive} />
-        <Route path="/home-six" exact component={HomeSix} /> */}
-        {/** Pages */}
+        <Route path="/user/:userId" exact component={UserPanel} />
         <Route path="/pricing" exact component={Pricing} />
         <Route path="/requestquote" exact component={RequestQuote} />
         <Route path="/shortcodes" exact component={ShortCodes} />

@@ -5,7 +5,8 @@ import {
   singInWithFacebook,
 } from "./firebase/firebase.utils";
 import { withRouter } from "react-router-dom";
-
+import { connect } from "react-redux";
+import { toggleLoginModal } from "../actions/index";
 class LoginModal extends Component {
   constructor(props) {
     super(props);
@@ -233,4 +234,5 @@ class LoginModal extends Component {
     );
   }
 }
-export default withRouter(LoginModal);
+
+export default withRouter(connect()(LoginModal));

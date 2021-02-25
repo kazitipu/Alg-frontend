@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import setAdminsReducer from "./admins";
+import setCurrentUserReducer from "./currentUser";
 import setOrdersReducer from "./orders";
 import setPaymentsReducer from "./payments";
 import setProductsReducer from "./products";
@@ -10,11 +10,13 @@ import setExpressRatesParcelReducer from "./expressRatesParcel";
 import setD2DRatesReducer from "./d2dRates";
 import setResultReducer from "./ratesResult";
 import setBookingRequestReducer from "./bookingRequest";
+import setAdminsReducer from "./admins";
+
 const rootReducer = combineReducers({
+  currentUser: setCurrentUserReducer,
   lots: setLotsReducer,
   orders: setOrdersReducer,
   payments: setPaymentsReducer,
-  admins: setAdminsReducer,
   products: setProductsReducer,
   ordersAlg: setOrdersAlgReducer,
   expressRatesDocuments: setExpressRatesDocumentsReducer,
@@ -22,6 +24,7 @@ const rootReducer = combineReducers({
   d2dRates: setD2DRatesReducer,
   result: setResultReducer,
   bookingRequests: setBookingRequestReducer,
+  admins: setAdminsReducer,
 });
 
 export default rootReducer;

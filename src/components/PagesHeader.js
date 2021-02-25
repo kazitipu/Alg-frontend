@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
-const Header = () => {
+import { connect } from "react-redux";
+import { auth } from "./firebase/firebase.utils";
+const Header = (props) => {
   return (
     <>
       <header className="fixed-top header-fullpage top-border top-transparent wow fadeInDown">
@@ -39,7 +40,7 @@ const Header = () => {
             </div>
             <div className="d-inline-flex request-btn order-lg-last col p-0">
               <Link className="nav-link" to="#" id="search_home">
-                <i className="icofont-search"></i>
+                {/* <i className="icofont-search"></i> */}
               </Link>
               {/* <Link
                 className="btn-theme icon-left bg-navy-blue no-shadow align-self-center"
@@ -110,29 +111,82 @@ const Header = () => {
                   </Link>
                 </li>
                 <li className="nav-item">
-                <Link
+                  <Link
                     className="btn-theme icon-left no-shadow d-none d-lg-inline-block align-self-center nav-link"
                     to="#"
                     role="button"
                     data-toggle="modal"
                     data-target="#request_order_tracking_popup"
-                    style={{background:'#7d017d',fontSize:'85%'}}
+                    style={{ background: "#7d017d", fontSize: "85%" }}
                   >
                     <i className="icofont-location-arrow"></i> Order tracking
                   </Link>
                 </li>
-                <li className="nav-item">
-                <Link
-                    className="btn-theme icon-left no-shadow d-none d-lg-inline-block align-self-center nav-link"
-                    to="#"
-                    role="button"
-                    data-toggle="modal"
-                    data-target="#request_login_popup"
-                    style={{background:'#0e6f0e',fontSize:'85%'}}
-                  >
-                    <i className="icofont-man-in-glasses"></i> Login
-                  </Link>
-                </li>
+                {!props.currentUser.displayName ? (
+                  <li className="nav-item">
+                    <Link
+                      className="btn-theme icon-left no-shadow d-none d-lg-inline-block align-self-center nav-link"
+                      to="/"
+                      role="button"
+                      data-toggle="modal"
+                      data-target="#request_login_popup"
+                      style={{ background: "#0e6f0e", fontSize: "85%" }}
+                    >
+                      <i className="icofont-man-in-glasses"></i>
+                      Login
+                    </Link>
+                  </li>
+                ) : (
+                  <li className="nav-item dropdown">
+                    <Link
+                      className="nav-link dropdown-toggle-mob"
+                      to={`${process.env.PUBLIC_URL}/`}
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                      style={{ paddingTop: "6px", paddingBottom: "7px" }}
+                    >
+                      <i className="icofont-man-in-glasses"></i>
+                      {props.currentUser.displayName.slice(0, 10)}
+                    </Link>
+                    <ul className="dropdown-menu">
+                      <li
+                        style={{
+                          display: "block",
+                          background: "#7d017d",
+                          padding: "11px 0px",
+                        }}
+                      >
+                        <Link
+                          // className="dropdown-item"
+                          to={`${process.env.PUBLIC_URL}/contact`}
+                          style={{ color: "white" }}
+                        >
+                          <i className="icofont-wallet"></i>&nbsp;My wallet:
+                          17500tk
+                        </Link>
+                      </li>
+                      <li style={{ display: "block" }}>
+                        <Link
+                          className="dropdown-item"
+                          to={`${process.env.PUBLIC_URL}/contact`}
+                        >
+                          <i className="icofont-dashboard-web"></i>&nbsp;My
+                          Dashboard
+                        </Link>
+                      </li>
+                      <li style={{ display: "block" }}>
+                        <a
+                          href={`${process.env.PUBLIC_URL}/`}
+                          className="dropdown-item"
+                          onClick={() => auth.signOut()}
+                        >
+                          <i className="icofont-logout"></i>&nbsp; Log Out
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                )}
                 {/* <li className="nav-item dropdown">
                   <a
                     className="nav-link dropdown-toggle-mob"
@@ -177,4 +231,10 @@ const Header = () => {
   );
 };
 
-export default Header;
+const mapStateToProps = (state) => {
+  return {
+    currentUser: state.currentUser.currentUser,
+  };
+};
+
+export default connect(mapStateToProps, null)(Header);
