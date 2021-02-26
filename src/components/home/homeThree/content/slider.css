@@ -15,7 +15,7 @@ img {
 
 .pulse-earth-image {
   position: absolute;
-  top: 60%;
+  top: 8%;
   right: -10%;
   transform: translate(-50%, -50%);
   background: url("earth.png");
@@ -29,7 +29,7 @@ img {
 }
 .pulse-background {
   position: absolute;
-  top: 60%;
+  top: 8%;
   right: -10%;
   transform: translate(-50%, -50%);
   background: rgb(3 8 63);
@@ -54,5 +54,14 @@ img {
   }
   100% {
     background-position: 3952px 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .pulse-background {
+    top: 5%;
+  }
+  .pulse-earth-image {
+    top: 5%;
   }
 }

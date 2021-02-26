@@ -118,7 +118,11 @@ const Header = (props) => {
                     role="button"
                     data-toggle="modal"
                     data-target="#request_order_tracking_popup"
-                    style={{ background: "#7d017d", fontSize: "85%" }}
+                    style={{
+                      background: "#7d017d",
+                      fontSize: "85%",
+                      fontFamily: "sans-serif",
+                    }}
                   >
                     <i className="icofont-location-arrow"></i> Order tracking
                   </Link>
@@ -131,7 +135,11 @@ const Header = (props) => {
                       role="button"
                       data-toggle="modal"
                       data-target="#request_login_popup"
-                      style={{ background: "#0e6f0e", fontSize: "85%" }}
+                      style={{
+                        background: "#0e6f0e",
+                        fontSize: "85%",
+                        fontFamily: "sans-serif",
+                      }}
                     >
                       <i className="icofont-man-in-glasses"></i>
                       Login

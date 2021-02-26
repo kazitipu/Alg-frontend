@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { auth } from "./firebase/firebase.utils";
 import "./header.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const Header = (props) => {
   return (
     <>
@@ -148,7 +150,11 @@ const Header = (props) => {
                     role="button"
                     data-toggle="modal"
                     data-target="#request_order_tracking_popup"
-                    style={{ background: "#7d017d", fontSize: "85%" }}
+                    style={{
+                      background: "#7d017d",
+                      fontSize: "85%",
+                      fontFamily: "sans-serif",
+                    }}
                   >
                     <i className="icofont-location-arrow"></i> Order tracking
                   </Link>
@@ -161,7 +167,11 @@ const Header = (props) => {
                       role="button"
                       data-toggle="modal"
                       data-target="#request_login_popup"
-                      style={{ background: "#0e6f0e", fontSize: "85%" }}
+                      style={{
+                        background: "#0e6f0e",
+                        fontSize: "85%",
+                        fontFamily: "sans-serif",
+                      }}
                     >
                       <i className="icofont-man-in-glasses"></i>
                       Login
@@ -210,7 +220,10 @@ const Header = (props) => {
                         <a
                           href={`${process.env.PUBLIC_URL}/`}
                           className="dropdown-item"
-                          onClick={() => auth.signOut()}
+                          onClick={() => {
+                            auth.signOut();
+                            toast.error("You are logged out!");
+                          }}
                         >
                           <i className="icofont-logout"></i>&nbsp; Log Out
                         </a>
@@ -223,6 +236,7 @@ const Header = (props) => {
           </div>
         </nav>
       </header>
+      <ToastContainer />
     </>
   );
 };

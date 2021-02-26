@@ -8,6 +8,7 @@ import {
   createUserProfileDocument,
   firestore,
 } from "../src/components/firebase/firebase.utils";
+import { ToastContainer, toast } from "react-toastify";
 
 class App extends Component {
   unsuscribeFromAuth = null;
@@ -15,7 +16,7 @@ class App extends Component {
   componentDidMount = async () => {
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
-        console.log(userAuth);
+        toast.success("You are successfully logged in.");
         const userRef = await createUserProfileDocument(userAuth);
 
         userRef.onSnapshot((snapShot) => {
@@ -64,6 +65,7 @@ class App extends Component {
     return (
       <>
         <MainNavigation />
+        <ToastContainer />
       </>
     );
   }

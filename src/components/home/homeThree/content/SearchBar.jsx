@@ -166,6 +166,7 @@ class SearchBar extends Component {
                       fontSize: "130%",
                       color: freight.color,
                       fontWeight: "bolder",
+                      textTransform: "none",
                     }}
                   >
                     best freight
@@ -179,6 +180,7 @@ class SearchBar extends Component {
                       fontSize: "130%",
                       color: doorToDoor.color,
                       fontWeight: "bolder",
+                      textTransform: "none",
                     }}
                   >
                     best door to door
@@ -194,6 +196,7 @@ class SearchBar extends Component {
                   fontSize: "130%",
                   color: express.color,
                   fontWeight: "bolder",
+                  textTransform: "none",
                 }}
               >
                 best express
@@ -576,7 +579,7 @@ class SearchBar extends Component {
                   )}
                 </div>
                 {!this.state.doorToDoor ? (
-                  <div className="col logo-input-container">
+                  <div className="logo-input-container">
                     {!this.state.express ? (
                       <>
                         <span>

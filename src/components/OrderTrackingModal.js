@@ -32,12 +32,15 @@ const OrderTrackingModal = () => {
                       boxShadow: "0px 18px 76px 0px rgba(0, 0, 0, 0.06)",
                     }}
                   >
-                    <div className="col bg-fixed order-tracking-bg request_pag_order_tracking_img">
+                    <div
+                      className="col bg-fixed order-tracking-bg request_pag_order_tracking_img"
+                      style={{ minHeight: "450px" }}
+                    >
                       &nbsp;
                     </div>
 
                     <div className="col-md-7 col-12">
-                      <div className="px-3 m-5">
+                      <div className="px-3 m-4">
                         <form
                           action="#"
                           method="post"

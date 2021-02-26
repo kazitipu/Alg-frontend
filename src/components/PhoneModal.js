@@ -133,7 +133,10 @@ class PhoneModal extends Component {
                         boxShadow: "0px 18px 76px 0px rgba(0, 0, 0, 0.06)",
                       }}
                     >
-                      <div className="col bg-fixed login-img-bg request_pag_img">
+                      <div
+                        className="col bg-fixed login-img-bg request_pag_img"
+                        style={{ minHeight: "200px" }}
+                      >
                         &nbsp;
                       </div>
 
@@ -141,7 +144,7 @@ class PhoneModal extends Component {
                         className="col-md-7 col-12"
                         style={{ marginTop: "30px" }}
                       >
-                        <div className="px-3 m-5">
+                        <div className="px-3 m-4">
                           <h2
                             className="h2-xl fw-6"
                             style={{

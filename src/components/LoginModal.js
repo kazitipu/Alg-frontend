@@ -95,14 +95,17 @@ class LoginModal extends Component {
                         boxShadow: "0px 18px 76px 0px rgba(0, 0, 0, 0.06)",
                       }}
                     >
-                      <div className="col bg-fixed login-img-bg request_pag_img">
+                      <div
+                        className="col bg-fixed login-img-bg request_pag_img"
+                        style={{ minHeight: "200px" }}
+                      >
                         &nbsp;
                       </div>
 
                       <div className="col-md-7 col-12">
-                        <div className="px-3 m-5">
+                        <div className="m-4 ">
                           <h2
-                            className="h2-xl fw-6"
+                            className="h2-xl fw-6 sign-in-header-title"
                             style={{
                               color: "orange",
                               fontSize: "140%",
@@ -140,7 +143,7 @@ class LoginModal extends Component {
                                   type="text"
                                   name="email"
                                   value={email}
-                                  className="form-control"
+                                  className="form-control input-field-70"
                                   placeholder="Enter your Email"
                                   onChange={this.handleChange}
                                 />
@@ -157,7 +160,7 @@ class LoginModal extends Component {
                                   type="password"
                                   name="password"
                                   value={password}
-                                  className="form-control"
+                                  className="form-control input-field-70"
                                   placeholder="Enter your Password"
                                   onChange={this.handleChange}
                                 />
