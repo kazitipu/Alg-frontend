@@ -40,12 +40,15 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   const snapShot = await userRef.get();
   if (!snapShot.exists) {
     console.log("snapshot doesnt exist");
-    const { displayName, email } = userAuth;
+    const { email } = userAuth;
     const createdAt = new Date();
     try {
       console.log("creating snapshot");
+      const userCount = await incrementUserCountByOne();
       await userRef.set({
-        displayName,
+        userId: userCount < 10 ? `0${userCount}` : userCount,
+        uid: userAuth.uid,
+        // displayName,
         email,
         createdAt,
         ordersArray: [],
@@ -56,6 +59,30 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
     }
   }
   return userRef;
+};
+
+const incrementUserCountByOne = async () => {
+  const countRef = firestore.doc(`userCount/count`);
+  const snapShot = await countRef.get();
+  if (!snapShot.exists) {
+    try {
+      countRef.set({
+        userCount: 1,
+      });
+    } catch (error) {
+      alert(error);
+    }
+  } else {
+    try {
+      countRef.update({
+        userCount: snapShot.data().userCount + 1,
+      });
+    } catch (error) {
+      alert(error);
+    }
+  }
+  const updatedSnapShot = await countRef.get();
+  return updatedSnapShot.data().userCount;
 };
 
 export const getAllExpressRatesDocument = async () => {
@@ -106,17 +133,18 @@ export const getAllD2DRates = async (freightType, country) => {
 };
 
 export const setBookingRequest = async (bookingObj) => {
-  const id = Math.round(Math.random() * 100000 - 1);
-  const bookingRef = firestore.doc(`bookingRequest/${id}`);
+  const bookingId = Math.round(Math.random() * 1000000 - 1);
+  const bookingRef = firestore.doc(`bookingRequest/${bookingId}`);
   const snapShot = await bookingRef.get();
   if (!snapShot.exists) {
     try {
       await bookingRef.set({
-        id,
+        bookingId,
         ...bookingObj,
       });
       console.log(snapShot.data());
       const uploadedSnapShot = await bookingRef.get();
+      setBookingArrayOfUser({ bookingId, bookingObj });
       return uploadedSnapShot.data();
     } catch (error) {
       alert(error);
@@ -125,6 +153,23 @@ export const setBookingRequest = async (bookingObj) => {
     alert(
       "there is already a booking with similar uid, please try again later"
     );
+  }
+};
+
+export const setBookingArrayOfUser = async (bookingObj) => {
+  console.log(bookingObj);
+  console.log("set booking array of user is getting called");
+  const userRef = firestore.doc(`users/${bookingObj.bookingObj.userId}`);
+  const snapShot = await userRef.get();
+  console.log(snapShot.data());
+  try {
+    userRef.update({
+      bookingArray: snapShot.data().bookingArray
+        ? [...snapShot.data().bookingArray, bookingObj]
+        : [bookingObj],
+    });
+  } catch (error) {
+    alert(error);
   }
 };
 

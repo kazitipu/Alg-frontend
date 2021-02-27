@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { toast } from "react-toastify";
 import { setBookingRequestRedux } from "./../actions/index";
 class SearchSubmitModalDoortoDoor extends Component {
   constructor(props) {
@@ -20,9 +21,32 @@ class SearchSubmitModalDoortoDoor extends Component {
     this.setState({ [name]: value });
   };
 
-  handleSubmit = (event) => {
+  handleSubmit = async (event) => {
     event.preventDefault();
-    this.props.setBookingRequestRedux({ ...this.state, ...this.props.result });
+    if (this.props.currentUser.displayName === "") {
+      alert("Please log in to your account to request a booking");
+      document.getElementById("modal-close-icon-door-to-door").click();
+      return;
+    } else {
+      await this.props.setBookingRequestRedux({
+        userId: this.props.currentUser.uid,
+        ...this.state,
+        ...this.props.result,
+      });
+      toast.success(
+        "your booking request is successful. Our agent will confirm your booking soon"
+      );
+      document.getElementById("modal-close-icon-door-to-door").click();
+    }
+    this.setState({
+      date: "",
+      ctnQuantity: "",
+      ctnHeight: "",
+      ctnWidth: "",
+      ctnLength: "",
+      productContains: "",
+      productBrand: "",
+    });
   };
   render() {
     return (
@@ -47,6 +71,7 @@ class SearchSubmitModalDoortoDoor extends Component {
                       className="close search-submit-modal-close"
                       data-dismiss="modal"
                       aria-label="Close"
+                      id="modal-close-icon-door-to-door"
                     >
                       <i
                         className="icofont-close-line"
@@ -271,12 +296,41 @@ class SearchSubmitModalDoortoDoor extends Component {
                                   color: "white",
                                 }}
                               >
+                                Ship By
+                              </div>
+                              <div
+                                style={{
+                                  fontSize: "140%",
+                                  color: "white",
+                                  fontWeight: "bold",
+                                }}
+                              >
+                                {this.props.result
+                                  ? this.props.result.shipBy
+                                  : ""}
+                              </div>
+                            </div>
+                            <div
+                              className="row mt-2"
+                              style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent: "space-around",
+                              }}
+                            >
+                              <div
+                                style={{
+                                  fontSize: "140%",
+                                  color: "white",
+                                }}
+                              >
                                 Ship From
                               </div>
                               <div
                                 style={{
                                   fontSize: "140%",
                                   color: "white",
+                                  fontWeight: "bold",
                                 }}
                               >
                                 {this.props.result
@@ -304,6 +358,7 @@ class SearchSubmitModalDoortoDoor extends Component {
                                 style={{
                                   fontSize: "140%",
                                   color: "white",
+                                  fontWeight: "bold",
                                 }}
                               >
                                 {this.props.result
@@ -331,6 +386,7 @@ class SearchSubmitModalDoortoDoor extends Component {
                                 style={{
                                   fontSize: "140%",
                                   color: "white",
+                                  fontWeight: "bold",
                                 }}
                               >
                                 {this.props.result
@@ -362,6 +418,7 @@ class SearchSubmitModalDoortoDoor extends Component {
                                 style={{
                                   fontSize: "140%",
                                   color: "white",
+                                  fontWeight: "bold",
                                 }}
                               >
                                 {this.props.result
@@ -523,7 +580,7 @@ class SearchSubmitModalDoortoDoor extends Component {
                       </div>
 
                       <div className="col-md-7 col-12">
-                        <div className="px-3 m-5">
+                        <div className="px-3 m-4">
                           <h2
                             className="h2-xl fw-6"
                             style={{
@@ -568,6 +625,7 @@ class SearchSubmitModalDoortoDoor extends Component {
                                     borderRadius: "10rem",
                                     width: "60%",
                                   }}
+                                  required
                                 />
                               </div>
                             </div>
@@ -587,6 +645,7 @@ class SearchSubmitModalDoortoDoor extends Component {
                                   onChange={this.handleChange}
                                   className="form-control"
                                   placeholder="quantity"
+                                  required
                                 />
                               </div>
                             </div>
@@ -664,7 +723,7 @@ class SearchSubmitModalDoortoDoor extends Component {
                                   display: "flex",
                                   flexDirection: "column",
                                   justifyContent: "center",
-                                  padding: "10px",
+                                  padding: "0px 10px",
                                   backgroundColor: "white",
                                   border: "1px solid lightgray",
                                   borderRadius: "10rem",
@@ -771,6 +830,7 @@ const mapStateToProps = (state) => {
   return {
     result: state.result.result,
     searchType: state.result.searchType,
+    currentUser: state.currentUser.currentUser,
   };
 };
 export default connect(mapStateToProps, { setBookingRequestRedux })(

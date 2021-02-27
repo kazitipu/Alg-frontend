@@ -40,6 +40,8 @@ class SearchBar extends Component {
       containerType: "",
       weight: "",
       productType: "",
+
+      validatedForm: false,
     };
   }
 
@@ -50,13 +52,45 @@ class SearchBar extends Component {
     // const valueArrayParcel = keyArrayParcel.map(key=>countryObj[key])
   };
 
+  initialState = (headerSelection) => {
+    this.setState({
+      air: headerSelection === "air" ? true : false,
+      sea: headerSelection === "sea" ? true : false,
+      express: headerSelection === "express" ? true : false,
+      freight: false,
+      doorToDoor: true,
+      toggleLcl: false,
+      toggleProductType: false,
+
+      expressRatesType: "",
+      expressRatesFrom: "Bangladesh",
+      expressRatesParcelTo: "",
+      expressRatesParcelWeightType: "",
+      expressRatesParcelProductType: "",
+
+      boxTypeParcel: [],
+      boxTypeDocument: [],
+
+      shipTo: "Bangladesh",
+      shipFrom: "",
+      date: "",
+      containerType: "",
+      weight: "",
+      productType: "",
+      validatedForm: false,
+    });
+  };
+
   handleChange = (event) => {
-    const { name, value } = event.target;
+    let { name, value } = event.target;
     this.setState({ [name]: value });
+    if (value == "") {
+      this.setState({ validatedForm: false });
+    }
   };
 
   handleCountryChange = (event) => {
-    const { name, value } = event.target;
+    let { name, value } = event.target;
     this.setState({ [name]: value }, () => {
       console.log(this.state.expressRatesParcelTo);
 
@@ -79,12 +113,15 @@ class SearchBar extends Component {
           boxTypeDocument: keyArrayDocument,
           boxTypeParcel: keyArrayParcel,
         });
+        if ((value = "")) {
+          this.setState({ validatedForm: false });
+        }
       });
     });
   };
 
-  handleCountryChangeD2dFreight = (event) => {
-    const { name, value } = event.target;
+  handleCountryChangeSeaAir = (event) => {
+    let { name, value } = event.target;
     this.setState({ [name]: value }, () => {
       if (this.state.sea) {
         this.props.getAllD2DRatesRedux("sea", this.state.shipFrom);
@@ -92,11 +129,19 @@ class SearchBar extends Component {
       if (this.state.air) {
         this.props.getAllD2DRatesRedux("air", this.state.shipFrom);
       }
+
+      if (value === "") {
+        this.setState({ validatedForm: false });
+      }
     });
   };
 
   handleSubmit = (event) => {
     event.preventDefault();
+    this.setState({ validatedForm: true }, () => {
+      document.getElementById("form-submit-button").click();
+    });
+
     const {
       expressRatesType,
       expressRatesParcelTo,
@@ -126,6 +171,7 @@ class SearchBar extends Component {
         const { allD2dRates } = this.props;
         const result = handleDoorToDoorSubmit(weight, productType, allD2dRates);
         this.props.setD2dResultRedux({
+          shipBy: this.state.sea ? "sea" : "air",
           shipFrom,
           weight,
           productType,
@@ -136,6 +182,7 @@ class SearchBar extends Component {
         handleFreightSubmit();
       }
     }
+    // this.initialState("air");
   };
 
   render() {
@@ -150,6 +197,17 @@ class SearchBar extends Component {
       color: "rgb(222 193 46)",
     };
 
+    const conditionals = {};
+    if (this.state.validatedForm) {
+      conditionals["data-toggle"] = "modal";
+    }
+
+    let d = new Date();
+    let year = d.getFullYear();
+    let month = d.getMonth() + 1;
+    let day = d.getDate();
+    const todayDate = `${year}-${month}-${day}`;
+    console.log(todayDate);
     return (
       <div className="searchbar-container-home">
         <h5 className="header-title-1">
@@ -216,13 +274,7 @@ class SearchBar extends Component {
                     this.state.freight ? freight.color : doorToDoor.color
                   }`,
                 }}
-                onClick={() =>
-                  this.setState({
-                    air: true,
-                    sea: false,
-                    express: false,
-                  })
-                }
+                onClick={() => this.initialState("air")}
               >
                 <i
                   className="icofont-airplane-alt"
@@ -235,20 +287,12 @@ class SearchBar extends Component {
                 Air
               </div>
             ) : (
-              <div
-                className="option"
-                onClick={() =>
-                  this.setState({
-                    air: true,
-                    sea: false,
-                    express: false,
-                  })
-                }
-              >
+              <div className="option" onClick={() => this.initialState("air")}>
                 <i className="icofont-airplane-alt"></i>
                 Air
               </div>
             )}
+
             <>
               {this.state.sea ? (
                 <div
@@ -261,13 +305,7 @@ class SearchBar extends Component {
                       this.state.freight ? freight.color : doorToDoor.color
                     }`,
                   }}
-                  onClick={() =>
-                    this.setState({
-                      air: false,
-                      sea: true,
-                      express: false,
-                    })
-                  }
+                  onClick={() => this.initialState("sea")}
                 >
                   <i
                     className="icofont-ship"
@@ -282,13 +320,7 @@ class SearchBar extends Component {
               ) : (
                 <div
                   className="option"
-                  onClick={() =>
-                    this.setState({
-                      air: false,
-                      sea: true,
-                      express: false,
-                    })
-                  }
+                  onClick={() => this.initialState("sea")}
                 >
                   <i className="icofont-ship"></i>Sea
                 </div>
@@ -302,13 +334,7 @@ class SearchBar extends Component {
                     color: express.color,
                     borderBottom: `4px solid ${express.color}`,
                   }}
-                  onClick={() =>
-                    this.setState({
-                      air: false,
-                      sea: false,
-                      express: true,
-                    })
-                  }
+                  onClick={() => this.initialState("express")}
                 >
                   <i
                     className="icofont-fast-delivery"
@@ -321,13 +347,7 @@ class SearchBar extends Component {
               ) : (
                 <div
                   className="option"
-                  onClick={() =>
-                    this.setState({
-                      air: false,
-                      sea: false,
-                      express: true,
-                    })
-                  }
+                  onClick={() => this.initialState("express")}
                 >
                   <i className="icofont-fast-delivery"></i>Express
                 </div>
@@ -459,7 +479,7 @@ class SearchBar extends Component {
                   ) : (
                     <select
                       style={{ border: "0px", marginTop: "7px" }}
-                      onChange={this.handleCountryChangeD2dFreight}
+                      onChange={this.handleCountryChangeSeaAir}
                       name="shipFrom"
                       value={this.state.shipFrom}
                       className="custom-select"
@@ -601,6 +621,8 @@ class SearchBar extends Component {
                           value={this.state.date}
                           className="form-control"
                           placeholder="Date"
+                          min={todayDate}
+                          max={todayDate}
                           required
                         />
                       </>
@@ -731,7 +753,7 @@ class SearchBar extends Component {
                                 }}
                               ></i>
                             </span>
-                            {this.state.express ? (
+                            {/* {this.state.express ? (
                               <input
                                 value={this.state.expressRatesParcelProductType}
                                 name="expressRatesParcelProductType"
@@ -760,7 +782,7 @@ class SearchBar extends Component {
                                 <option value="thailand">thailand</option>
                                 <option value="india">india</option>
                               </select>
-                            )}
+                            )} */}
                           </>
                         )}
                       </div>
@@ -809,10 +831,16 @@ class SearchBar extends Component {
                       ) : (
                         <input
                           type="number"
+                          min={0}
+                          step={0.01}
                           name="weight"
                           onChange={this.handleChange}
                           value={this.state.weight}
                           className="form-control"
+                          style={{
+                            background: "white",
+                            outlineColor: "white",
+                          }}
                           placeholder="Enter weight(kg)"
                           required
                         />
@@ -836,7 +864,11 @@ class SearchBar extends Component {
                           value={this.state.expressRatesParcelProductType}
                           name="expressRatesParcelProductType"
                           onChange={this.handleChange}
-                          style={{ marginBottom: "4px", outline: "0px" }}
+                          style={{
+                            marginBottom: "4px",
+                            outline: "0px",
+                            backgroundColor: "white",
+                          }}
                           placeholder="Enter Product Name"
                           type="text"
                           required
@@ -844,7 +876,7 @@ class SearchBar extends Component {
                       ) : (
                         <select
                           style={{ border: "0px", marginTop: "7px" }}
-                          onChange={this.handleCountryChangeD2dFreight}
+                          onChange={this.handleChange}
                           name="productType"
                           value={this.state.productType}
                           className="custom-select"
@@ -852,7 +884,7 @@ class SearchBar extends Component {
                         >
                           <option value="">Select Product Type</option>
                           {this.props.allD2dRates.map((productType) => (
-                            <option value={productType.id}>
+                            <option value={productType.id} key={productType.id}>
                               {productType.id}
                             </option>
                           ))}
@@ -862,7 +894,9 @@ class SearchBar extends Component {
                   </>
                 )}
                 <button
-                  data-toggle="modal"
+                  // data-toggle={this.state.validatedForm ? "modal" : ""}
+                  {...conditionals}
+                  id="form-submit-button"
                   data-target={
                     !this.state.express
                       ? this.state.doorToDoor

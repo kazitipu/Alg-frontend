@@ -4,6 +4,9 @@ import {
   createUserProfileDocument,
 } from "../components/firebase/firebase.utils";
 import { withRouter } from "react-router-dom";
+import { toast } from "react-toastify";
+import { connect } from "react-redux";
+
 class SignUpModal extends Component {
   constructor() {
     super();
@@ -27,7 +30,6 @@ class SignUpModal extends Component {
       password,
       confirmPassword,
     } = this.state;
-
     if (password !== confirmPassword) {
       alert("passwords don't match");
       return;
@@ -39,7 +41,15 @@ class SignUpModal extends Component {
         password
       );
 
-      await createUserProfileDocument(user, { displayName, mobileNo });
+      const userRef = await createUserProfileDocument(user, {
+        displayName,
+        mobileNo,
+      });
+      const snapShot = await userRef.get();
+      if (snapShot.data().displayName !== "") {
+        toast.success("Successfully created your account");
+        document.getElementById("modal-close-icon-signup").click();
+      }
 
       this.setState({
         displayName: "",
@@ -56,6 +66,9 @@ class SignUpModal extends Component {
       this.props.history.push("/");
     } catch (error) {
       alert(error);
+      toast.warn(
+        "there was an erro occurred creating your account. try again later"
+      );
     }
   };
 
@@ -95,6 +108,7 @@ class SignUpModal extends Component {
                       className="close"
                       data-dismiss="modal"
                       aria-label="Close"
+                      id="modal-close-icon-signup"
                     >
                       <i className="icofont-close-line"></i>
                     </a>
@@ -125,7 +139,6 @@ class SignUpModal extends Component {
                           </h2>
                           <form
                             onSubmit={this.handleSubmit}
-                            noValidate="novalidate"
                             className="rounded-field"
                           >
                             <div className="form-row mb-4">
@@ -155,6 +168,7 @@ class SignUpModal extends Component {
                                   className="form-control input-field-70"
                                   placeholder="Enter your Name"
                                   onChange={this.handleChange}
+                                  required
                                 />
                               </div>
                             </div>
@@ -167,6 +181,7 @@ class SignUpModal extends Component {
                                   className="form-control input-field-70"
                                   placeholder="Enter your Mobile No"
                                   onChange={this.handleChange}
+                                  required
                                 />
                               </div>
                             </div>
@@ -179,6 +194,7 @@ class SignUpModal extends Component {
                                   className="form-control input-field-70"
                                   placeholder="Enter your Email"
                                   onChange={this.handleChange}
+                                  required
                                 />
                               </div>
                             </div>
@@ -196,6 +212,7 @@ class SignUpModal extends Component {
                                   className="form-control input-field-70"
                                   placeholder="Enter your Password"
                                   onChange={this.handleChange}
+                                  required
                                 />
                               </div>
                             </div>
@@ -213,6 +230,7 @@ class SignUpModal extends Component {
                                   className="form-control input-field-70"
                                   placeholder="Confirm Password"
                                   onChange={this.handleChange}
+                                  required
                                 />
                               </div>
                             </div>
@@ -220,8 +238,8 @@ class SignUpModal extends Component {
                               <div className="col pt-2">
                                 <button
                                   type="submit"
+                                  id="sign-up-button"
                                   className="form-btn btn-theme bg-orange"
-                                  data-dismiss="modal"
                                 >
                                   Sign up
                                   <i className="icofont-rounded-right"></i>
@@ -242,4 +260,10 @@ class SignUpModal extends Component {
     );
   }
 }
-export default withRouter(SignUpModal);
+
+const mapStateToProps = (state) => {
+  return {
+    currentUser: state.currentUser.currentUser,
+  };
+};
+export default withRouter(connect(mapStateToProps, null)(SignUpModal));

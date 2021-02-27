@@ -16,7 +16,6 @@ class App extends Component {
   componentDidMount = async () => {
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
-        toast.success("You are successfully logged in.");
         const userRef = await createUserProfileDocument(userAuth);
 
         userRef.onSnapshot((snapShot) => {

@@ -254,7 +254,7 @@ class SearchSubmitModalFreight extends Component {
                       </div>
 
                       <div className="col-md-7 col-12">
-                        <div className="px-3 m-5">
+                        <div className="px-3 m-4">
                           <h2
                             className="h2-xl fw-6"
                             style={{

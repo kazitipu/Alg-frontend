@@ -25,6 +25,7 @@ class LoginModal extends Component {
 
     try {
       await auth.signInWithEmailAndPassword(email, password);
+      document.getElementById("modal-close-icon-login").click();
       this.setState({ email: "", password: "" });
       // if (this.props.history.location.state) {
       //   this.props.history.push(this.props.history.location.state.from);
@@ -86,6 +87,7 @@ class LoginModal extends Component {
                       className="close"
                       data-dismiss="modal"
                       aria-label="Close"
+                      id="modal-close-icon-login"
                     >
                       <i className="icofont-close-line"></i>
                     </a>
@@ -116,7 +118,6 @@ class LoginModal extends Component {
                           </h2>
                           <form
                             onSubmit={this.handleSubmit}
-                            noValidate="novalidate"
                             className="rounded-field"
                           >
                             <div className="form-row mb-4">
@@ -146,6 +147,7 @@ class LoginModal extends Component {
                                   className="form-control input-field-70"
                                   placeholder="Enter your Email"
                                   onChange={this.handleChange}
+                                  required
                                 />
                               </div>
                             </div>
@@ -163,6 +165,7 @@ class LoginModal extends Component {
                                   className="form-control input-field-70"
                                   placeholder="Enter your Password"
                                   onChange={this.handleChange}
+                                  required
                                 />
                               </div>
                             </div>
