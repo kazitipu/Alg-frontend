@@ -12,7 +12,7 @@ import {
 } from "react-feather";
 import CountUp from "react-countup";
 import { Chart } from "react-google-charts";
-import CanvasJSReact from "../assets/canvas/canvasjs.react";
+import CanvasJSReact from "./assets/canvas/canvasjs.react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
@@ -24,13 +24,13 @@ import {
   buyOption,
   employeeData,
   employeeOptions,
-} from "../constants/chartData";
+} from "./constants/chartData";
 // image import
-import user2 from "../assets/images/dashboard/user2.jpg";
-import user1 from "../assets/images/dashboard/user1.jpg";
-import man from "../assets/images/dashboard/man.jpg";
-import user from "../assets/images/dashboard/user.png";
-import designer from "../assets/images/dashboard/designer.jpg";
+import user2 from "./assets/images/dashboard/user2.jpg";
+import user1 from "./assets/images/dashboard/user1.jpg";
+import man from "./assets/images/dashboard/man.jpg";
+import user from "./assets/images/dashboard/user.png";
+import designer from "./assets/images/dashboard/designer.jpg";
 var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 

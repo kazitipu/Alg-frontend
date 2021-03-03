@@ -3,7 +3,7 @@ import { Link, withRouter } from "react-router-dom";
 // import {auth} from '../../../firebase/firebase.utils'
 import { connect } from "react-redux";
 //images import
-import man from "../../../assets/images/dashboard/user2.jpg";
+import man from "../../assets/images/dashboard/user2.jpg";
 export class User_menu extends Component {
   render() {
     const { currentAdmin } = this.props;

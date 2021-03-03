@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { auth } from "./firebase/firebase.utils";
-// comments for checking githum username
+
 const Header = (props) => {
   return (
     <>
@@ -178,7 +178,7 @@ const Header = (props) => {
                       <li style={{ display: "block" }}>
                         <Link
                           className="dropdown-item"
-                          to={`${process.env.PUBLIC_URL}/contact`}
+                          to={`${process.env.PUBLIC_URL}/user/${props.currentUser.uid}`}
                         >
                           <i className="icofont-dashboard-web"></i>&nbsp;My
                           Dashboard

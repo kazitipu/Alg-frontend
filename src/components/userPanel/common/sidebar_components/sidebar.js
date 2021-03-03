@@ -1,11 +1,11 @@
 import React, { Component, Fragment } from "react";
 import User_panel from "./user-panel";
 import { Link } from "react-router-dom";
-import { MENUITEMSFORUSER } from "../../../constants/menu";
+import { MENUITEMSFORUSER } from "../../constants/menu";
 import { connect } from "react-redux";
 
 // image import
-import logo from "../../../assets/images/dashboard/14.png";
+import logo from "../../assets/images/dashboard/14.png";
 // import { mapStateToProps } from '../header_components/user-menu';
 
 export class sidebar extends Component {

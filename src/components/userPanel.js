@@ -1,11 +1,12 @@
 import React, { Component } from "react";
-import Sidebar from "./common/sidebar_components/sidebar";
-import Right_sidebar from "./common/right-sidebar";
-import Footer from "./common/footer";
-import Header from "./common/header_components/header";
-import Dashboard from "./dashboard";
+import Sidebar from "./userPanel/common/sidebar_components/sidebar";
+import Right_sidebar from "./userPanel/common/right-sidebar";
+import Footer from "./userPanel/common/footer";
+import Header from "./userPanel/common/header_components/header";
+
 import { connect } from "react-redux";
 import "../index.scss";
+
 export class UserPanel extends Component {
   constructor(props) {
     super(props);
@@ -15,7 +16,9 @@ export class UserPanel extends Component {
     };
   }
 
-  componentDidMount = async () => {};
+  componentDidMount = async () => {
+    console.log(this.props.children);
+  };
   ChangeRtl(divName) {
     if (divName === "RTL") {
       document.body.classList.add("rtl");
@@ -33,9 +36,7 @@ export class UserPanel extends Component {
           <div className="page-body-wrapper">
             <Sidebar />
             <Right_sidebar />
-            <div className="page-body">
-              <Dashboard />
-            </div>
+            <div className="page-body">{this.props.children}</div>
             <Footer />
           </div>
         </div>
@@ -49,5 +50,9 @@ export class UserPanel extends Component {
     );
   }
 }
-
-export default connect(null)(UserPanel);
+const mapStateToProps = (state) => {
+  return {
+    currentUser: state.currentUser.currentUser,
+  };
+};
+export default connect(mapStateToProps, {})(UserPanel);

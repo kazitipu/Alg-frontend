@@ -7,6 +7,7 @@ import {
   getAllD2DRatesRedux,
   setExpressResultRedux,
   setD2dResultRedux,
+  setFreightResultRedux,
 } from "../../../../actions/index";
 import {
   handleExpressSubmit,
@@ -159,10 +160,12 @@ class SearchBar extends Component {
         allExpressRatesDocument
       );
       this.props.setExpressResultRedux({
+        shipmentMethod: "Express",
         parcelType: expressRatesType,
         parcelBox: expressRatesParcelWeightType,
         productName: expressRatesParcelProductType,
         parcelTo: expressRatesParcelTo,
+        bookingStatus: "Pending",
         total: result,
       });
     } else {
@@ -172,14 +175,24 @@ class SearchBar extends Component {
         const result = handleDoorToDoorSubmit(weight, productType, allD2dRates);
         this.props.setD2dResultRedux({
           shipBy: this.state.sea ? "sea" : "air",
+          shipmentMethod: "D2D",
           shipFrom,
           weight,
           productType,
+          bookingStatus: "Pending",
           ...result,
         });
       }
       if (this.state.freight) {
-        handleFreightSubmit();
+        const { shipFrom, containerType, date } = this.state;
+        this.props.setFreightResultRedux({
+          shipBy: this.state.sea ? "sea" : "air",
+          shipmentMethod: "Freight",
+          shipFrom,
+          containerType,
+          date,
+          bookingStatus: "Pending",
+        });
       }
     }
     // this.initialState("air");
@@ -894,16 +907,6 @@ class SearchBar extends Component {
                   </>
                 )}
                 <button
-                  // data-toggle={this.state.validatedForm ? "modal" : ""}
-                  {...conditionals}
-                  id="form-submit-button"
-                  data-target={
-                    !this.state.express
-                      ? this.state.doorToDoor
-                        ? "#request_search_submit_popup_door_to_door"
-                        : "#request_search_submit_popup_freight"
-                      : "#request_search_submit_popup_door_to_door"
-                  }
                   type="submit"
                   className="logo-input-container search-button"
                   style={{
@@ -937,6 +940,17 @@ class SearchBar extends Component {
               </div>
             </form>
           </div>
+          <div
+            {...conditionals}
+            id="form-submit-button"
+            data-target={
+              !this.state.express
+                ? this.state.doorToDoor
+                  ? "#request_search_submit_popup_door_to_door"
+                  : "#request_search_submit_popup_freight"
+                : "#request_search_submit_popup_door_to_door"
+            }
+          ></div>
         </div>
       </div>
     );
@@ -952,5 +966,6 @@ export default connect(mapStateToProps, {
   getAllExpressRatesDocumentRedux,
   setExpressResultRedux,
   setD2dResultRedux,
+  setFreightResultRedux,
   getAllD2DRatesRedux,
 })(SearchBar);

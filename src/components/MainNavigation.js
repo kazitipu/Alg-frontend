@@ -1,5 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Redirect,
+  Switch,
+} from "react-router-dom";
 import HomeOne from "./home/homeOne";
 import HomeThree from "./home/homeThree";
 import NotFound from "./pages/notfound";
@@ -20,14 +25,21 @@ import ContactusOption from "./contact/contactusoption";
 import BlogGrid from "./blog/bloggrid";
 import BlogSingle from "./blog/blogsingle";
 import UserPanel from "./userPanel";
+import { connect } from "react-redux";
 
-function MainNavigation() {
+// user panel
+import Dashboard from "./userPanel/dashboard";
+import MyBooking from "./userPanel/myBooking/myBooking";
+import MyParcel from "./userPanel/myParcel/myParcel";
+
+const MainNavigation = (props) => {
+  const { currentUser } = props;
   return (
     <Router basename={"/"}>
       <Switch>
         <Route path="/" exact component={HomeThree} />
         <Route path="/home-one" exact component={HomeOne} />
-        <Route path="/user/:userId" exact component={UserPanel} />
+
         <Route path="/pricing" exact component={Pricing} />
         <Route path="/requestquote" exact component={RequestQuote} />
         <Route path="/shortcodes" exact component={ShortCodes} />
@@ -45,11 +57,38 @@ function MainNavigation() {
         <Route path="/projectgrid" exact component={ProjectGrid} />
         <Route path="/projectmasonary" exact component={ProjectMasonary} />
         <Route path="/projectsingle" exact component={ProjectSingle} />
+        <UserPanel>
+          <Route
+            path="/user/:userId"
+            exact
+            component={() =>
+              currentUser.displayName ? <Dashboard /> : <Redirect to="/" />
+            }
+          />
+          <Route
+            path="/user-my-booking"
+            exact
+            component={() =>
+              currentUser.displayName ? <MyBooking /> : <Redirect to="/" />
+            }
+          />
+          <Route
+            path="/user-my-parcel"
+            exact
+            component={() =>
+              currentUser.displayName ? <MyParcel /> : <Redirect to="/" />
+            }
+          />
+        </UserPanel>
         {/** invalid routes redirection */}
         <Route component={NotFound} />
       </Switch>
     </Router>
   );
-}
-
-export default MainNavigation;
+};
+const mapStateToProps = (state) => {
+  return {
+    currentUser: state.currentUser.currentUser,
+  };
+};
+export default connect(mapStateToProps)(MainNavigation);

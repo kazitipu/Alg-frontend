@@ -50,7 +50,12 @@ export const setD2dResultRedux = (result) => {
     payload: result,
   };
 };
-
+export const setFreightResultRedux = (result) => {
+  return {
+    type: "SET_FREIGHT_RESULT",
+    payload: result,
+  };
+};
 export const setBookingRequestRedux = (bookingObj) => async (dispatch) => {
   const uploadedBookingObj = await setBookingRequest(bookingObj);
   dispatch({

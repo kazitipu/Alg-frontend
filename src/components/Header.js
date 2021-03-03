@@ -210,7 +210,7 @@ const Header = (props) => {
                       <li style={{ display: "block" }}>
                         <Link
                           className="dropdown-item"
-                          to={`${process.env.PUBLIC_URL}/contact`}
+                          to={`${process.env.PUBLIC_URL}/user/${props.currentUser.uid}`}
                         >
                           <i className="icofont-dashboard-web"></i>&nbsp;My
                           Dashboard

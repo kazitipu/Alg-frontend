@@ -13,7 +13,7 @@ import {
 import { connect } from "react-redux";
 
 //images
-import logo from "../../../assets/images/dashboard/14.png";
+import logo from "../../assets/images/dashboard/14.png";
 
 export class Header extends Component {
   constructor(props) {

@@ -1,6 +1,65 @@
 import React, { Component } from "react";
-
+import { toast } from "react-toastify";
+import { connect } from "react-redux";
+import { setBookingRequestRedux } from "../actions/index";
 class SearchSubmitModalFreight extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      productName: "",
+      totalWeight: "",
+      ctnQuantity: "",
+      ctnHeight: "",
+      ctnWidth: "",
+      ctnLength: "",
+      productContains: "",
+      productBrand: "",
+    };
+  }
+
+  handleChange = (event) => {
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
+  };
+
+  handleSubmit = async (event) => {
+    event.preventDefault();
+    if (this.props.currentUser.displayName === "") {
+      alert("Please log in to your account to request a booking");
+      document.getElementById("modal-close-icon-freight").click();
+      return;
+    } else {
+      let totalCbm =
+        ((this.state.ctnHeight * this.state.ctnWidth * this.state.ctnLength) /
+          1000000) *
+        this.state.ctnQuantity;
+      console.log(totalCbm);
+      let chargeableWeight = totalCbm * 167;
+      console.log(chargeableWeight);
+      await this.props.setBookingRequestRedux({
+        userId: this.props.currentUser.uid,
+        totalCbm,
+        chargeableWeight,
+        ...this.state,
+        ...this.props.result,
+      });
+      toast.success(
+        "your booking request is Pending. Our agent will confirm your booking soon"
+      );
+      document.getElementById("modal-close-icon-freight").click();
+    }
+    this.setState({
+      productName: "",
+      totalWeight: "",
+      ctnQuantity: "",
+      ctnHeight: "",
+      ctnWidth: "",
+      ctnLength: "",
+      productContains: "",
+      productBrand: "",
+    });
+  };
+
   render() {
     return (
       <>
@@ -20,6 +79,7 @@ class SearchSubmitModalFreight extends Component {
                 <section className="pos-rel bg-light-gray">
                   <div className="container-fluid p-0">
                     <a
+                      id="modal-close-icon-freight"
                       href="#"
                       className="close search-submit-modal-close"
                       data-dismiss="modal"
@@ -41,7 +101,7 @@ class SearchSubmitModalFreight extends Component {
                         style={{ padding: "10px", backgroundColor: "darkblue" }}
                       >
                         <div className="row mt-5 search-submit-modal-header-1">
-                          Choose your preferred shipping line
+                          Our preferred shipping line
                         </div>
                         <div className="row mt-3">
                           <div className="col">
@@ -76,7 +136,6 @@ class SearchSubmitModalFreight extends Component {
                             className="col sea-logo-container"
                             style={{
                               backgroundImage: "url(../images/sea-logos/4.png)",
-                              border: "2px solid red",
                             }}
                           ></div>
                           <div
@@ -98,7 +157,6 @@ class SearchSubmitModalFreight extends Component {
                             className="col sea-logo-container"
                             style={{
                               backgroundImage: "url(../images/sea-logos/7.png)",
-                              border: "2px solid red",
                             }}
                           ></div>
                           <div
@@ -118,7 +176,6 @@ class SearchSubmitModalFreight extends Component {
                             style={{
                               backgroundImage:
                                 "url(../images/sea-logos/10.png)",
-                              border: "2px solid red",
                             }}
                           ></div>
                         </div>
@@ -136,7 +193,6 @@ class SearchSubmitModalFreight extends Component {
                             style={{
                               backgroundImage:
                                 "url(../images/sea-logos/12.png)",
-                              border: "2px solid red",
                             }}
                           ></div>
                           <div
@@ -158,7 +214,6 @@ class SearchSubmitModalFreight extends Component {
                             style={{
                               backgroundImage:
                                 "url(../images/sea-logos/15.png)",
-                              border: "2px solid red",
                             }}
                           ></div>
                         </div>
@@ -211,7 +266,7 @@ class SearchSubmitModalFreight extends Component {
                                   marginBottom: "0px",
                                 }}
                               >
-                                You choosed
+                                We are partnered with
                               </span>
                             </div>
                           </div>
@@ -266,9 +321,7 @@ class SearchSubmitModalFreight extends Component {
                             Detail information
                           </h2>
                           <form
-                            action="#"
-                            method="post"
-                            noValidate="novalidate"
+                            onSubmit={this.handleSubmit}
                             className="rounded-field freight-modal-form"
                           >
                             <div className="form-row mb-4">
@@ -290,25 +343,31 @@ class SearchSubmitModalFreight extends Component {
                             <div className="form-row mb-2">
                               <div className="col">
                                 <div className="form-row mb-1">
-                                  Product type:
+                                  Product Name:
                                 </div>
                                 <input
                                   type="text"
-                                  name="name"
+                                  name="productName"
+                                  value={this.state.productName}
+                                  onChange={this.handleChange}
                                   className="form-control"
                                   placeholder="enter product name"
+                                  required
                                 />
                               </div>
                               <div className="col">
                                 <div className="form-row mb-1">
-                                  Product Weight:
+                                  Total Weight:
                                 </div>
                                 <div className="form-row">
                                   <input
                                     type="text"
-                                    name="name"
+                                    name="totalWeight"
+                                    value={this.state.totalWeight}
+                                    onChange={this.handleChange}
                                     className="form-control"
-                                    placeholder="product weight (kg)"
+                                    placeholder="total approx weight (kg)"
+                                    required
                                   />
                                 </div>
                               </div>
@@ -323,9 +382,12 @@ class SearchSubmitModalFreight extends Component {
                                     padding: "20px",
                                   }}
                                   type="number"
-                                  name="name"
+                                  name="ctnQuantity"
+                                  value={this.state.ctnQuantity}
+                                  onChange={this.handleChange}
                                   className="form-control"
                                   placeholder="carton quantity"
+                                  required
                                 />
                               </div>
                             </div>
@@ -334,12 +396,15 @@ class SearchSubmitModalFreight extends Component {
                               <div className="col">
                                 <input
                                   type="text"
-                                  name="name"
+                                  name="ctnHeight"
+                                  value={this.state.ctnHeight}
+                                  onChange={this.handleChange}
                                   className="form-control"
                                   placeholder="height (cm)"
                                   style={{
                                     borderRadius: "10rem",
                                   }}
+                                  required
                                 />
                               </div>
                               <div
@@ -354,12 +419,15 @@ class SearchSubmitModalFreight extends Component {
                               <div className="col">
                                 <input
                                   type="text"
-                                  name="name"
+                                  name="ctnWidth"
+                                  value={this.state.ctnWidth}
+                                  onChange={this.handleChange}
                                   className="form-control"
                                   placeholder="width (cm)"
                                   style={{
                                     borderRadius: "10rem",
                                   }}
+                                  required
                                 />
                               </div>
                               <div
@@ -374,12 +442,15 @@ class SearchSubmitModalFreight extends Component {
                               <div className="col">
                                 <input
                                   type="text"
-                                  name="name"
+                                  name="ctnLength"
+                                  value={this.state.ctnLength}
+                                  onChange={this.handleChange}
                                   className="form-control"
                                   placeholder="length (cm)"
                                   style={{
                                     borderRadius: "10rem",
                                   }}
+                                  required
                                 />
                               </div>
                               <div
@@ -397,24 +468,43 @@ class SearchSubmitModalFreight extends Component {
                                   display: "flex",
                                   flexDirection: "column",
                                   justifyContent: "center",
-                                  padding: "10px",
+                                  padding: "0px 10px",
                                   backgroundColor: "white",
                                   border: "1px solid lightgray",
                                   borderRadius: "10rem",
-                                  marginLeft: "5px",
                                 }}
                               >
-                                3 CBM
+                                {((this.state.ctnHeight *
+                                  this.state.ctnWidth *
+                                  this.state.ctnLength) /
+                                  1000000) *
+                                  this.state.ctnQuantity}
+                                CBM
                               </div>
                             </div>
+                            <div className="form-row">Chargeable Weight</div>
                             <div className="form-row mb-2">
                               <div className="col">
-                                <input
-                                  type="text"
-                                  name="name"
-                                  className="form-control"
-                                  placeholder="chargeable weight (kg)"
-                                />
+                                <div
+                                  style={{
+                                    color: "gray",
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    justifyContent: "center",
+                                    padding: "10px 10px",
+                                    backgroundColor: "white",
+                                    border: "1px solid lightgray",
+                                    borderRadius: "10rem",
+                                  }}
+                                >
+                                  {((this.state.ctnHeight *
+                                    this.state.ctnWidth *
+                                    this.state.ctnLength) /
+                                    1000000) *
+                                    this.state.ctnQuantity *
+                                    167}
+                                  Kg
+                                </div>
                               </div>
                             </div>
 
@@ -569,52 +659,46 @@ class SearchSubmitModalFreight extends Component {
                             </div>
 
                             <div
-                              className="form-row mb-4"
+                              className="row"
                               style={{
                                 display: "flex",
                                 flexDirection: "row",
                                 justifyContent: "space-around",
                               }}
                             >
-                              <div className="colo">
-                                <div className="form-row">
-                                  <span style={{ marginRight: "5px" }}>
-                                    <i className="icofont-square"></i>
-                                  </span>
-                                  Liquid
+                              <div>
+                                <div className="form-row mb-1">
+                                  Product contains:
                                 </div>
                                 <div className="form-row">
-                                  <span style={{ marginRight: "5px" }}>
-                                    <i className="icofont-square"></i>
-                                  </span>
-                                  Battery
-                                </div>
-                                <div className="form-row">
-                                  <span style={{ marginRight: "5px" }}>
-                                    <i className="icofont-tick-boxed"></i>
-                                  </span>
-                                  Chemical
-                                </div>
-                                <div className="form-row">
-                                  <span style={{ marginRight: "5px" }}>
-                                    <i className="icofont-square"></i>
-                                  </span>
-                                  None
+                                  <select
+                                    className="custom-select"
+                                    name="productContains"
+                                    value={this.state.productContains}
+                                    onChange={this.handleChange}
+                                    required
+                                  >
+                                    <option value="liquid">liquid</option>
+                                    <option value="chemical">chemical</option>
+                                    <option value="battery">battery</option>
+                                    <option value="none">none</option>
+                                  </select>
                                 </div>
                               </div>
-                              <div className="colo">
-                                <div className="form-row">
-                                  <span style={{ marginRight: "5px" }}>
-                                    <i className="icofont-square"></i>
-                                  </span>
-                                  Brand
+                              <div>
+                                <div className="form-row mb-1">
+                                  Brand/non-brand
                                 </div>
-                                <div className="form-row">
-                                  <span style={{ marginRight: "5px" }}>
-                                    <i className="icofont-tick-boxed"></i>
-                                  </span>
-                                  Non Brand
-                                </div>
+                                <select
+                                  name="productBrand"
+                                  value={this.state.productBrand}
+                                  onChange={this.handleChange}
+                                  required
+                                  className="custom-select"
+                                >
+                                  <option value="Brand">Brand</option>
+                                  <option value="Non Brand">Non Brand</option>
+                                </select>
                               </div>
                             </div>
                             <div
@@ -626,6 +710,7 @@ class SearchSubmitModalFreight extends Component {
                             >
                               <button
                                 className="btn"
+                                type="submit"
                                 style={{
                                   background: "#0000de",
                                   color: "white",
@@ -650,4 +735,13 @@ class SearchSubmitModalFreight extends Component {
     );
   }
 }
-export default SearchSubmitModalFreight;
+const mapStateToProps = (state) => {
+  return {
+    result: state.result.result,
+    searchType: state.result.searchType,
+    currentUser: state.currentUser.currentUser,
+  };
+};
+export default connect(mapStateToProps, { setBookingRequestRedux })(
+  SearchSubmitModalFreight
+);

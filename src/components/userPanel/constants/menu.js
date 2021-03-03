@@ -44,18 +44,25 @@ export const MENUITEMSFORUSER = [
     path: "/user/user1-edit-profile",
   },
   {
-    title: "My Parcel",
-    icon: Box,
-    type: "link",
-    active: false,
-    path: "/user/user1-my-parcel",
-  },
-  {
     title: "My Bookings",
     icon: Clipboard,
     type: "link",
     active: false,
-    path: "/user/user1-my-parcel",
+    path: "/user-my-booking",
+  },
+  {
+    title: "My Parcel",
+    icon: Box,
+    type: "link",
+    active: false,
+    path: "/user-my-parcel",
+  },
+  {
+    title: "My Invoice",
+    path: "/user/user1-invoice",
+    icon: Archive,
+    type: "link",
+    active: false,
   },
   {
     title: "My Payments",
@@ -77,14 +84,6 @@ export const MENUITEMSFORUSER = [
     type: "link",
     active: false,
     path: "/user/user1-my-refund",
-  },
-
-  {
-    title: "My Invoice",
-    path: "/user/user1-invoice",
-    icon: Archive,
-    type: "link",
-    active: false,
   },
   {
     title: "Terms & Condition",
