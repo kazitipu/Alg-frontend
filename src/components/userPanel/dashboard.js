@@ -347,7 +347,7 @@ export class Dashboard extends Component {
                                       Tk {order.paymentStatus.total}
                                     </td>
                                     <td className="font-danger">
-                                      {order.otherInformation.first_name}{" "}
+                                      {order.otherInformation.first_name}
                                       {order.otherInformation.last_name}
                                     </td>
                                     <td className="font-danger">
@@ -355,7 +355,7 @@ export class Dashboard extends Component {
                                     </td>
                                   </tr>
                                 ))
-                            : ""}
+                            : null}
                         </tbody>
                       ) : (
                         <tbody>
@@ -377,7 +377,7 @@ export class Dashboard extends Component {
                                       Tk {order.paymentStatus.total}
                                     </td>
                                     <td className="font-danger">
-                                      {order.otherInformation.first_name}{" "}
+                                      {order.otherInformation.first_name}
                                       {order.otherInformation.last_name}
                                     </td>
                                     <td className="font-danger">
@@ -385,7 +385,7 @@ export class Dashboard extends Component {
                                     </td>
                                   </tr>
                                 ))
-                            : ""}
+                            : null}
                         </tbody>
                       )}
                     </table>
@@ -772,7 +772,7 @@ export class Dashboard extends Component {
                                     )}
                                   </tr>
                                 ))
-                            : ""}
+                            : null}
                         </tbody>
                       ) : (
                         <tbody>
@@ -802,7 +802,7 @@ export class Dashboard extends Component {
                                     )}
                                   </tr>
                                 ))
-                            : ""}
+                            : null}
                         </tbody>
                       )}
                     </table>
@@ -847,7 +847,7 @@ export class Dashboard extends Component {
                                     />
                                     <div className="d-inline-block">
                                       <h6>
-                                        {admin.name}{" "}
+                                        {admin.name}
                                         <span className="text-muted digits">
                                           (
                                           {
@@ -904,7 +904,7 @@ export class Dashboard extends Component {
                                 <td className="digits">2 Year</td>
                               </tr>
                             ))
-                          : ""}
+                          : null}
                       </tbody>
                     </table>
                   </div>

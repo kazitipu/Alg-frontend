@@ -1,0 +1,21 @@
+.rt-td div {
+  padding: 0px;
+}
+
+@media (max-width: 575px) {
+  .request_popup .other_information_modal_close {
+    color: orange !important;
+    top: -30px !important;
+    right: 10px !important;
+  }
+
+  .other-information-header-title {
+    margin-top: 40px !important;
+  }
+}
+
+.form-check {
+  display: flex;
+  color: gray;
+  margin-left: 20px !important;
+}

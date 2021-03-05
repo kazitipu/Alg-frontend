@@ -43,6 +43,7 @@ export class UserPanel extends Component {
         <div
           className="btn-light custom-theme"
           onClick={() => this.ChangeRtl(this.state.divName)}
+          style={{ display: "none" }}
         >
           {this.state.divName}
         </div>

@@ -63,3 +63,10 @@ export const setBookingRequestRedux = (bookingObj) => async (dispatch) => {
     payload: uploadedBookingObj,
   });
 };
+
+export const setParcelObj = (parcelObj) => {
+  return {
+    type: "SET_PARCEL_OBJ",
+    payload: parcelObj,
+  };
+};

@@ -6,7 +6,6 @@ import Datatable from "./myParcelDatatable";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { Search } from "react-feather";
-
 export class MyParcel extends Component {
   constructor(props) {
     super(props);
@@ -88,7 +87,7 @@ export class MyParcel extends Component {
                             name="searchFor"
                             value={this.state.searchFor}
                             type="search"
-                            placeholder="Search lot"
+                            placeholder="Search Parcel"
                             onChange={this.handleChange}
                           />
                           <span
@@ -108,6 +107,13 @@ export class MyParcel extends Component {
                       </form>
                     </li>
                   </div>
+                </div>
+                <div style={{ color: "red", padding: "0px 10px" }}>
+                  ***অবশ্যই অবশ্যই আপনার পার্সেল এর দাম আপডেট করুন।
+                  প্যাকেজিং,লোকাল ডেলিভারী,ইন্সুরেন্স এ যাবতীয় সার্ভিস নিতে
+                  টেবিলের শেষের কলামটিতে ক্লিক করুন । পার্সেল ডাবল চেক করুন এবং
+                  পার্সেল এর তথ্যে কোন ভুল থাকলে তা Additional information তে
+                  উল্ল্যেখ করুন । ধন্যবাদ{" "}
                 </div>
                 <div className="card-body">
                   <div className="clearfix"></div>

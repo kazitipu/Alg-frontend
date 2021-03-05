@@ -11,7 +11,7 @@ import setD2DRatesReducer from "./d2dRates";
 import setResultReducer from "./ratesResult";
 import setBookingRequestReducer from "./bookingRequest";
 import setAdminsReducer from "./admins";
-
+import setParcelObj from "./setParcelObj";
 const rootReducer = combineReducers({
   currentUser: setCurrentUserReducer,
   lots: setLotsReducer,
@@ -25,6 +25,7 @@ const rootReducer = combineReducers({
   result: setResultReducer,
   bookingRequests: setBookingRequestReducer,
   admins: setAdminsReducer,
+  parcelObj: setParcelObj,
 });
 
 export default rootReducer;
