@@ -7,6 +7,7 @@ import { withRouter } from "react-router-dom";
 import { toast } from "react-toastify";
 import { connect } from "react-redux";
 import "./OtherInformationModal.css";
+import { updateMyParcelArrayOfUser } from "../../../actions/index";
 class OtherInformationModal extends Component {
   constructor() {
     super();
@@ -19,18 +20,7 @@ class OtherInformationModal extends Component {
       insurance: "",
     };
   }
-
-  handleSubmit = async (event) => {
-    event.preventDefault();
-
-    const {
-      productsValue,
-      packagingChosed,
-      deliveryAddress,
-      problem,
-      insurance,
-    } = this.state;
-
+  componentWillUnmount = () => {
     this.setState({
       productsValue: "",
       packagingChosed: "",
@@ -44,6 +34,36 @@ class OtherInformationModal extends Component {
     const { name, value } = event.target;
 
     this.setState({ [name]: value });
+  };
+
+  handleSubmit = async (e) => {
+    e.preventDefault();
+    const {
+      productsValue,
+      packagingChosed,
+      deliveryAddress,
+      problem,
+      insurance,
+    } = this.state;
+    const { parcelObj, updateMyParcelArrayOfUser } = this.props;
+    await updateMyParcelArrayOfUser({
+      ...parcelObj,
+      ...this.state,
+      editRequested: true,
+      editApproved: false,
+    });
+
+    // document.getElementById("modal-close-icon-other-information").click();
+  };
+
+  componentWillUnmount = () => {
+    this.setState({
+      productsValue: "",
+      packagingChosed: "",
+      deliveryAddress: "",
+      problem: "",
+      insurance: "",
+    });
   };
 
   render() {
@@ -81,7 +101,7 @@ class OtherInformationModal extends Component {
                       className="close other_information_modal_close"
                       data-dismiss="modal"
                       aria-label="Close"
-                      id="modal-close-icon-signup"
+                      id="modal-close-icon-other-information"
                     >
                       <i className="icofont-close-line"></i>
                     </a>
@@ -174,7 +194,6 @@ class OtherInformationModal extends Component {
                                       name="email"
                                       value={parcelObj.packaging}
                                       className="form-control"
-                                      required
                                       readOnly
                                     />
                                   </div>
@@ -188,7 +207,6 @@ class OtherInformationModal extends Component {
                                       name="email"
                                       value={parcelObj.packagingCost}
                                       className="form-control"
-                                      required
                                       readOnly
                                     />
                                   </div>
@@ -250,8 +268,8 @@ class OtherInformationModal extends Component {
                                       className="form-check-input"
                                       name="insurance"
                                       type="checkbox"
-                                      value="No Insurance"
-                                      checked={insurance === "No Insurance"}
+                                      value=""
+                                      checked={insurance === ""}
                                       onChange={this.handleChange}
                                     />
                                     <label className="form-check-label">
@@ -266,7 +284,7 @@ class OtherInformationModal extends Component {
                               <div className="col pt-2">
                                 <button
                                   type="submit"
-                                  className="form-btn btn-theme bg-orange"
+                                  className="from-btn btn-theme bg-orange"
                                 >
                                   Update
                                   <i className="icofont-rounded-right"></i>
@@ -294,5 +312,5 @@ const mapStateToProps = (state) => {
   };
 };
 export default withRouter(
-  connect(mapStateToProps, null)(OtherInformationModal)
+  connect(mapStateToProps, { updateMyParcelArrayOfUser })(OtherInformationModal)
 );

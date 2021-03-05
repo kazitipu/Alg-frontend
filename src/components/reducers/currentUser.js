@@ -7,9 +7,13 @@ const setCurrentUserReducer = (state = INITIAL_STATE, action) => {
         ...state,
         currentUser: action.payload,
       };
+    case "UPDATE_PARCEL_ARRAY_OF_USER":
+      return {
+        ...state,
+        currentUser: action.payload,
+      };
     default:
       return { ...state };
   }
 };
-
 export default setCurrentUserReducer;

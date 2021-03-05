@@ -8,6 +8,7 @@ import Popover from "react-bootstrap/Popover";
 import "./myParcelDatatable.css";
 import { Link } from "react-router-dom";
 import OtherInformationModal from "./OtherInformationModal";
+import ReviewModal from "./ReviewModal";
 import { setParcelObj } from "../../../actions/index";
 import { connect } from "react-redux";
 export class Datatable extends Component {
@@ -78,162 +79,57 @@ export class Datatable extends Component {
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
 
-  renderAdditonalInformation = (row, array) => {
-    if (array.length > 0) {
-      const parcelObj = array.find(
-        (parcel) => parcel.parcelId === row.original["Parcel Id"]
-      );
-      if (parcelObj.edited) {
-        return (
-          <div>
-            <h3>Additional Information</h3>
-            <div>Products Value: {parcelObj.parcelValue}</div>
-            <div>Packaging Needed: {parcelObj.packaging}</div>
-            <div>Packaging Chosed: {parcelObj.packagingChosed}</div>
-            <div>Packaging Cost: {parcelObj.packagingCost}</div>
-            <div>
-              Delivery Address:{" "}
-              {parcelObj.deliveryAddress
-                ? parcelObj.deliveryAddress
-                : "ALG OFFICE"}
-            </div>
-            <div>Insurance : {parcelObj.insurance}</div>
-          </div>
-        );
-      } else {
-        return (
-          <div>
-            <h3>Update Information</h3>
-            <form onSubmit={this.handleSubmit} className="rounded-field">
-              <div className="form-row mb-2">
-                <div className="col">
-                  <label>Products Value</label>
-                  <input
-                    type="text"
-                    name="parcelValue"
-                    value={this.state.parcelValue}
-                    className="form-control input-field-70"
-                    placeholder="Enter Products cost"
-                    onChange={this.handleChange}
-                    required
-                  />
-                </div>
-              </div>
-              <div className="form-row mb-2">
-                <div className="col">
-                  <label>Delivery Address&nbsp;</label>
-                  <textarea
-                    typeof="text"
-                    name="deliveryAddress"
-                    value={this.state.deliveryAddress}
-                    className="form-control input-field-70"
-                    placeholder="Your delivery address"
-                    onChange={this.handleChange}
-                    required
-                  />
-                </div>
-              </div>
-              {parcelObj.packaging ? (
-                <>
-                  <div className="form-row mb-2">
-                    <div className="col">
-                      <label>Packaging Needed:</label>
-                      <input
-                        type="text"
-                        name="packaging"
-                        value={parcelObj.packaging}
-                        className="form-control input-field-70"
-                        required
-                        readOnly
-                      />
-                    </div>
-                  </div>
-                  <div className="form-row mb-2">
-                    <div className="col">
-                      Packaging Cost:&nbsp;
-                      <input
-                        type="text"
-                        name="packagingCost"
-                        value={parcelObj.packagingCost}
-                        className="form-control input-field-70"
-                        required
-                        readOnly
-                      />
-                    </div>
-                  </div>
-                  <div className="form-row mb-1">
-                    Choose Packaging:&nbsp;
-                    <div>
-                      <input
-                        type="radio"
-                        name="packagingChosed"
-                        value={parcelObj.packaging}
-                        checked={
-                          this.state.packagingChosed == parcelObj.packaging
-                        }
-                        onChange={this.handleChange}
-                      />
-                      {parcelObj.packaging}
-                    </div>
-                  </div>
-                </>
-              ) : (
-                ""
-              )}
-              <div className="form-row mb-1">
-                Take Insurance:&nbsp;
-                <span>insurance will be 3% of your porudcts value.</span>
-                {this.state.parcelValue ? (
-                  <div>
-                    <input
-                      type="radio"
-                      name="insurance"
-                      value={this.state.parcelValue * (3 / 100)}
-                      checked={
-                        this.state.insurance ==
-                        this.state.parcelValue * (3 / 100)
-                      }
-                      onChange={this.handleChange}
-                    />
-                    Insurance{" "}
-                    <span style={{ color: "#a3c9ca" }}>
-                      (pay extra({this.state.parcelValue * (3 / 100)}tk))
-                    </span>
-                  </div>
-                ) : (
-                  "You cant take insuracnce until you define your products value"
-                )}
-              </div>
-              <div className="form-row">
-                <div className="col pt-2">
-                  <button
-                    type="submit"
-                    id="sign-up-button"
-                    className="form-btn btn-theme bg-orange"
-                  >
-                    Update
-                    <i className="icofont-rounded-right"></i>
-                  </button>
-                </div>
-              </div>
-            </form>
-          </div>
-        );
-      }
-    } else {
-      return "";
-    }
-  };
-
   renderButton = (row, array) => {
     if (array.length > 0) {
       const parcelObj = array.find(
         (parcel) => parcel.parcelId === row.original["Parcel Id"]
       );
-      if (parcelObj.edited) {
-        return <button className="btn btn-secondary">preview</button>;
+      if (parcelObj.editRequested) {
+        return (
+          <Link
+            className="btn-theme icon-left no-shadow align-self-center my_parcel_update_button"
+            to="#"
+            role="button"
+            data-toggle="modal"
+            data-target="#request_review_popup"
+            style={{
+              background: "green",
+              fontSize: "85%",
+              fontFamily: "sans-serif",
+            }}
+            onClick={() => {
+              // const parcelObj = myData.find(
+              //   (parcel) => parcel.parcelId === row.original["Parcel Id"]
+              // );
+              this.props.setParcelObj(parcelObj);
+            }}
+          >
+            <i className="icofont-tick-mark"></i> Review
+          </Link>
+        );
       } else {
-        return <button className="btn btn-secondary">update</button>;
+        return (
+          <Link
+            className="btn-theme icon-left no-shadow align-self-center my_parcel_update_button"
+            to="#"
+            role="button"
+            data-toggle="modal"
+            data-target="#request_other_information_popup"
+            style={{
+              background: "#7d017d",
+              fontSize: "85%",
+              fontFamily: "sans-serif",
+            }}
+            onClick={() => {
+              // const parcelObj = myData.find(
+              //   (parcel) => parcel.parcelId === row.original["Parcel Id"]
+              // );
+              this.props.setParcelObj(parcelObj);
+            }}
+          >
+            <i className="icofont-location-arrow"></i> Update
+          </Link>
+        );
       }
     } else {
       return "";
@@ -449,27 +345,9 @@ export class Datatable extends Component {
         accessor: (str) => "orderDetails",
         Cell: (row) => (
           <>
+            <ReviewModal />
             <OtherInformationModal />
-            <Link
-              className="btn-theme icon-left no-shadow align-self-center my_parcel_update_button"
-              to="#"
-              role="button"
-              data-toggle="modal"
-              data-target="#request_other_information_popup"
-              style={{
-                background: "#7d017d",
-                fontSize: "85%",
-                fontFamily: "sans-serif",
-              }}
-              onClick={() => {
-                const parcelObj = myData.find(
-                  (parcel) => parcel.parcelId === row.original["Parcel Id"]
-                );
-                this.props.setParcelObj(parcelObj);
-              }}
-            >
-              <i className="icofont-location-arrow"></i> Update
-            </Link>
+            {this.renderButton(row, myData)}
           </>
         ),
         style: {

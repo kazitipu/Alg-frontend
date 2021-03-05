@@ -3,6 +3,7 @@ import {
   getAllExpressRatesDocument,
   setBookingRequest,
   getAllD2DRates,
+  updateOrder,
 } from "../components/firebase/firebase.utils";
 
 export const setCurrentUserRedux = (userObj) => {
@@ -69,4 +70,12 @@ export const setParcelObj = (parcelObj) => {
     type: "SET_PARCEL_OBJ",
     payload: parcelObj,
   };
+};
+
+export const updateMyParcelArrayOfUser = (parcelObj) => async (dispatch) => {
+  const updatedUserObj = await updateOrder(parcelObj);
+  dispatch({
+    type: "UPDATE_PARCEL_ARRAY_OF_USER",
+    payload: updatedUserObj,
+  });
 };

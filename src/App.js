@@ -26,6 +26,7 @@ class App extends Component {
             ...snapShot.data(),
           });
         });
+        toast.success("successfully logged in!");
         // const cartRef = firestore.doc(`carts/${userAuth.uid}`);
         // cartRef.onSnapshot((snapShot) => {
         //   if (snapShot.exists) {

@@ -11,8 +11,20 @@ export class MyParcel extends Component {
     super(props);
     this.state = {
       open: false,
+      parcelArray: [],
     };
   }
+  componentDidMount = () => {
+    this.setState({
+      parcelArray: this.props.parcelArray,
+    });
+  };
+
+  componentWillReceiveProps = (nextProps) => {
+    this.setState({
+      parecelArray: nextProps.parcelArray,
+    });
+  };
 
   render() {
     const { open } = this.state;
@@ -122,7 +134,7 @@ export class MyParcel extends Component {
                       startToggleModal={this.startToggleModal}
                       history={this.props.history}
                       multiSelectOption={false}
-                      myData={this.props.parcelArray}
+                      myData={this.state.parcelArray}
                       pageSize={10}
                       pagination={true}
                       class="-striped -highlight"

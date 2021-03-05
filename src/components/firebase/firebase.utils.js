@@ -173,4 +173,44 @@ export const setBookingArrayOfUser = async (bookingObj) => {
   }
 };
 
+// Orders
+export const updateOrder = async (orderObj) => {
+  const lotOrdersRef = firestore.doc(
+    `orders${orderObj.shipmentMethod}/${orderObj.lotNo}`
+  );
+  try {
+    const snapShot = await lotOrdersRef.get();
+    const filteredOrdersArrayOfLot = snapShot
+      .data()
+      .orders.filter((order) => order.parcelId !== orderObj.parcelId);
+    await lotOrdersRef.update({
+      lotNo: orderObj.lotNo,
+      orders: [...filteredOrdersArrayOfLot, orderObj],
+    });
+    const updatedUser = await updateToMyParcelOfUser(orderObj);
+    return updatedUser;
+  } catch (error) {
+    alert(error);
+  }
+};
+
+export const updateToMyParcelOfUser = async (orderObj) => {
+  console.log("update to my parcel of user is called");
+  console.log(orderObj.customerUid);
+  const userRef = firestore.doc(`users/${orderObj.customerUid}`);
+  try {
+    const snapShot = await userRef.get();
+    console.log(snapShot.data());
+    const filteredMyParcelArrayOfUser = snapShot
+      .data()
+      .parcelArray.filter((parcel) => parcel.parcelId !== orderObj.parcelId);
+    userRef.update({
+      parcelArray: [...filteredMyParcelArrayOfUser, orderObj],
+      id: orderObj.customerUid,
+    });
+    const updatedSnapShotOfUser = await userRef.get();
+    return updatedSnapShotOfUser.data();
+  } catch (error) {}
+};
+
 export default firebase;

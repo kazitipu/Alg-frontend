@@ -6,7 +6,7 @@ export class Language extends Component {
       <Fragment>
         <ul className="language-dropdown onhover-show-div p-20">
           <li>
-            <a href data-lng="en">
+            <a href="#" data-lng="en">
               <i className="flag-icon flag-icon-is"></i> English
             </a>
           </li>

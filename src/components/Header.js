@@ -220,8 +220,8 @@ const Header = (props) => {
                         <a
                           href={`${process.env.PUBLIC_URL}/`}
                           className="dropdown-item"
-                          onClick={() => {
-                            auth.signOut();
+                          onClick={async () => {
+                            await auth.signOut();
                             toast.error("You are logged out!");
                           }}
                         >

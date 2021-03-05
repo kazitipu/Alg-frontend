@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -34,6 +34,11 @@ import MyParcel from "./userPanel/myParcel/myParcel";
 
 const MainNavigation = (props) => {
   const { currentUser } = props;
+
+  useEffect(() => {
+    console.log("currentUser updated");
+  }, [currentUser]);
+
   return (
     <Router basename={"/"}>
       <Switch>
