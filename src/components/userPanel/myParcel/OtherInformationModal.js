@@ -18,16 +18,25 @@ class OtherInformationModal extends Component {
       deliveryAddress: "",
       problem: "",
       insurance: "",
+      bookingId: "",
+      productName: "",
+      quantity: "",
+      trackingNo: "",
+      gorssWeight: "",
+      totalCbm: "",
     };
   }
-  componentWillUnmount = () => {
-    this.setState({
-      productsValue: "",
-      packagingChosed: "",
-      deliveryAddress: "",
-      problem: "",
-      insurance: "",
-    });
+
+  componentWillReceiveProps = (nextProps) => {
+    if (nextProps.parcelObj) {
+      this.setState({
+        productName: nextProps.parcelObj.productName,
+        quantity: nextProps.parcelObj.quantity,
+        trackingNo: nextProps.parcelObj.trackingNo,
+        gorssWeight: nextProps.parcelObj.grossWeight,
+        totalCbm: nextProps.parcelObj.totalCbm,
+      });
+    }
   };
 
   handleChange = (event) => {
@@ -63,6 +72,12 @@ class OtherInformationModal extends Component {
       deliveryAddress: "",
       problem: "",
       insurance: "",
+      bookingId: "",
+      productName: "",
+      quantity: "",
+      trackingNo: "",
+      gorssWeight: "",
+      totalCbm: "",
     });
   };
 
@@ -74,6 +89,12 @@ class OtherInformationModal extends Component {
       deliveryAddress,
       problem,
       insurance,
+      bookingId,
+      productName,
+      quantity,
+      trackingNo,
+      gorssWeight,
+      totalCbm,
     } = this.state;
     console.log(parcelObj);
     return (
@@ -141,9 +162,21 @@ class OtherInformationModal extends Component {
                                 </span>
                               </div>
                             </div>
-                            <div className="form-row">Products Value</div>
+                            <div
+                              className="form-row mb-4"
+                              style={{
+                                color: "darkorange",
+                                fontWeight: "bold",
+                              }}
+                            >
+                              Mandatory field.
+                              <br />
+                              <span>&nbsp;Don't touch if everything's ok</span>
+                            </div>
+
                             <div className="form-row mb-3">
                               <div className="col">
+                                <div className="form-row">Products Value</div>
                                 <input
                                   type="text"
                                   name="productsValue"
@@ -154,6 +187,85 @@ class OtherInformationModal extends Component {
                                   required
                                 />
                               </div>
+                              <div className="col">
+                                <div className="form-row">Products Name</div>
+                                <input
+                                  type="text"
+                                  name="productName"
+                                  value={productName}
+                                  className="form-control input-field-70"
+                                  placeholder="Total Cost (single carton)"
+                                  onChange={this.handleChange}
+                                  required
+                                />
+                              </div>
+                            </div>
+                            <div className="form-row mb-3">
+                              <div className="col">
+                                <div className="form-row">
+                                  Products Quantity
+                                </div>
+                                <input
+                                  type="text"
+                                  name="quantity"
+                                  value={quantity}
+                                  className="form-control input-field-70"
+                                  placeholder="Total Cost (single carton)"
+                                  onChange={this.handleChange}
+                                  required
+                                />
+                              </div>
+                              <div className="col">
+                                <div className="form-row">Tracking No</div>
+                                <input
+                                  type="text"
+                                  name="trackingNo"
+                                  value={trackingNo}
+                                  className="form-control input-field-70"
+                                  placeholder="Total Cost (single carton)"
+                                  onChange={this.handleChange}
+                                  required
+                                />
+                              </div>
+                            </div>
+                            <div className="form-row mb-4">
+                              <div className="col">
+                                <div className="form-row">Products Weight</div>
+                                <input
+                                  type="text"
+                                  name="grossWeight"
+                                  value={gorssWeight}
+                                  className="form-control input-field-70"
+                                  placeholder="Total Cost (single carton)"
+                                  onChange={this.handleChange}
+                                  required
+                                />
+                              </div>
+                              <div className="col">
+                                <div className="form-row">Total CBM</div>
+                                <input
+                                  type="text"
+                                  name="totalCbm"
+                                  value={totalCbm}
+                                  className="form-control input-field-70"
+                                  placeholder="Total Cost (single carton)"
+                                  onChange={this.handleChange}
+                                  required
+                                />
+                              </div>
+                            </div>
+                            <div
+                              className="form-row mb-4"
+                              style={{
+                                color: "darkorange",
+                                fontWeight: "bold",
+                              }}
+                            >
+                              Additional Services.
+                              <br />
+                              <span>
+                                &nbsp;Take additional services if you wish.
+                              </span>
                             </div>
                             <div className="form-row">Delivery Address</div>
                             <div className="form-row mb-3">
@@ -161,26 +273,18 @@ class OtherInformationModal extends Component {
                                 <textarea
                                   type="text"
                                   name="deliveryAddress"
-                                  value={deliveryAddress}
+                                  value={
+                                    deliveryAddress
+                                      ? deliveryAddress
+                                      : "ALG OFFICE"
+                                  }
                                   className="form-control input-field-70"
                                   placeholder="Enter your Delivery Address"
                                   onChange={this.handleChange}
                                 />
                               </div>
                             </div>
-                            <div className="form-row">Any Other Problems</div>
-                            <div className="form-row mb-3">
-                              <div className="col">
-                                <textarea
-                                  type="text"
-                                  name="problem"
-                                  value={problem}
-                                  className="form-control input-field-70"
-                                  placeholder="enter any problem here if has.(ex:any product missing issue,quantity issue, or product type issue.....)"
-                                  onChange={this.handleChange}
-                                />
-                              </div>
-                            </div>
+
                             {parcelObj.packaging ? (
                               <>
                                 {" "}
@@ -249,7 +353,9 @@ class OtherInformationModal extends Component {
                               {this.state.productsValue ? (
                                 <>
                                   {" "}
-                                  <div className="form-row">Take Insurance</div>
+                                  <div className="form-row mb-3">
+                                    Take Insurance
+                                  </div>
                                   <div className="form-check">
                                     <input
                                       className="form-check-input"
@@ -278,6 +384,19 @@ class OtherInformationModal extends Component {
                                   </div>
                                 </>
                               ) : null}
+                              <div className="form-row mb-3">
+                                <div className="col">
+                                  <div className="form-row">Booking Id:</div>
+                                  <input
+                                    type="text"
+                                    name="bookingId"
+                                    value={bookingId}
+                                    onChange={this.handleChange}
+                                    className="form-control input-field-70"
+                                    placeholder="Enter Booking Id if you booked for this parcel"
+                                  />
+                                </div>
+                              </div>
                             </>
 
                             <div className="form-row mt-4">

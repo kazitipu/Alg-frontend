@@ -59,7 +59,7 @@ export const MENUITEMSFORUSER = [
   },
   {
     title: "My Invoice",
-    path: "/user/user1-invoice",
+    path: "/user-my-invoice",
     icon: Archive,
     type: "link",
     active: false,

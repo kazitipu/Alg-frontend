@@ -31,6 +31,8 @@ import { connect } from "react-redux";
 import Dashboard from "./userPanel/dashboard";
 import MyBooking from "./userPanel/myBooking/myBooking";
 import MyParcel from "./userPanel/myParcel/myParcel";
+import MyInvoice from "./userPanel/myInvoice/myInvoice";
+import MyInvoiceByOrder from "./userPanel/myInvoice/my-invoice-by-order";
 
 const MainNavigation = (props) => {
   const { currentUser } = props;
@@ -82,6 +84,24 @@ const MainNavigation = (props) => {
             exact
             component={() =>
               currentUser.displayName ? <MyParcel /> : <Redirect to="/" />
+            }
+          />
+          <Route
+            path="/user-my-invoice"
+            exact
+            component={() =>
+              currentUser.displayName ? <MyInvoice /> : <Redirect to="/" />
+            }
+          />
+          <Route
+            path="/user-my-invoice/:parcelId"
+            exact
+            component={() =>
+              currentUser.displayName ? (
+                <MyInvoiceByOrder />
+              ) : (
+                <Redirect to="/" />
+              )
             }
           />
         </UserPanel>
