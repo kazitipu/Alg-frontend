@@ -16,7 +16,6 @@ class OtherInformationModal extends Component {
       productsValue: "",
       packagingChosed: "",
       deliveryAddress: "",
-      problem: "",
       insurance: "",
       bookingId: "",
       productName: "",
@@ -24,6 +23,8 @@ class OtherInformationModal extends Component {
       trackingNo: "",
       gorssWeight: "",
       totalCbm: "",
+      additionalServices: false,
+      qcCheck: "",
     };
   }
 
@@ -35,6 +36,9 @@ class OtherInformationModal extends Component {
         trackingNo: nextProps.parcelObj.trackingNo,
         gorssWeight: nextProps.parcelObj.grossWeight,
         totalCbm: nextProps.parcelObj.totalCbm,
+        deliveryAddress: nextProps.parcelObj.deliveryAddress
+          ? nextProps.parcelObj.deliveryAddress
+          : "ALG Office",
       });
     }
   };
@@ -51,7 +55,7 @@ class OtherInformationModal extends Component {
       productsValue,
       packagingChosed,
       deliveryAddress,
-      problem,
+
       insurance,
     } = this.state;
     const { parcelObj, updateMyParcelArrayOfUser } = this.props;
@@ -70,7 +74,7 @@ class OtherInformationModal extends Component {
       productsValue: "",
       packagingChosed: "",
       deliveryAddress: "",
-      problem: "",
+
       insurance: "",
       bookingId: "",
       productName: "",
@@ -78,6 +82,8 @@ class OtherInformationModal extends Component {
       trackingNo: "",
       gorssWeight: "",
       totalCbm: "",
+      additionalServices: false,
+      qcCheck: "",
     });
   };
 
@@ -87,7 +93,7 @@ class OtherInformationModal extends Component {
       productsValue,
       packagingChosed,
       deliveryAddress,
-      problem,
+
       insurance,
       bookingId,
       productName,
@@ -95,6 +101,8 @@ class OtherInformationModal extends Component {
       trackingNo,
       gorssWeight,
       totalCbm,
+      additionalServices,
+      qcCheck,
     } = this.state;
     console.log(parcelObj);
     return (
@@ -135,7 +143,7 @@ class OtherInformationModal extends Component {
                       <div className="col-12">
                         <div className="px-3 m-4 ">
                           <h2
-                            className="h2-xl fw-6 sign-in-header-title other-information-header-title"
+                            className="h2-xl mb-2 fw-6 sign-in-header-title other-information-header-title"
                             style={{
                               color: "orange",
                               fontSize: "140%",
@@ -151,6 +159,7 @@ class OtherInformationModal extends Component {
                             <div className="form-row mb-4">
                               <div className="col">
                                 <span
+                                  className="sub-header-title"
                                   style={{
                                     color: "purple",
                                     marginLeft: "2px",
@@ -162,17 +171,6 @@ class OtherInformationModal extends Component {
                                 </span>
                               </div>
                             </div>
-                            <div
-                              className="form-row mb-4"
-                              style={{
-                                color: "darkorange",
-                                fontWeight: "bold",
-                              }}
-                            >
-                              Mandatory field.
-                              <br />
-                              <span>&nbsp;Don't touch if everything's ok</span>
-                            </div>
 
                             <div className="form-row mb-3">
                               <div className="col">
@@ -182,7 +180,7 @@ class OtherInformationModal extends Component {
                                   name="productsValue"
                                   value={productsValue}
                                   className="form-control input-field-70"
-                                  placeholder="Total Cost (single carton)"
+                                  placeholder="Total Cost"
                                   onChange={this.handleChange}
                                   required
                                 />
@@ -216,32 +214,6 @@ class OtherInformationModal extends Component {
                                 />
                               </div>
                               <div className="col">
-                                <div className="form-row">Tracking No</div>
-                                <input
-                                  type="text"
-                                  name="trackingNo"
-                                  value={trackingNo}
-                                  className="form-control input-field-70"
-                                  placeholder="Total Cost (single carton)"
-                                  onChange={this.handleChange}
-                                  required
-                                />
-                              </div>
-                            </div>
-                            <div className="form-row mb-4">
-                              <div className="col">
-                                <div className="form-row">Products Weight</div>
-                                <input
-                                  type="text"
-                                  name="grossWeight"
-                                  value={gorssWeight}
-                                  className="form-control input-field-70"
-                                  placeholder="Total Cost (single carton)"
-                                  onChange={this.handleChange}
-                                  required
-                                />
-                              </div>
-                              <div className="col">
                                 <div className="form-row">Total CBM</div>
                                 <input
                                   type="text"
@@ -254,150 +226,190 @@ class OtherInformationModal extends Component {
                                 />
                               </div>
                             </div>
+
                             <div
-                              className="form-row mb-4"
+                              className="form-row my-4"
                               style={{
-                                color: "darkorange",
+                                color: additionalServices
+                                  ? "darkorange"
+                                  : "gray",
                                 fontWeight: "bold",
+                                justifyContent: "center",
                               }}
                             >
-                              Additional Services.
-                              <br />
-                              <span>
+                              <i
+                                className={
+                                  additionalServices
+                                    ? "icofont-minus-circle"
+                                    : "icofont-plus-circle"
+                                }
+                                onClick={() => {
+                                  this.setState({
+                                    additionalServices: !this.state
+                                      .additionalServices,
+                                  });
+                                }}
+                                style={{
+                                  cursor: "pointer",
+                                  color: additionalServices
+                                    ? "darkorange"
+                                    : "gray",
+                                  fontWeight: "bold",
+                                }}
+                              >
                                 &nbsp;Take additional services if you wish.
-                              </span>
+                              </i>
                             </div>
-                            <div className="form-row">Delivery Address</div>
-                            <div className="form-row mb-3">
-                              <div className="col">
-                                <textarea
-                                  type="text"
-                                  name="deliveryAddress"
-                                  value={
-                                    deliveryAddress
-                                      ? deliveryAddress
-                                      : "ALG OFFICE"
-                                  }
-                                  className="form-control input-field-70"
-                                  placeholder="Enter your Delivery Address"
-                                  onChange={this.handleChange}
-                                />
-                              </div>
-                            </div>
-
-                            {parcelObj.packaging ? (
+                            {additionalServices ? (
                               <>
-                                {" "}
+                                {parcelObj.packaging ? (
+                                  <>
+                                    {" "}
+                                    <div className="form-row my-3">
+                                      <div className="col">
+                                        <div className="form-row">
+                                          Need Packaging
+                                        </div>
+                                        <input
+                                          type="text"
+                                          name="email"
+                                          value={parcelObj.packaging}
+                                          className="form-control"
+                                          readOnly
+                                        />
+                                      </div>
+
+                                      <div className="col">
+                                        <div className="form-row">
+                                          Packaging Cost
+                                        </div>
+                                        <input
+                                          type="text"
+                                          name="email"
+                                          value={parcelObj.packagingCost}
+                                          className="form-control"
+                                          readOnly
+                                        />
+                                      </div>
+                                    </div>
+                                  </>
+                                ) : null}
+                                <div className="form-row">Choose Packaging</div>
+                                <select
+                                  // style={{ border: "0px", marginTop: "7px" }}
+                                  onChange={this.handleChange}
+                                  name="packagingChosed"
+                                  value={packagingChosed}
+                                  className="form-control input-field-70"
+                                  required
+                                >
+                                  <option value="">Select Packaging</option>
+                                  <option value="Green Bag">
+                                    Green Bag (50Tk)
+                                  </option>
+                                  <option value="Green Bag with Polythene">
+                                    Green Bag with Polythene (100Tk)
+                                  </option>
+                                  <option value="Wooden Box">
+                                    Wooden Box (2480Tk)
+                                  </option>
+                                </select>
+                                <div className="form-row my-3">
+                                  <div className="col">
+                                    <div className="form-row">Booking Id:</div>
+                                    <input
+                                      type="text"
+                                      name="bookingId"
+                                      value={bookingId}
+                                      onChange={this.handleChange}
+                                      className="form-control input-field-70"
+                                      placeholder="Enter Booking Id if you booked for this parcel"
+                                    />
+                                  </div>
+                                </div>
+                                <div className="form-row">Delivery Address</div>
                                 <div className="form-row mb-3">
                                   <div className="col">
-                                    <div className="form-row">
-                                      Need Packaging
-                                    </div>
-                                    <input
+                                    <textarea
                                       type="text"
-                                      name="email"
-                                      value={parcelObj.packaging}
-                                      className="form-control"
-                                      readOnly
+                                      name="deliveryAddress"
+                                      value={deliveryAddress}
+                                      className="form-control input-field-70"
+                                      placeholder="Enter your Delivery Address"
+                                      onChange={this.handleChange}
                                     />
+                                  </div>
+                                </div>
+                                <>
+                                  <div className="form-row mb-1">
+                                    Check Your Product
                                   </div>
 
-                                  <div className="col">
-                                    <div className="form-row">
-                                      Packaging Cost
-                                    </div>
-                                    <input
-                                      type="text"
-                                      name="email"
-                                      value={parcelObj.packagingCost}
-                                      className="form-control"
-                                      readOnly
-                                    />
-                                  </div>
-                                </div>
-                                <div className="form-row">Choose Packaging</div>
-                                <div className="form-check">
-                                  <input
-                                    className="form-check-input"
-                                    name="packagingChosed"
-                                    type="checkbox"
-                                    value={parcelObj.packaging}
-                                    checked={
-                                      packagingChosed === parcelObj.packaging
-                                    }
-                                    onChange={this.handleChange}
-                                  />
-                                  <label className="form-check-label">
-                                    {parcelObj.packaging}
-                                  </label>
-                                </div>
-                                <div
-                                  className="form-check"
-                                  style={{ marginBottom: "8px" }}
-                                >
-                                  <input
-                                    className="form-check-input"
-                                    name="packagingChosed"
-                                    type="checkbox"
-                                    value=""
-                                    checked={packagingChosed === ""}
-                                    onChange={this.handleChange}
-                                  />
-                                  <label className="form-check-label">
-                                    None
-                                  </label>
-                                </div>{" "}
-                              </>
-                            ) : null}
-                            <>
-                              {this.state.productsValue ? (
-                                <>
-                                  {" "}
-                                  <div className="form-row mb-3">
-                                    Take Insurance
-                                  </div>
-                                  <div className="form-check">
+                                  <div className="form-check mb-1">
                                     <input
                                       className="form-check-input"
-                                      name="insurance"
+                                      name="qcCheck"
                                       type="checkbox"
-                                      value="insurance amount"
-                                      checked={insurance === "insurance amount"}
+                                      value="true"
+                                      checked={qcCheck === "true"}
                                       onChange={this.handleChange}
                                     />
                                     <label className="form-check-label">
-                                      Insurance (3% of products cost)
+                                      QC Check (100tk)
                                     </label>
                                   </div>
-                                  <div className="form-check">
+                                  <div className="form-check ">
                                     <input
                                       className="form-check-input"
-                                      name="insurance"
+                                      name="qcCheck"
                                       type="checkbox"
                                       value=""
-                                      checked={insurance === ""}
+                                      checked={qcCheck === ""}
                                       onChange={this.handleChange}
                                     />
                                     <label className="form-check-label">
                                       No. Don't need.
                                     </label>
                                   </div>
+                                  {this.state.productsValue ? (
+                                    <>
+                                      {" "}
+                                      <div className="form-row mt-3 mb-1">
+                                        Take Insurance
+                                      </div>
+                                      <div className="form-check mb-1">
+                                        <input
+                                          className="form-check-input"
+                                          name="insurance"
+                                          type="checkbox"
+                                          value="insurance amount"
+                                          checked={
+                                            insurance === "insurance amount"
+                                          }
+                                          onChange={this.handleChange}
+                                        />
+                                        <label className="form-check-label">
+                                          Insurance (3% of products value)
+                                        </label>
+                                      </div>
+                                      <div className="form-check">
+                                        <input
+                                          className="form-check-input"
+                                          name="insurance"
+                                          type="checkbox"
+                                          value=""
+                                          checked={insurance === ""}
+                                          onChange={this.handleChange}
+                                        />
+                                        <label className="form-check-label">
+                                          No. Don't need.
+                                        </label>
+                                      </div>
+                                    </>
+                                  ) : null}
                                 </>
-                              ) : null}
-                              <div className="form-row mb-3">
-                                <div className="col">
-                                  <div className="form-row">Booking Id:</div>
-                                  <input
-                                    type="text"
-                                    name="bookingId"
-                                    value={bookingId}
-                                    onChange={this.handleChange}
-                                    className="form-control input-field-70"
-                                    placeholder="Enter Booking Id if you booked for this parcel"
-                                  />
-                                </div>
-                              </div>
-                            </>
+                              </>
+                            ) : null}
 
                             <div className="form-row mt-4">
                               <div className="col pt-2">

@@ -183,7 +183,7 @@ export class Datatable extends Component {
     }
     columns.push(
       {
-        Header: <b>Product Information</b>,
+        Header: <b>Product Info</b>,
         id: "orderDetails",
         accessor: (str) => "orderDetails",
         Cell: (row) => (
@@ -209,7 +209,6 @@ export class Datatable extends Component {
                     }}
                   >
                     <div>
-                      <h3>Product Information</h3>
                       <p
                         style={{
                           marginBottom: "0px",

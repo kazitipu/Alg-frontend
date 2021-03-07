@@ -21,7 +21,7 @@ const Header = (props) => {
                   Dhaka-1000. Bangladesh
                 </div>
                 <div className="top-text">
-                  <small className="txt-black">Emaii Us</small>
+                  <small className="txt-black">Email Us</small>
                   <Link to="#">info@algcargos.com</Link>
                 </div>
                 <div className="top-text">

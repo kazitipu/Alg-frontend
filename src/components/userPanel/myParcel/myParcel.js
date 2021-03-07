@@ -6,6 +6,7 @@ import Datatable from "./myParcelDatatable";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { Search } from "react-feather";
+import "./myParcelDatatable.css";
 export class MyParcel extends Component {
   constructor(props) {
     super(props);
@@ -71,6 +72,7 @@ export class MyParcel extends Component {
                   >
                     {" "}
                     <li
+                      className="search-box-top"
                       style={{
                         border: "1px solid gainsboro",
                         borderRadius: "5rem",

@@ -23,4 +23,8 @@
   .my_parcel_update_button {
     padding: 10px;
   }
+  .search-box-top {
+    margin-right: 0px !important;
+    max-height: 40px;
+  }
 }
