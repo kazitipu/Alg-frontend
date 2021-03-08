@@ -48,7 +48,7 @@ class OtherInformationModal extends Component {
   handleSubmit = async (e) => {
     e.preventDefault();
     const { parcelObj, updateMyParcelArrayOfUser } = this.props;
-    await this.props.updateMyParcelArrayOfUser({
+    await updateMyParcelArrayOfUser({
       ...parcelObj,
       ...this.state,
       editRequested: true,
