@@ -136,6 +136,51 @@ export class Datatable extends Component {
     }
   };
 
+  renderOrderStatus = (lotNo) => {
+    if (this.props.allLots.length > 0) {
+      const lotObj = this.props.allLots.find((lot) => lot.lotNo === lotNo);
+      console.log(lotObj);
+      let backgroundColor;
+      let icofont;
+      if (lotObj.shipmentStatus === "Bangladesh Customs") {
+        backgroundColor = "#f99322";
+        icofont = "icofont-hand";
+      }
+      if (lotObj.shipmentStatus === "Local Warehouse") {
+        backgroundColor = "darkgreen";
+        icofont = "icofont-tick-boxed";
+      }
+      if (lotObj.shipmentStatus === "Ready to Fly") {
+        backgroundColor = "#b11ad8";
+        icofont = "icofont-airplane-alt";
+      }
+      if (lotObj.shipmentStatus === "Abroad Customs") {
+        backgroundColor = "#ffbc58";
+        icofont = "icofont-police";
+      }
+      if (lotObj.shipmentStatus === "Abroad Warehouse") {
+        backgroundColor = "#13c9ca";
+        icofont = "icofont-building-alt";
+      }
+      return (
+        <div
+          className=" icon-left no-shadow align-self-center my_parcel_update_button"
+          style={{
+            // background: backgroundColor,
+            fontSize: "85%",
+            fontFamily: "sans-serif",
+            // color: "white",
+            padding: "7px",
+            color: backgroundColor,
+          }}
+        >
+          <i className={icofont}></i> {lotObj.shipmentStatus}
+        </div>
+      );
+    }
+    return null;
+  };
+
   render() {
     const { pageSize, myClass, multiSelectOption, pagination } = this.props;
     console.log(this.props);
@@ -182,6 +227,16 @@ export class Datatable extends Component {
       });
     }
     columns.push(
+      {
+        Header: <b>Parcel Status</b>,
+        id: "orderDetails",
+        accessor: (str) => "orderDetails",
+        Cell: (row) => <>{this.renderOrderStatus(row.original["Lot No"])}</>,
+        style: {
+          textAlign: "center",
+        },
+        sortable: false,
+      },
       {
         Header: <b>Product Info</b>,
         id: "orderDetails",
@@ -371,4 +426,9 @@ export class Datatable extends Component {
   }
 }
 
-export default connect(null, { setParcelObj })(Datatable);
+const mapStateToProps = (state) => {
+  return {
+    allLots: state.lots.lots,
+  };
+};
+export default connect(mapStateToProps, { setParcelObj })(Datatable);

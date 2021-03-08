@@ -3,7 +3,7 @@ import Sidebar from "./userPanel/common/sidebar_components/sidebar";
 import Right_sidebar from "./userPanel/common/right-sidebar";
 import Footer from "./userPanel/common/footer";
 import Header from "./userPanel/common/header_components/header";
-
+import { getAllLotsRedux } from "../actions/index";
 import { connect } from "react-redux";
 import "../index.scss";
 
@@ -18,6 +18,7 @@ export class UserPanel extends Component {
 
   componentDidMount = async () => {
     console.log(this.props.children);
+    this.props.getAllLotsRedux();
   };
   ChangeRtl(divName) {
     if (divName === "RTL") {
@@ -56,4 +57,4 @@ const mapStateToProps = (state) => {
     currentUser: state.currentUser.currentUser,
   };
 };
-export default connect(mapStateToProps, {})(UserPanel);
+export default connect(mapStateToProps, { getAllLotsRedux })(UserPanel);

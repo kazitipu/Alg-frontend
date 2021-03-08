@@ -18,3 +18,8 @@
   max-height: 50vh;
   overflow-y: scroll;
 }
+
+.btn {
+  font-size: 10px !important;
+  padding: 0.5rem 1rem;
+}

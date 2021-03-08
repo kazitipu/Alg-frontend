@@ -879,6 +879,20 @@ h2.h2-xl {
   z-index: 99;
   font-weight: 600;
 }
+
+@media (min-width: 1000px) {
+  .center-head {
+    margin-top: 40px;
+  }
+
+  .sign-in-header-title {
+    margin-top: 40px;
+  }
+
+  .input-field-70 {
+    max-width: 70%;
+  }
+}
 /*------------------------------------------*/
 /*    Pricing Table Style
 /*------------------------------------------*/
@@ -1102,8 +1116,8 @@ footer .social-icons a:hover {
 }
 .bordered-nav .navbar .bdr-nav {
   border-width: 1px 0 0 0;
-  border-style: solid;
-  border-color: rgba(255, 255, 255, 0.2);
+  /* border-style: solid;
+  border-color: rgba(255, 255, 255, 0.2); */
   padding-top: 1rem;
 }
 .bordered-nav .navbar-brand {
@@ -1723,29 +1737,29 @@ label.error {
 }
 .sea-logo-container {
   margin-left: 10px;
-  height: 60px;
-  max-width: 60px;
+  height: 60px !important;
+  max-width: 60px !important;
   border-radius: 50rem;
   background-size: cover;
   background-color: white;
 }
 @media (max-width: 600px) {
   .sea-logo-container {
-    height: 50px;
-    max-width: 50px;
+    height: 50px !important;
+    max-width: 50px !important;
   }
 }
 
 @media (max-width: 376px) {
   .sea-logo-container {
-    height: 45px;
-    max-width: 45px;
+    height: 45px !important;
+    max-width: 45px !important;
   }
 }
 @media (max-width: 321px) {
   .sea-logo-container {
-    height: 40px;
-    max-width: 40px;
+    height: 40px !important;
+    max-width: 40px !important;
   }
 }
 .icofont-square {
@@ -1753,8 +1767,3 @@ label.error {
   font-size: 70%;
   border: 1px solid gainsboro;
 }
-/* @media (min-width: 1000px) {
-  .freight-modal-form input {
-    max-width: 60%;
-  }
-} */

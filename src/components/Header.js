@@ -201,7 +201,10 @@ const Header = (props) => {
                         <Link
                           // className="dropdown-item"
                           to={`${process.env.PUBLIC_URL}/contact`}
-                          style={{ color: "white" }}
+                          style={{
+                            color: "white",
+                            borderBottom: "1px solid white",
+                          }}
                         >
                           <i className="icofont-wallet"></i>&nbsp;My wallet:
                           17500tk

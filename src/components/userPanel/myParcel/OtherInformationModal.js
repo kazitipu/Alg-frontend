@@ -18,11 +18,9 @@ class OtherInformationModal extends Component {
       deliveryAddress: "",
       insurance: "",
       bookingId: "",
-      productName: "",
-      quantity: "",
-      trackingNo: "",
-      gorssWeight: "",
-      totalCbm: "",
+      customerDeclaredProductName: "",
+      customerDeclaredQuantity: "",
+      customerDeclaredTotalCbm: "",
       additionalServices: false,
       qcCheck: "",
     };
@@ -31,11 +29,9 @@ class OtherInformationModal extends Component {
   componentWillReceiveProps = (nextProps) => {
     if (nextProps.parcelObj) {
       this.setState({
-        productName: nextProps.parcelObj.productName,
-        quantity: nextProps.parcelObj.quantity,
-        trackingNo: nextProps.parcelObj.trackingNo,
-        gorssWeight: nextProps.parcelObj.grossWeight,
-        totalCbm: nextProps.parcelObj.totalCbm,
+        customerDeclaredProductName: nextProps.parcelObj.productName,
+        customerDeclaredQuantity: nextProps.parcelObj.quantity,
+        customerDeclaredTotalCbm: nextProps.parcelObj.totalCbm,
         deliveryAddress: nextProps.parcelObj.deliveryAddress
           ? nextProps.parcelObj.deliveryAddress
           : "ALG Office",
@@ -51,15 +47,8 @@ class OtherInformationModal extends Component {
 
   handleSubmit = async (e) => {
     e.preventDefault();
-    const {
-      productsValue,
-      packagingChosed,
-      deliveryAddress,
-
-      insurance,
-    } = this.state;
     const { parcelObj, updateMyParcelArrayOfUser } = this.props;
-    await updateMyParcelArrayOfUser({
+    await this.props.updateMyParcelArrayOfUser({
       ...parcelObj,
       ...this.state,
       editRequested: true,
@@ -77,11 +66,10 @@ class OtherInformationModal extends Component {
 
       insurance: "",
       bookingId: "",
-      productName: "",
-      quantity: "",
-      trackingNo: "",
-      gorssWeight: "",
-      totalCbm: "",
+      customerDeclaredProductName: "",
+      customerDeclaredQuantity: "",
+
+      customerDeclaredTotalCbm: "",
       additionalServices: false,
       qcCheck: "",
     });
@@ -93,14 +81,12 @@ class OtherInformationModal extends Component {
       productsValue,
       packagingChosed,
       deliveryAddress,
-
       insurance,
       bookingId,
-      productName,
-      quantity,
-      trackingNo,
-      gorssWeight,
-      totalCbm,
+      customerDeclaredProductName,
+      customerDeclaredQuantity,
+
+      customerDeclaredTotalCbm,
       additionalServices,
       qcCheck,
     } = this.state;
@@ -186,13 +172,13 @@ class OtherInformationModal extends Component {
                                 />
                               </div>
                               <div className="col">
-                                <div className="form-row">Products Name</div>
+                                <div className="form-row">Product Name</div>
                                 <input
                                   type="text"
-                                  name="productName"
-                                  value={productName}
+                                  name="customerDeclaredProductName"
+                                  value={customerDeclaredProductName}
                                   className="form-control input-field-70"
-                                  placeholder="Total Cost (single carton)"
+                                  placeholder="Enter product Name"
                                   onChange={this.handleChange}
                                   required
                                 />
@@ -205,10 +191,10 @@ class OtherInformationModal extends Component {
                                 </div>
                                 <input
                                   type="text"
-                                  name="quantity"
-                                  value={quantity}
+                                  name="customerDeclaredQuantity"
+                                  value={customerDeclaredQuantity}
                                   className="form-control input-field-70"
-                                  placeholder="Total Cost (single carton)"
+                                  placeholder="Total Quantity"
                                   onChange={this.handleChange}
                                   required
                                 />
@@ -217,10 +203,10 @@ class OtherInformationModal extends Component {
                                 <div className="form-row">Total CBM</div>
                                 <input
                                   type="text"
-                                  name="totalCbm"
-                                  value={totalCbm}
+                                  name="customerDeclaredTotalCbm"
+                                  value={customerDeclaredTotalCbm}
                                   className="form-control input-field-70"
-                                  placeholder="Total Cost (single carton)"
+                                  placeholder="Total Cbm"
                                   onChange={this.handleChange}
                                   required
                                 />

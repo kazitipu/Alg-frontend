@@ -3,6 +3,7 @@ import {
   getAllExpressRatesDocument,
   setBookingRequest,
   getAllD2DRates,
+  getAllLots,
   updateOrder,
 } from "../components/firebase/firebase.utils";
 
@@ -37,6 +38,11 @@ export const getAllD2DRatesRedux = (freightType, country) => async (
     type: "GET_ALL_D2D_RATES",
     payload: allD2DRatesAirArray,
   });
+};
+
+export const getAllLotsRedux = () => async (dispatch) => {
+  const lotsArray = await getAllLots();
+  dispatch({ type: "GET_ALL_LOTS", payload: lotsArray });
 };
 
 export const setExpressResultRedux = (result) => {

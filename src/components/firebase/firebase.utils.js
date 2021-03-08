@@ -132,6 +132,20 @@ export const getAllD2DRates = async (freightType, country) => {
   }
 };
 
+export const getAllLots = async () => {
+  const lotsCollectionRef = firestore.collection("lots");
+  try {
+    const lots = await lotsCollectionRef.get();
+    const lotsArray = [];
+    lots.forEach((doc) => {
+      lotsArray.push(doc.data());
+    });
+    return lotsArray;
+  } catch (error) {
+    alert(error);
+  }
+};
+
 export const setBookingRequest = async (bookingObj) => {
   const bookingId = Math.round(Math.random() * 1000000 - 1);
   const bookingRef = firestore.doc(`bookingRequest/${bookingId}`);

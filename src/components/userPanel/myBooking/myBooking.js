@@ -83,6 +83,7 @@ export class MyBooking extends Component {
                             flexDirection: "row",
                             justifyContent: "space-around",
                           }}
+                          className="search-box-top"
                         >
                           <input
                             className={
